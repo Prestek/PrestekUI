@@ -7,10 +7,8 @@ export function Main() {
     const insets = useSafeAreaInsets();
     const theme = useTheme();
     return (
-    <View style={{ paddingTop: insets.top, paddingBottom: insets.bottom, backgroundColor: theme.colors.background }}>
-        <ScrollView>
-            <Login />
-        </ScrollView>
+    <View style={{ paddingTop: insets.top, paddingBottom: insets.bottom, backgroundColor: theme.colors.background, flex: 1 }}>
+        <Login />
     </View>
     );
 }

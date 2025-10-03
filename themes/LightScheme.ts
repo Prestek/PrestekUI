@@ -1,5 +1,5 @@
 export const LightScheme = {
-    primary: "rgb(71, 85, 182)",
+    primary: "rgb(39, 101, 194)",
     onPrimary: "rgb(255, 255, 255)",
     primaryContainer: "rgb(223, 224, 255)",
     onPrimaryContainer: "rgb(0, 13, 95)",
@@ -20,7 +20,7 @@ export const LightScheme = {
     surface: "rgb(255, 251, 255)",
     onSurface: "rgb(27, 27, 31)",
     surfaceVariant: "rgb(227, 225, 236)",
-    onSurfaceVariant: "rgb(70, 70, 79)",
+    onSurfaceVariant: "rgb(173, 173, 173)",
     outline: "rgb(118, 118, 128)",
     outlineVariant: "rgb(199, 197, 208)",
     shadow: "rgb(0, 0, 0)",

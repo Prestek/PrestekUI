@@ -20,7 +20,7 @@ const darkScheme = {
 }
 
 export default function App() {
-  const colorScheme = useColorScheme(); // 'light' | 'dark'
+  const colorScheme = useColorScheme(); 
   const theme = colorScheme === 'dark' ? darkScheme : lightScheme;
   return (
     <PaperProvider theme={theme}>
@@ -36,8 +36,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1
   },
 });
