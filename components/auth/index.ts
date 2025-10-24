@@ -7,3 +7,4 @@ export { AuthInput } from "./AuthInput";
 export { AuthButton } from "./AuthButton";
 export { EmailPasswordForm } from "./EmailPasswordForm";
 export { TermsText } from "./TermsText";
+export { AuthLink } from "./AuthLink";

@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { useSignIn, useSignUp, useAuth } from "@clerk/clerk-expo";
-import { useRouter } from "expo-router";
+import { useEffect, useState, useRef } from "react";
+import { useSignIn, useSignUp, useAuth, useUser } from "@clerk/clerk-expo";
+import { router, useRouter } from "expo-router";
+import { checkUserExists, createUserProfile } from "../services/userAPI";
 
 export const useEmailSignIn = () => {
   const [loading, setLoading] = useState(false);
@@ -22,14 +23,8 @@ export const useEmailSignIn = () => {
       });
 
       if (result?.status === "complete") {
+        console.log("Sign in successful:", result);
         await setActive?.({ session: result.createdSessionId });
-
-        const token = await getToken({ template: "prestek-api" });
-        console.log("JWT generado (Email):", token);
-        // Pequeño delay para asegurar que la sesión esté lista
-        setTimeout(() => {
-          router.replace("/(home)");
-        }, 100);
       }
     } catch (err) {
       console.error("Sign in error:", err);
@@ -46,7 +41,8 @@ export const useEmailSignUp = () => {
   const [loading, setLoading] = useState(false);
   const [pendingVerification, setPendingVerification] = useState(false);
   const { signUp, setActive } = useSignUp();
-  const router = useRouter();
+  const { userId } = useAuth();
+  const { user } = useUser();
 
   const handleSignUp = async (email: string, password: string) => {
     if (!email || !password) {
@@ -79,15 +75,6 @@ export const useEmailSignUp = () => {
 
       if (result?.status === "complete") {
         await setActive?.({ session: result.createdSessionId });
-
-
-        const { getToken } = useAuth(); // importar useAuth si no está
-        const token = await getToken({ template: "prestek-api" });
-        console.log("JWT generado (SignUp):", token);
-        // Pequeño delay para asegurar que la sesión esté lista
-        setTimeout(() => {
-          router.replace("/(home)");
-        }, 100);
       }
     } catch (err) {
       console.error("Verification error:", err);
@@ -97,10 +84,102 @@ export const useEmailSignUp = () => {
     }
   };
 
+  const completeUserProfile = async (profileData: {
+    firstName: string;
+    lastName: string;
+    documentNumber: string;
+    phone: string;
+    monthlyIncome: number;
+    monthlyExpenses: number;
+    employmentStatus:
+      | "empleado"
+      | "desempleado"
+      | "independiente"
+      | "estudiante"
+      | "jubilado";
+  }) => {
+    let userId = 1;
+    if (!userId) {
+      throw new Error("No user ID available");
+    }
+
+    try {
+      const userEmail = user?.emailAddresses?.[0]?.emailAddress || "";
+
+      await createUserProfile({
+      id: userId,
+      email: userEmail,
+      ...profileData
+      });
+      userId = userId + 1;
+      // Después de crear el perfil, redirigir al home
+      router.replace("/(home)");
+    } catch (error) {
+      console.error("Error creating user profile:", error);
+      throw error;
+    }
+  };
+
   return {
     handleSignUp,
     handleVerify,
+    completeUserProfile,
     loading,
     pendingVerification,
   };
+};
+
+// Hook combinado para facilitar el uso
+export const useEmailAuth = () => {
+  const signUpHook = useEmailSignUp();
+
+  return {
+    ...signUpHook,
+  };
+};
+
+export const useCheckUserExists = (userEmail: string) => {
+  const router = useRouter();
+  const auth = useAuth();
+  const [isChecking, setIsChecking] = useState(false);
+  const [hasChecked, setHasChecked] = useState(false);
+  const hasExecutedRef = useRef(false);
+
+  useEffect(() => {
+    // Solo ejecutar una vez por email
+    if (!userEmail || !auth.isSignedIn || hasExecutedRef.current) {
+      return;
+    }
+
+    hasExecutedRef.current = true;
+
+    const checkAndRedirect = async () => {
+      console.log("Starting user existence check for:", userEmail);
+      setIsChecking(true);
+      
+      try {
+        const exists = await checkUserExists(userEmail);
+        console.log("User exists result:", exists);
+        
+        if (!exists) {
+          console.log("User does not exist, redirecting to complete-profile");
+          const target = "/(auth)/complete-profile";
+          router.replace(target);
+        } else {
+          console.log("User exists, staying on current page");
+        }
+        
+        setHasChecked(true);
+      } catch (error) {
+        console.error("Error checking user existence:", error);
+        setHasChecked(true);
+      } finally {
+        setIsChecking(false);
+      }
+    };
+
+    checkAndRedirect();
+  }, [userEmail, auth.isSignedIn, router]);
+
+  return { isChecking, hasChecked };
 };

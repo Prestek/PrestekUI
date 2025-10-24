@@ -1,6 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text } from "react-native";
-import { authStyles } from "@/assets/styles/auth.styles";
+import { useTheme } from "react-native-paper";
+import { createAuthStyles } from "@/assets/styles/auth.styles";
 
 interface AuthButtonProps {
   onPress: () => void;
@@ -13,13 +14,16 @@ export const AuthButton: React.FC<AuthButtonProps> = ({
   disabled = false,
   children,
 }) => {
+  const theme = useTheme();
+  const styles = createAuthStyles(theme);
+
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[authStyles.button, disabled && authStyles.buttonDisabled]}
+      style={[styles.button, disabled && styles.buttonDisabled]}
       disabled={disabled}
     >
-      <Text style={authStyles.buttonText}>{children}</Text>
+      <Text style={styles.buttonText}>{children}</Text>
     </TouchableOpacity>
   );
 };

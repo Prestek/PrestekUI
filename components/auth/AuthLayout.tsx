@@ -1,7 +1,9 @@
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
-import { Avatar, useTheme } from "react-native-paper";
-import { authStyles } from "@/assets/styles/auth.styles";
+import { useTheme } from "react-native-paper";
+import { createAuthStyles } from "@/assets/styles/auth.styles";
+import { MaterialIcons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface AuthLayoutProps {
   title?: string;
@@ -11,28 +13,37 @@ interface AuthLayoutProps {
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({
   title = "Prestek",
-  subtitle = "Tu plataforma de gestión de créditos",
+  subtitle = "Your credit management platform",
   children,
 }) => {
   const theme = useTheme();
+  const styles = createAuthStyles(theme);
 
   return (
-    <ScrollView contentContainerStyle={authStyles.scrollContainer}>
-      <View style={authStyles.container}>
-        {/* Logo Section */}
-        <View style={authStyles.logoContainer}>
-          <Avatar.Icon
-            size={120}
-            icon="credit-card"
-            style={{ backgroundColor: theme.colors.primary }}
-          />
-          <Text style={authStyles.title}>{title}</Text>
-          <Text style={authStyles.subtitle}>{subtitle}</Text>
-        </View>
+    <View style={styles.container}>
+      <LinearGradient
+        colors={[theme.colors.inversePrimary, theme.colors.tertiary]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.gradient}
+      />
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View>
+          {/* Logo Section */}
+          <View style={styles.logoContainer}>
+            <MaterialIcons
+              name="credit-card"
+              size={60}
+              color={theme.colors.primary}
+            />
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.subtitle}>{subtitle}</Text>
+          </View>
 
-        {/* Form Section */}
-        <View style={authStyles.formContainer}>{children}</View>
-      </View>
-    </ScrollView>
+          {/* Form Section */}
+          <View style={styles.formContainer}>{children}</View>
+        </View>
+      </ScrollView>
+    </View>
   );
 };

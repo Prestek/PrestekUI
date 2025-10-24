@@ -25,19 +25,24 @@ export const EmailPasswordForm: React.FC<EmailPasswordFormProps> = ({
   return (
     <View style={{ width: "100%" }}>
       <AuthInput
-        autoCapitalize="none"
         value={email}
-        placeholder="Enter email"
+        placeholder="Enter your email..."
         onChangeText={onEmailChange}
         keyboardType="email-address"
         disabled={loading}
+        label="Email Address"
+        icon="email"
+        iconPosition="left"
       />
       <AuthInput
         value={password}
-        placeholder="Enter password"
+        placeholder="Enter your password..."
         secureTextEntry
+        label="Password"
         onChangeText={onPasswordChange}
         disabled={loading}
+        icon="eye"
+        iconPosition="right"
       />
       <AuthButton onPress={onSubmit} disabled={loading}>
         {submitLabel}
