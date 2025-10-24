@@ -29,7 +29,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
       />
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         <View style={styles.innerContainer}>
           {/* Logo Section */}
           <View style={styles.logoContainer}>

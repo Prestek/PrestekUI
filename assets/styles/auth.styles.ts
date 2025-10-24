@@ -21,7 +21,6 @@ export const createAuthStyles = (theme: MD3Theme) =>
     },
     scrollContainer: {
       flexGrow: 1,
-      paddingBottom: spacing.xl,
     },
     logoContainer: {
       paddingTop: spacing.xl,
@@ -164,9 +163,6 @@ export const createAuthStyles = (theme: MD3Theme) =>
       color: theme.colors.surface,
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.bold,
-    },
-    buttonTextDisabled: {
-      color: theme.colors.onSurfaceDisabled,
     },
 
     // Links

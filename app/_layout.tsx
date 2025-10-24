@@ -7,9 +7,10 @@ import {
   MD3DarkTheme,
   PaperProvider,
 } from 'react-native-paper'
-import { StatusBar, useColorScheme } from 'react-native'
+import { ScrollView, StatusBar, useColorScheme } from 'react-native'
 import { LightScheme } from '../assets/themes/LightScheme'
 import { DarkScheme } from '../assets/themes/DarkScheme'
+import { createAuthStyles } from '@/assets/styles/auth.styles'
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
 
@@ -31,15 +32,17 @@ const darkScheme = {
 export default function RootLayout() {
   const colorScheme = useColorScheme()
   const theme = colorScheme === 'dark' ? darkScheme : lightScheme
-
+  const styles = createAuthStyles(theme);
   return (
     <PaperProvider theme={theme}>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
       <SafeAreaProvider style={{ flex: 1, backgroundColor: theme.colors.background }}>
         <StatusBar barStyle="dark-content"/>
         <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
           <Slot />
         </ClerkProvider>
       </SafeAreaProvider>
+    </ScrollView>
     </PaperProvider>
-  )
+  );
 }
