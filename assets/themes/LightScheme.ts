@@ -37,6 +37,6 @@ export const LightScheme = {
     level5: "rgb(255, 255, 255)", // Cambiado a blanco puro
   },
   surfaceDisabled: "#f6ffffff",
-  onSurfaceDisabled: "rgba(27, 27, 31, 0.38)",
+  onSurfaceDisabled: "rgb(62, 135, 145)",
   backdrop: "rgba(47, 48, 56, 0.4)",
 };

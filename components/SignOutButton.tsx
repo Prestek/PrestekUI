@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { useTheme } from 'react-native-paper'
 
-export const SignOutButton = ({text}: {text: string}) => {
+export const SignOutButton: React.FC<{text?: string}> = ({text = 'Sign Out'}) => {
   const { signOut } = useClerk()
   const router = useRouter()
   const theme = useTheme()

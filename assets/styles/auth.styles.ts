@@ -80,6 +80,9 @@ export const createAuthStyles = (theme: MD3Theme) =>
       fontWeight: typography.weights.semibold,
       color: theme.colors.onSurfaceVariant,
     },
+    oauthButtonTextDisabled: {
+      color: theme.colors.onSurfaceDisabled,
+    },
 
     // Divider
     divider: {
@@ -161,6 +164,9 @@ export const createAuthStyles = (theme: MD3Theme) =>
       color: theme.colors.surface,
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.bold,
+    },
+    buttonTextDisabled: {
+      color: theme.colors.onSurfaceDisabled,
     },
 
     // Links
