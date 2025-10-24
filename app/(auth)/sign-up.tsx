@@ -54,10 +54,7 @@ export default function SignUpScreen() {
 
   // Sign up screen
   return (
-    <AuthLayout>
-      <OAuthButtons onPress={handleOAuth} disabled={loading} />
-
-      <AuthDivider />
+    <AuthLayout subtitle="Register to enjoy the best loans management platform">
 
       <EmailPasswordForm
         email={email}
@@ -69,7 +66,11 @@ export default function SignUpScreen() {
         loading={loading}
       />
 
-      <AuthLink href="/(auth)/sign-in" text="Sign in" disabled={loading} />
+      <AuthDivider />
+
+      <OAuthButtons onPress={handleOAuth} disabled={loading} />
+
+      <AuthLink href="/(auth)/sign-in" text="Sign in" disabled={loading} title="Already have an account?" />
 
       <TermsText />
     </AuthLayout>

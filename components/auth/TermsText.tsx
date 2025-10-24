@@ -9,8 +9,7 @@ export const TermsText: React.FC = () => {
 
   return (
     <Text style={styles.termsText}>
-      Al continuar, aceptas nuestros términos de servicio y política de
-      privacidad
+    By continuing, you agree to our terms of service and privacy policy
     </Text>
   );
 };

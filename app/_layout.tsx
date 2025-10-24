@@ -34,7 +34,7 @@ export default function RootLayout() {
 
   return (
     <PaperProvider theme={theme}>
-      <SafeAreaProvider>
+      <SafeAreaProvider style={{ flex: 1, backgroundColor: theme.colors.background }}>
         <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
           <Slot />
         </ClerkProvider>

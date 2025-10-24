@@ -8,9 +8,11 @@ interface AuthLinkProps {
   href: string;
   text: string;
   disabled?: boolean;
+  title?: string;
 }
 
 export const AuthLink: React.FC<AuthLinkProps> = ({
+  title = "Don't have an account?",
   href,
   text,
   disabled = false,
@@ -21,7 +23,7 @@ export const AuthLink: React.FC<AuthLinkProps> = ({
   return (
     <View style={styles.linkContainer}>
       <Text style={disabled ? styles.disabledText : styles.linkText}>
-        Don't have an account?{" "}
+        {title}{" "}
       </Text>
       <TouchableOpacity disabled={disabled}>
         <Link href={href} disabled={disabled}>

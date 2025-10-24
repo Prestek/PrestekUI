@@ -71,6 +71,8 @@ export default function CompleteProfileScreen() {
             placeholder="Email"
             editable={false}
             style={styles.inputDisabled}
+            icon="email"
+            iconPosition="left"
           />
           
           <AuthInput

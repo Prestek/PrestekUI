@@ -23,10 +23,6 @@ export default function SignInScreen() {
 
   return (
     <AuthLayout>
-      <OAuthButtons onPress={handleOAuth} disabled={loading} />
-
-      <AuthDivider />
-
       <EmailPasswordForm
         email={email}
         password={password}
@@ -36,7 +32,8 @@ export default function SignInScreen() {
         submitLabel={loading ? "Signing in..." : "Continue"}
         loading={loading}
       />
-
+      <AuthDivider />
+      <OAuthButtons onPress={handleOAuth} disabled={loading} />
       <AuthLink href="/(auth)/sign-up" text="Sign up" disabled={loading} />
 
       <TermsText />
