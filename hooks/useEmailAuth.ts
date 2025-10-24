@@ -6,6 +6,8 @@ import { checkUserExists, createUserProfile } from "../services/userAPI";
 export const useEmailSignIn = () => {
   const [loading, setLoading] = useState(false);
   const { signIn, setActive } = useSignIn();
+  const { getToken } = useAuth();
+  const router = useRouter();
 
   const handleSignIn = async (email: string, password: string) => {
     if (!email || !password) {
