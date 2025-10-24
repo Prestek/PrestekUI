@@ -1,7 +1,8 @@
 import React from "react";
 import { TouchableOpacity, Text } from "react-native";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
-import { authStyles } from "@/assets/styles/auth.styles";
+import { useTheme } from "react-native-paper";
+import { createAuthStyles } from "@/assets/styles/auth.styles";
 
 type OAuthProvider = "google" | "facebook" | "microsoft";
 
@@ -37,6 +38,8 @@ export const OAuthButton: React.FC<OAuthButtonProps> = ({
   onPress,
   disabled = false,
 }) => {
+  const theme = useTheme();
+  const styles = createAuthStyles(theme);
   const config = PROVIDER_CONFIG[provider];
   const IconComponent =
     config.iconFamily === "AntDesign" ? AntDesign : FontAwesome;
@@ -44,16 +47,16 @@ export const OAuthButton: React.FC<OAuthButtonProps> = ({
   return (
     <TouchableOpacity
       onPress={() => onPress(provider)}
-      style={[authStyles.oauthButton, disabled && authStyles.buttonDisabled]}
+      style={[styles.oauthButton, disabled && styles.buttonDisabled]}
       disabled={disabled}
     >
       <IconComponent
         name={config.icon as any}
         size={20}
         color={config.color}
-        style={authStyles.oauthIcon}
+        style={styles.oauthIcon}
       />
-      <Text style={authStyles.oauthButtonText}>
+      <Text style={styles.oauthButtonText}>
         Continue with {config.label}
       </Text>
     </TouchableOpacity>

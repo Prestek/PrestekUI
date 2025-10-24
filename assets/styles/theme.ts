@@ -3,53 +3,6 @@
  * Centraliza colores, espaciados, tipografía y otros valores de diseño
  */
 
-export const colors = {
-  // Primary
-  primary: '#007AFF',
-  primaryDark: '#0051D5',
-  primaryLight: '#4DA3FF',
-
-  // Status
-  success: '#34C759',
-  warning: '#FF9500',
-  error: '#FF3B30',
-  info: '#5AC8FA',
-
-  // Neutrals
-  black: '#000000',
-  white: '#FFFFFF',
-  gray900: '#1a1a1a',
-  gray800: '#333333',
-  gray700: '#4d4d4d',
-  gray600: '#666666',
-  gray500: '#808080',
-  gray400: '#999999',
-  gray300: '#b3b3b3',
-  gray200: '#cccccc',
-  gray100: '#e6e6e6',
-  gray50: '#f5f5f5',
-
-  // OAuth Providers
-  google: '#DB4437',
-  facebook: '#1877F2',
-  microsoft: '#00A4EF',
-
-  // Backgrounds
-  background: '#FFFFFF',
-  backgroundSecondary: '#F5F5F5',
-  
-  // Text
-  textPrimary: '#1a1a1a',
-  textSecondary: '#666666',
-  textDisabled: '#999999',
-  textInverse: '#FFFFFF',
-
-  // Borders
-  border: '#cccccc',
-  borderLight: '#e6e6e6',
-  borderDark: '#999999',
-}
-
 export const spacing = {
   xs: 4,
   sm: 8,
@@ -114,7 +67,6 @@ export const shadows = {
 }
 
 export const theme = {
-  colors,
   spacing,
   borderRadius,
   typography,

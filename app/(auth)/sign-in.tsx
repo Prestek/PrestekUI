@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { Link } from "expo-router";
+import { View } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { OAuthButtons } from "@/components/auth/OAuthButtons";
 import { AuthDivider } from "@/components/auth/AuthDivider";
 import { EmailPasswordForm } from "@/components/auth/EmailPasswordForm";
 import { TermsText } from "@/components/auth/TermsText";
+import { AuthLink } from "@/components/auth/AuthLink";
 import { useAuthFlow } from "@/hooks/useAuthFlow";
 import { useEmailSignIn } from "@/hooks/useEmailAuth";
-import { authStyles } from "@/assets/styles/auth.styles";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -38,18 +37,7 @@ export default function SignInScreen() {
         loading={loading}
       />
 
-      <View style={authStyles.linkContainer}>
-        <Text style={loading && authStyles.disabledText}>
-          Don't have an account?{" "}
-        </Text>
-        <TouchableOpacity disabled={loading}>
-          <Link href="/(auth)/sign-up" disabled={loading}>
-            <Text style={[authStyles.link, loading && authStyles.disabledText]}>
-              Sign up
-            </Text>
-          </Link>
-        </TouchableOpacity>
-      </View>
+      <AuthLink href="/(auth)/sign-up" text="Sign up" disabled={loading} />
 
       <TermsText />
     </AuthLayout>
