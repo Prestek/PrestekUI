@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useSSO } from "@clerk/clerk-expo";
+import { useSSO,useAuth } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
+import { Alert } from "react-native";
 
 type OAuthProvider = "google" | "facebook" | "microsoft";
 type OAuthStrategy = "oauth_google" | "oauth_facebook" | "oauth_microsoft";
@@ -8,6 +9,7 @@ type OAuthStrategy = "oauth_google" | "oauth_facebook" | "oauth_microsoft";
 export const useAuthFlow = () => {
   const [loading, setLoading] = useState(false);
   const { startSSOFlow } = useSSO();
+  const { getToken } = useAuth();
   const router = useRouter();
 
   const handleOAuth = async (provider: OAuthProvider) => {
@@ -26,6 +28,11 @@ export const useAuthFlow = () => {
 
       if (createdSessionId) {
         await setActive!({ session: createdSessionId });
+
+        const token = await getToken({ template: "prestek-api" });
+        console.log("JWT generado (OAuth):", token);
+        Alert.alert("JWT generado (OAuth)", token ?? "Token vacío");
+
         // Pequeño delay para asegurar que la sesión esté lista
         setTimeout(() => {
           router.replace("/");

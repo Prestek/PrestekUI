@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useSignIn, useSignUp } from "@clerk/clerk-expo";
+import { useSignIn, useSignUp, useAuth } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 
 export const useEmailSignIn = () => {
   const [loading, setLoading] = useState(false);
   const { signIn, setActive } = useSignIn();
+  const { getToken } = useAuth();
   const router = useRouter();
 
   const handleSignIn = async (email: string, password: string) => {
@@ -22,6 +23,9 @@ export const useEmailSignIn = () => {
 
       if (result?.status === "complete") {
         await setActive?.({ session: result.createdSessionId });
+
+        const token = await getToken({ template: "prestek-api" });
+        console.log("JWT generado (Email):", token);
         // Pequeño delay para asegurar que la sesión esté lista
         setTimeout(() => {
           router.replace("/(home)");
@@ -75,6 +79,11 @@ export const useEmailSignUp = () => {
 
       if (result?.status === "complete") {
         await setActive?.({ session: result.createdSessionId });
+
+
+        const { getToken } = useAuth(); // importar useAuth si no está
+        const token = await getToken({ template: "prestek-api" });
+        console.log("JWT generado (SignUp):", token);
         // Pequeño delay para asegurar que la sesión esté lista
         setTimeout(() => {
           router.replace("/(home)");
