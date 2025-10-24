@@ -7,7 +7,7 @@ import {
   MD3DarkTheme,
   PaperProvider,
 } from 'react-native-paper'
-import { useColorScheme } from 'react-native'
+import { StatusBar, useColorScheme } from 'react-native'
 import { LightScheme } from '../assets/themes/LightScheme'
 import { DarkScheme } from '../assets/themes/DarkScheme'
 
@@ -35,6 +35,7 @@ export default function RootLayout() {
   return (
     <PaperProvider theme={theme}>
       <SafeAreaProvider style={{ flex: 1, backgroundColor: theme.colors.background }}>
+        <StatusBar barStyle="dark-content"/>
         <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
           <Slot />
         </ClerkProvider>

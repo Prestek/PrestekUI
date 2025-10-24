@@ -2,10 +2,8 @@ import { StyleSheet } from "react-native";
 import { spacing, borderRadius, typography } from "./theme";
 import { MD3Theme } from "react-native-paper";
 
-// Re-export theme for convenience
 export * from "./theme";
 
-// Function to create auth styles based on the current theme
 export const createAuthStyles = (theme: MD3Theme) =>
   StyleSheet.create({
     // Containers
@@ -28,7 +26,6 @@ export const createAuthStyles = (theme: MD3Theme) =>
     logoContainer: {
       paddingTop: spacing.xl,
       paddingBottom: spacing.lg,
-      flexGrow: 1,
       alignItems: "center",
       justifyContent: "center",
       minHeight: 200,
@@ -36,7 +33,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
     formContainer: {
       width: "100%",
       alignItems: "center",
-      paddingBottom: spacing.md,
+      paddingBottom: spacing.sm,
     },
 
     // Typography
@@ -82,6 +79,9 @@ export const createAuthStyles = (theme: MD3Theme) =>
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.semibold,
       color: theme.colors.onSurfaceVariant,
+    },
+    oauthButtonTextDisabled: {
+      color: theme.colors.onSurfaceDisabled,
     },
 
     // Divider
@@ -161,9 +161,12 @@ export const createAuthStyles = (theme: MD3Theme) =>
       opacity: 0.6,
     },
     buttonText: {
-      color: theme.colors.onPrimary,
+      color: theme.colors.surface,
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.bold,
+    },
+    buttonTextDisabled: {
+      color: theme.colors.onSurfaceDisabled,
     },
 
     // Links
@@ -216,7 +219,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
     selectLabel: {
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.semibold,
-      color: theme.colors.onBackground,
+      color: theme.colors.primary,
       marginBottom: spacing.sm,
     },
     selectOptions: {
@@ -239,6 +242,52 @@ export const createAuthStyles = (theme: MD3Theme) =>
     selectOptionActive: {
       backgroundColor: theme.colors.primary,
       borderColor: theme.colors.primary,
-      color: theme.colors.onPrimary,
+      color: theme.colors.surface,
+    },
+    buttonOut: {
+      backgroundColor: theme.colors.error,
+      paddingVertical: 14,
+      paddingHorizontal: spacing.md,
+      borderRadius: borderRadius.lg,
+      alignItems: "center",
+      marginTop: 20,
+    },
+    buttonOutText: {
+      color: "white",
+      fontSize: 16,
+      fontWeight: "bold",
+    },
+    otpContainer: {
+      paddingHorizontal: 20,
+      paddingVertical: 30,
+    },
+    cellRoot: {
+      width: 45,
+      height: 45,
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: borderRadius.md,
+      backgroundColor: theme.colors.surface,
+      borderColor: theme.colors.outline,
+      borderWidth: 1,
+      marginHorizontal: 4,
+    },
+    cellText: {
+      color: theme.colors.onSurface,
+      fontSize: 24,
+      textAlign: "center",
+    },
+    focusCell: {
+      borderColor: theme.colors.primary,
+      borderWidth: 2,
+    },
+    otp: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    innerContainer: {
+      flexGrow: 1,
+      justifyContent: "center",
     },
   });

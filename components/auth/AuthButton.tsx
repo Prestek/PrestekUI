@@ -23,7 +23,7 @@ export const AuthButton: React.FC<AuthButtonProps> = ({
       style={[styles.button, disabled && styles.buttonDisabled]}
       disabled={disabled}
     >
-      <Text style={styles.buttonText}>{children}</Text>
+      <Text style={[styles.buttonText, disabled && styles.buttonTextDisabled]}>{children}</Text>
     </TouchableOpacity>
   );
 };

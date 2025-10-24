@@ -1,20 +1,33 @@
+import { createAuthStyles } from "@/assets/styles/auth.styles";
+import { createHomeStyles } from "@/assets/styles/home.styles";
 import { MaterialIcons } from "@expo/vector-icons"
-import { Text } from "react-native-paper"
+import { View } from "react-native";
+import { Text, useTheme } from "react-native-paper"
+import { SafeAreaView } from "react-native-safe-area-context";
 
+interface TopLayoutProps {
+  children: React.ReactNode;
+}
 
-
-export const TobBar(children){
+export const TopBar: React.FC<TopLayoutProps> = ({ children }) => {
     const theme = useTheme();
-      const styles = createAuthStyles(theme);
-
+    const styles = createHomeStyles(theme);
+    const authStyles = createAuthStyles(theme);
     return(
-        <View style={styles.logoContainer}>
-            <MaterialIcons
-                name="credit-card"
-                size={60}
-                color={theme.colors.primary}
-            />
-            <Text style={styles.title}>{title}</Text>
-        </View>
+        <SafeAreaView style={[authStyles.container, { flex: 1 }]}>
+            <View style={styles.introContainer}>
+                <View style={styles.logoContainer}>
+                    <MaterialIcons
+                        name="credit-card"
+                        size={30}
+                        color={theme.colors.primary}
+                    />
+                    <Text style={styles.title}> Prestek</Text>
+                </View>
+                <Text style={styles.introTitle} >Complete your profile</Text>
+                <Text style={styles.subtitle}>To offer you the best loans, we need to know you better</Text>
+            </View>
+            {children}
+        </SafeAreaView>
     );
 }

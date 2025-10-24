@@ -26,7 +26,6 @@ export const EmailPasswordForm: React.FC<EmailPasswordFormProps> = ({
     <View style={{ width: "100%" }}>
       <AuthInput
         value={email}
-        placeholder="Enter your email..."
         onChangeText={onEmailChange}
         keyboardType="email-address"
         disabled={loading}
@@ -36,7 +35,6 @@ export const EmailPasswordForm: React.FC<EmailPasswordFormProps> = ({
       />
       <AuthInput
         value={password}
-        placeholder="Enter your password..."
         secureTextEntry
         label="Password"
         onChangeText={onPasswordChange}

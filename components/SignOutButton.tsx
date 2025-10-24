@@ -1,13 +1,15 @@
+import { createAuthStyles } from '@/assets/styles/auth.styles'
 import { useClerk } from '@clerk/clerk-expo'
 import * as Linking from 'expo-linking'
 import { useRouter } from 'expo-router'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { useTheme } from 'react-native-paper'
 
-export const SignOutButton = () => {
+export const SignOutButton: React.FC<{text?: string}> = ({text = 'Sign Out'}) => {
   const { signOut } = useClerk()
   const router = useRouter()
   const theme = useTheme()
+  const styles = createAuthStyles(theme)
 
   const handleSignOut = async () => {
     console.log("Sign out button pressed")
@@ -20,22 +22,9 @@ export const SignOutButton = () => {
   }
 
   return (
-    <TouchableOpacity onPress={handleSignOut} style={[styles.button, { backgroundColor: theme.colors.error }]}>
-      <Text style={styles.buttonText}>Sign out</Text>
+    <TouchableOpacity onPress={handleSignOut} style={styles.buttonOut}>
+      <Text style={styles.buttonText}>{text || "Sign Out"}</Text>
     </TouchableOpacity>
   )
 }
 
-const styles = StyleSheet.create({
-  button: {
-    padding: 15,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-})
