@@ -7,23 +7,29 @@ import { useEmailAuth } from "@/hooks/useEmailAuth";
 import { useUser } from "@clerk/clerk-expo";
 import { useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
-import { router } from "expo-router";
 import { SignOutButton } from "@/components/SignOutButton";
+import { useRouter } from "expo-router";
+import { TopBar } from "@/components/TopBar";
+import { LinearGradient } from "expo-linear-gradient";
+import { createHomeStyles } from "@/assets/styles/home.styles";
+import { InputLabel } from "@/components/home/Inputs/InputLabel";
 
 export default function CompleteProfileScreen() {
+  const router = useRouter();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [documentNumber, setDocumentNumber] = useState("");
   const [phone, setPhone] = useState("");
   const [monthlyIncome, setMonthlyIncome] = useState("");
   const [monthlyExpenses, setMonthlyExpenses] = useState("");
-  const [employmentStatus, setEmploymentStatus] = useState<'empleado' | 'desempleado' | 'independiente' | 'estudiante' | 'jubilado'>('empleado');
+  const [employmentStatus, setEmploymentStatus] = useState<'Employed' | 'Unemployed' | 'Self-Employed' | 'Student' | 'Retired'>('Employed');
   const [loading, setLoading] = useState(false);
 
   const { completeUserProfile } = useEmailAuth();
   const { user } = useUser();
   const theme = useTheme();
   const styles = createAuthStyles(theme);
+  const homeStyles = createHomeStyles(theme);
   
   const userEmail = user?.emailAddresses?.[0]?.emailAddress || "";
 
@@ -52,6 +58,7 @@ export default function CompleteProfileScreen() {
         monthlyExpenses: monthlyExpensesValue,
         employmentStatus,
       });
+      router.replace("/(home)");
     } catch (error) {
       Alert.alert("Error", "No se pudo completar el perfil. Inténtalo de nuevo.");
     } finally {
@@ -60,67 +67,77 @@ export default function CompleteProfileScreen() {
   };
 
   return (
-    <AuthLayout
-      title="Completa tu perfil"
-      subtitle="Necesitamos algunos datos adicionales para personalizar tu experiencia"
-    >
       <ScrollView showsVerticalScrollIndicator={false}>
+        <TopBar
+    >
         <View style={styles.formContainer}>
-          <AuthInput
-            value={userEmail}
-            placeholder="Email"
-            editable={false}
-            style={styles.inputDisabled}
-            icon="email"
-            iconPosition="left"
-          />
-          
+          <InputLabel label="User Address">
+            <AuthInput
+              value={userEmail}
+              editable={false}
+              style={styles.inputDisabled}
+              icon="email"
+              iconPosition="left"
+            />
+          </InputLabel>
+          <InputLabel label="First Name">
           <AuthInput
             value={firstName}
-            placeholder="Nombre"
             onChangeText={setFirstName}
             autoCapitalize="words"
+            icon="account"
+            iconPosition="left"
           />
-          
+          </InputLabel>
+          <InputLabel label="Last Name">
           <AuthInput
             value={lastName}
-            placeholder="Apellido"
             onChangeText={setLastName}
             autoCapitalize="words"
+            icon="account"
+            iconPosition="left"
           />
-          
+          </InputLabel>
+          <InputLabel label="Document Number">
           <AuthInput
             value={documentNumber}
-            placeholder="NIT"
             onChangeText={setDocumentNumber}
             keyboardType="numeric"
+            icon="card-account-details"
+            iconPosition="left"
           />
-          
+          </InputLabel>
+          <InputLabel label="Phone Number">
           <AuthInput
             value={phone}
-            placeholder="Número de teléfono"
             onChangeText={setPhone}
             keyboardType="phone-pad"
+            icon="phone"
+            iconPosition="left"
           />
-          
+          </InputLabel>
+          <InputLabel label="Monthly Income">
           <AuthInput
             value={monthlyIncome}
-            placeholder="Ingresos mensuales"
             onChangeText={setMonthlyIncome}
             keyboardType="numeric"
+            icon="cash-plus"
+            iconPosition="left"
           />
-          
+          </InputLabel>
+          <InputLabel label="Monthly Expenses">
           <AuthInput
             value={monthlyExpenses}
-            placeholder="Egresos mensuales"
             onChangeText={setMonthlyExpenses}
             keyboardType="numeric"
+            icon="cash-minus"
+            iconPosition="left"
           />
-
+          </InputLabel>
           <View style={styles.selectContainer}>
-            <Text style={styles.selectLabel}>Estado laboral:</Text>
+            <Text style={styles.selectLabel}>Employment Status:</Text>
             <View style={styles.selectOptions}>
-              {(['empleado', 'desempleado', 'independiente', 'estudiante', 'jubilado'] as const).map((status) => (
+              {(['Employed', 'Unemployed', 'Self-Employed', 'Student', 'Retired'] as const).map((status) => (
                 <Text
                   key={status}
                   style={[
@@ -129,11 +146,11 @@ export default function CompleteProfileScreen() {
                   ]}
                   onPress={() => setEmploymentStatus(status)}
                 >
-                  {status === 'empleado' ? 'Empleado' :
-                   status === 'desempleado' ? 'Desempleado' :
-                   status === 'independiente' ? 'Independiente' :
-                   status === 'estudiante' ? 'Estudiante' :
-                   'Jubilado'}
+                  {status === 'Employed' ? 'Employed' :
+                   status === 'Unemployed' ? 'Unemployed' :
+                   status === 'Self-Employed' ? 'Self-Employed' :
+                   status === 'Student' ? 'Student' :
+                   'Retired'}
                 </Text>
               ))}
             </View>
@@ -141,10 +158,11 @@ export default function CompleteProfileScreen() {
         </View>
 
         <AuthButton onPress={handleSubmit} disabled={loading}>
-          {loading ? "Completando perfil..." : "Completar perfil"}
+          {loading ? "Saving Profile..." : "Save Profile"}
         </AuthButton>
-        <SignOutButton />
+        <SignOutButton text={"Go back"}/>
+        </TopBar>
+
       </ScrollView>
-    </AuthLayout>
   );
 }

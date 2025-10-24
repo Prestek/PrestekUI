@@ -39,10 +39,10 @@ export const useEmailSignUp = () => {
   const [loading, setLoading] = useState(false);
   const [pendingVerification, setPendingVerification] = useState(false);
   const { signUp, setActive } = useSignUp();
-  const { userId } = useAuth();
   const { user } = useUser();
 
   const handleSignUp = async (email: string, password: string) => {
+    console.log("Handling sign up for:", email);
     if (!email || !password) {
       alert("Please fill in all fields");
       return;
@@ -50,6 +50,7 @@ export const useEmailSignUp = () => {
 
     setLoading(true);
     try {
+      console.log("Starting sign up for:", email);
       await signUp?.create({ emailAddress: email, password });
       await signUp?.prepareEmailAddressVerification({ strategy: "email_code" });
       setPendingVerification(true);
@@ -73,6 +74,7 @@ export const useEmailSignUp = () => {
 
       if (result?.status === "complete") {
         await setActive?.({ session: result.createdSessionId });
+        setPendingVerification(false);
       }
     } catch (err) {
       console.error("Verification error:", err);
@@ -90,11 +92,11 @@ export const useEmailSignUp = () => {
     monthlyIncome: number;
     monthlyExpenses: number;
     employmentStatus:
-      | "empleado"
-      | "desempleado"
-      | "independiente"
-      | "estudiante"
-      | "jubilado";
+      | "Employed"
+      | "Unemployed"
+      | "Self-Employed"
+      | "Student"
+      | "Retired";
   }) => {
     let userId = 1;
     if (!userId) {
@@ -105,12 +107,13 @@ export const useEmailSignUp = () => {
       const userEmail = user?.emailAddresses?.[0]?.emailAddress || "";
 
       await createUserProfile({
-      id: userId,
-      email: userEmail,
-      ...profileData
+        id: userId,
+        email: userEmail,
+        ...profileData,
+        creditScore: 600,
       });
       userId = userId + 1;
-      // Después de crear el perfil, redirigir al home
+      // Solo redirigir al home después de completar el perfil
       router.replace("/(home)");
     } catch (error) {
       console.error("Error creating user profile:", error);
@@ -154,11 +157,11 @@ export const useCheckUserExists = (userEmail: string) => {
     const checkAndRedirect = async () => {
       console.log("Starting user existence check for:", userEmail);
       setIsChecking(true);
-      
+
       try {
         const exists = await checkUserExists(userEmail);
         console.log("User exists result:", exists);
-        
+
         if (!exists) {
           console.log("User does not exist, redirecting to complete-profile");
           const target = "/(auth)/complete-profile";
@@ -166,7 +169,7 @@ export const useCheckUserExists = (userEmail: string) => {
         } else {
           console.log("User exists, staying on current page");
         }
-        
+
         setHasChecked(true);
       } catch (error) {
         console.error("Error checking user existence:", error);

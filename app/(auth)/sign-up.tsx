@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { OAuthButtons } from "@/components/auth/OAuthButtons";
 import { AuthDivider } from "@/components/auth/AuthDivider";
+import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import { EmailPasswordForm } from "@/components/auth/EmailPasswordForm";
 import { AuthInput } from "@/components/auth/AuthInput";
 import { AuthButton } from "@/components/auth/AuthButton";
@@ -11,6 +12,7 @@ import { TermsText } from "@/components/auth/TermsText";
 import { AuthLink } from "@/components/auth/AuthLink";
 import { useAuthFlow } from "@/hooks/useAuthFlow";
 import { useEmailSignUp } from "@/hooks/useEmailAuth";
+import { EmailVerificationStep } from "@/components/auth/EmailVerification";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -32,24 +34,7 @@ export default function SignUpScreen() {
 
   // Verification screen
   if (pendingVerification) {
-    return (
-      <AuthLayout
-        title="Verify your email"
-        subtitle={`We sent a verification code to ${email}`}
-      >
-        <AuthInput
-          value={code}
-          placeholder="Enter your verification code"
-          onChangeText={setCode}
-          keyboardType="number-pad"
-          autoFocus
-          maxLength={6}
-        />
-        <AuthButton onPress={() => handleVerify(code)} disabled={loading}>
-          {loading ? "Verifying..." : "Verify"}
-        </AuthButton>
-      </AuthLayout>
-    );
+    return <EmailVerificationStep email={email} code={code} setCode={setCode} loading={loading} handleVerify={handleVerify} />;
   }
 
   // Sign up screen

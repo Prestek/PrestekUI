@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "http://192.168.20.38:8080/api/users/";
+const API = "http://192.168.20.38:8080/api/users";
 
 export async function getAllUsers() {
   const response = await axios.get(API);
@@ -20,16 +20,6 @@ export async function checkUserExists(email: string) {
   }
 }
 
-export async function createNewUser(userData: {
-  id: string;
-  email: string;
-  firstName?: string;
-  lastName?: string;
-}) {
-  const response = await axios.post(API, userData);
-  return response.data;
-}
-
 export async function createUserProfile(userData: {
   id: number;
   email: string;
@@ -40,13 +30,14 @@ export async function createUserProfile(userData: {
   monthlyIncome: number;
   monthlyExpenses: number;
   employmentStatus:
-    | "empleado"
-    | "desempleado"
-    | "independiente"
-    | "estudiante"
-    | "jubilado";
+    | "Employed"
+    | "Unemployed"
+    | "Self-Employed"
+    | "Student"
+    | "Retired";
+  creditScore: number;
 }) {
-  console.log(userData);
+  console.log(API, userData);
   const response = await axios.post(API, userData);
-  return response.data;
+  return response;
 }

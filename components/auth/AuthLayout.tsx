@@ -8,12 +8,14 @@ import { LinearGradient } from "expo-linear-gradient";
 interface AuthLayoutProps {
   title?: string;
   subtitle?: string;
+  icon?: keyof typeof MaterialIcons.glyphMap;
   children: React.ReactNode;
 }
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({
   title = "Prestek",
   subtitle = "Your credit management platform",
+  icon = "credit-card",
   children,
 }) => {
   const theme = useTheme();
@@ -28,11 +30,11 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
         style={styles.gradient}
       />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View>
+        <View style={styles.innerContainer}>
           {/* Logo Section */}
           <View style={styles.logoContainer}>
             <MaterialIcons
-              name="credit-card"
+              name={icon}
               size={60}
               color={theme.colors.primary}
             />
