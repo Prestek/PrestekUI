@@ -2,12 +2,8 @@ import React from "react";
 import { TouchableOpacity, Text } from "react-native";
 import { useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
+import { AuthButtonProps } from "@/models/authModels";
 
-interface AuthButtonProps {
-  onPress: () => void;
-  disabled?: boolean;
-  children: React.ReactNode;
-}
 
 export const AuthButton: React.FC<AuthButtonProps> = ({
   onPress,

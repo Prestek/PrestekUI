@@ -164,7 +164,9 @@ export const createAuthStyles = (theme: MD3Theme) =>
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.bold,
     },
-
+    buttonTextDisabled: {
+      color: theme.colors.primary
+    },
     // Links
     linkContainer: {
       flexDirection: "row",

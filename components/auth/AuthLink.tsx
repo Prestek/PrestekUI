@@ -3,13 +3,8 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import { useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
+import { AuthLinkProps } from "@/models/authModels";
 
-interface AuthLinkProps {
-  href: string;
-  text: string;
-  disabled?: boolean;
-  title?: string;
-}
 
 export const AuthLink: React.FC<AuthLinkProps> = ({
   title = "Don't have an account?",

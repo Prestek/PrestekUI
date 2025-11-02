@@ -166,7 +166,7 @@ export const useCheckUserExists = (userEmail: string) => {
 
         if (!exists) {
           console.log("User does not exist, redirecting to complete-profile");
-          const target = "/(auth)/complete-profile";
+          const target = "/(auth)/scan";
           router.replace(target);
         } else {
           console.log("User exists, staying on current page");

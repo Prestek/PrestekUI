@@ -7,8 +7,11 @@ export default function AuthRoutesLayout() {
 
   console.log("AuthLayout - isSignedIn:", isSignedIn, "pathname:", pathname);
 
-  // Permitir acceso a complete-profile incluso si el usuario está autenticado
-  if (isSignedIn && !pathname.includes('complete-profile')) {
+  // Permitir acceso a complete-profile y scan incluso si el usuario está autenticado
+  const allowedRoutesForAuthenticated = ['complete-profile', 'scan'];
+  const isAllowedRoute = allowedRoutesForAuthenticated.some(route => pathname.includes(route));
+  
+  if (isSignedIn && !isAllowedRoute) {
     console.log("Redirecting authenticated user away from auth routes");
     return <Redirect href={'/'} />
   }

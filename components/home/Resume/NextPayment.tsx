@@ -1,12 +1,8 @@
 import { createHomeStyles } from "@/assets/styles/home.styles";
+import { NextPaymentProps } from "@/models/creditModels";
 import { View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 
-interface NextPaymentProps {
-    nextPaymentDate: string;
-    nextPaymentAmount: number;
-    paymentDateLabel: string;
-}
 
 export const NextPayment: React.FC<NextPaymentProps> = ({ nextPaymentDate, nextPaymentAmount, paymentDateLabel }) => {
     const theme = useTheme();

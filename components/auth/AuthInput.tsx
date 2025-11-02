@@ -2,14 +2,8 @@ import React, { useState } from "react";
 import { View } from "react-native";
 import { TextInput, TextInputProps, useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
+import { AuthInputProps } from "@/models/authModels";
 
-interface AuthInputProps extends TextInputProps {
-  disabled?: boolean;
-  icon?: string;
-  iconPosition?: "left" | "right";
-  label?: string;
-  onIconPress?: () => void;
-}
 
 export const AuthInput: React.FC<AuthInputProps> = ({
   disabled = false,

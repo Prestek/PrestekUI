@@ -2,16 +2,8 @@ import React from "react";
 import { View } from "react-native";
 import { AuthInput } from "./AuthInput";
 import { AuthButton } from "./AuthButton";
+import { EmailPasswordFormProps } from "@/models/authModels";
 
-interface EmailPasswordFormProps {
-  email: string;
-  password: string;
-  onEmailChange: (email: string) => void;
-  onPasswordChange: (password: string) => void;
-  onSubmit: () => void;
-  submitLabel: string;
-  loading?: boolean;
-}
 
 export const EmailPasswordForm: React.FC<EmailPasswordFormProps> = ({
   email,

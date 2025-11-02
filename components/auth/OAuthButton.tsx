@@ -3,14 +3,8 @@ import { TouchableOpacity, Text } from "react-native";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import { useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
+import { OAuthButtonProps } from "@/models/authModels";
 
-type OAuthProvider = "google" | "facebook" | "microsoft";
-
-interface OAuthButtonProps {
-  provider: OAuthProvider;
-  onPress: (provider: OAuthProvider) => void;
-  disabled?: boolean;
-}
 
 const PROVIDER_CONFIG = {
   google: {

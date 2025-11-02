@@ -3,14 +3,12 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { BottomNavigation, Provider } from 'react-native-paper';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { ResumeLayout } from './home/Resume/ResumeLayout';
 import ProfilePage from '@/app/(home)/profile';
 import HomePage from '@/app/(home)';
 
 
 export const BottomNavigationMenu = () => {
     const [index, setIndex] = useState(0);
-    const route = useRouter();
   const routes = [
     { key: 'home', title: 'Home', icon: 'home' },
     { key: 'settings', title: 'Settings', icon: 'cog' },

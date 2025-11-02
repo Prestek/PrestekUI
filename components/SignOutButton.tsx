@@ -1,8 +1,7 @@
 import { createAuthStyles } from '@/assets/styles/auth.styles'
 import { useClerk } from '@clerk/clerk-expo'
-import * as Linking from 'expo-linking'
 import { useRouter } from 'expo-router'
-import { Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, TouchableOpacity } from 'react-native'
 import { useTheme } from 'react-native-paper'
 
 export const SignOutButton: React.FC<{text?: string}> = ({text = 'Sign Out'}) => {

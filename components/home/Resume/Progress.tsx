@@ -1,19 +1,8 @@
 import { createHomeStyles } from "@/assets/styles/home.styles";
+import { CreditProps } from "@/models/creditModels";
 import { View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 
-interface CreditProps{
-    loan: {
-        bank: string,
-        totalAmount: number,
-        interestRate: number,
-        startDate: string,
-        endDate: string,
-        paidAmount: number,
-        remainingAmount: number,
-        progressPercentage: number
-    }
-}
 
 export const Progress: React.FC<CreditProps> = ({loan}) => {
     const theme = useTheme();

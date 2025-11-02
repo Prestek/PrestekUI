@@ -2,7 +2,6 @@ import { createHomeStyles } from "@/assets/styles/home.styles";
 import { View, TouchableOpacity } from "react-native";
 import { Badge, Text, useTheme } from "react-native-paper";
 import { useUser } from '@clerk/clerk-expo';
-import { LinearGradient } from "expo-linear-gradient";
 
 export const UserHeader: React.FC = () => {
     const theme = useTheme();

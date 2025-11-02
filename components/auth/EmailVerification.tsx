@@ -5,14 +5,8 @@ import { AuthLayout } from "./AuthLayout";
 import { AuthButton } from "./AuthButton";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
 import React from "react";
+import { OtpProps } from "@/models/authModels";
 
-interface OtpProps {
-  email: string;
-  code: string;
-  setCode: (code: string) => void;
-  loading: boolean;
-  handleVerify: (code: string) => void;
-}
 
 export const EmailVerificationStep: React.FC<OtpProps> = ({ email, code, setCode, loading, handleVerify }) => {
   const theme = useTheme();

@@ -4,13 +4,8 @@ import { useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
 import { MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { AuthLayoutProps } from "@/models/authModels";
 
-interface AuthLayoutProps {
-  title?: string;
-  subtitle?: string;
-  icon?: keyof typeof MaterialIcons.glyphMap;
-  children: React.ReactNode;
-}
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({
   title = "Prestek",

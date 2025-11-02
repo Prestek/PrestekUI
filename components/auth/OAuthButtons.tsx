@@ -3,11 +3,8 @@ import { View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
 import { OAuthButton } from "./OAuthButton";
+import { OAuthButtonsProps } from "@/models/authModels";
 
-interface OAuthButtonsProps {
-  onPress: (provider: "google" | "facebook" | "microsoft") => void;
-  disabled?: boolean;
-}
 
 export const OAuthButtons: React.FC<OAuthButtonsProps> = ({
   onPress,
