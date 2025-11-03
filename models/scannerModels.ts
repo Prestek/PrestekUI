@@ -1,13 +1,10 @@
-export type Sexo = "M" | "F";
+export type Gender = "M" | "F";
 
 export interface ParsedCedula {
-  documento: string | null;
-  nombres: string | null;
-  apellidos: string | null;
-  fecha: string | null;
-  sexo: Sexo | null;
-  nacionalidad: string | null;
-  raw: string;
+  document: string | null;
+  name: string | null;
+  lastName: string | null;
+  date: string | null;
 }
 
 export interface ScanResult {

@@ -7,12 +7,12 @@ import { useEmailAuth } from "@/hooks/useEmailAuth";
 import { ParsedCedula } from "@/models/scannerModels";
 import { useUser } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 
 
-export default function CompleteProfileScreen({ data }: { data: ParsedCedula | null }) {
+export default function CompleteProfile({ data }: { data: ParsedCedula | null }) {
     const router = useRouter();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -22,7 +22,6 @@ export default function CompleteProfileScreen({ data }: { data: ParsedCedula | n
     const [monthlyExpenses, setMonthlyExpenses] = useState("");
     const [employmentStatus, setEmploymentStatus] = useState<'Employed' | 'Unemployed' | 'Self-Employed' | 'Student' | 'Retired'>('Employed');
     const [loading, setLoading] = useState(false);
-  
     const { completeUserProfile } = useEmailAuth();
     const { user } = useUser();
     const theme = useTheme();
@@ -30,6 +29,13 @@ export default function CompleteProfileScreen({ data }: { data: ParsedCedula | n
     
     const userEmail = user?.emailAddresses?.[0]?.emailAddress || "";
   
+    useEffect(() => {
+      if (data) {
+        setFirstName(data.name || "");
+        setLastName(data.lastName || "");
+        setDocumentNumber(data.document || "");
+      }
+    }, [data]);
     const handleSubmit = async () => {
       if (!firstName || !lastName || !documentNumber || !phone || !monthlyIncome || !monthlyExpenses) {
         Alert.alert("Error", "Por favor completa todos los campos obligatorios");
@@ -84,6 +90,7 @@ export default function CompleteProfileScreen({ data }: { data: ParsedCedula | n
               autoCapitalize="words"
               icon="account"
               iconPosition="left"
+              editable={false}
             />
             </InputLabel>
             <InputLabel label="Last Name">
@@ -93,6 +100,7 @@ export default function CompleteProfileScreen({ data }: { data: ParsedCedula | n
               autoCapitalize="words"
               icon="account"
               iconPosition="left"
+              editable={false}
             />
             </InputLabel>
             <InputLabel label="Document Number">
@@ -102,6 +110,7 @@ export default function CompleteProfileScreen({ data }: { data: ParsedCedula | n
               keyboardType="numeric"
               icon="card-account-details"
               iconPosition="left"
+              editable={false}
             />
             </InputLabel>
             <InputLabel label="Phone Number">

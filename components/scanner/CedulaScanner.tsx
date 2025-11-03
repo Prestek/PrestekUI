@@ -1,11 +1,15 @@
 import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { CameraView } from 'expo-camera';
 import { useScanner } from '@/hooks/useScanner';
-import { useCallback, useEffect } from 'react';
-import CompleteProfileScreen from './profile/CompleteProfile';
+import { useEffect } from 'react';
+import CompleteProfile from './profile/CompleteProfile';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useTheme } from 'react-native-paper';
+import { createScanStyles } from '@/assets/styles/scan.styles';
 
 export default function CedulaScanner() {
-  // Usar useCallback para estabilizar el callback y evitar re-renders
+  const theme = useTheme();
+  const styles = createScanStyles(theme);
   const { 
     hasPermission, 
     requestPermission,
@@ -15,13 +19,10 @@ export default function CedulaScanner() {
     setScanned 
   } = useScanner();
 
-  // Solicitar permisos automáticamente cuando el componente se monta
   useEffect(() => {
     if (hasPermission === null) {
       requestPermission();
     }
-    // Solo dependemos de hasPermission, requestPermission es estable
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasPermission]);
 
   if (hasPermission === null) {
@@ -47,64 +48,55 @@ export default function CedulaScanner() {
   }
 
   return (
-    lastData ? (<CompleteProfileScreen data={lastData.parsed} />) : 
+    lastData ? (<CompleteProfile data={lastData.parsed} />) : 
     (
     <View style={styles.container}>
-      <View style={styles.cameraContainer}>
-        <CameraView
-          style={StyleSheet.absoluteFillObject}
-          facing="back"
-          barcodeScannerSettings={{
-            barcodeTypes: ["pdf417"],
-          }}
-          onBarcodeScanned={handleBarCodeScanned}
-        />
+      {/* Header Section */}
+      <View style={styles.headerSection}>
+        <Text style={styles.title}>Captura de cedula</Text>
+        <Text style={styles.subtitle}>Toma una foto clara de la parte trase del documento de identidad</Text>
       </View>
 
-      <View style={styles.info}>
-        <Text style={styles.title}>Apunta la cámara a la cédula (PDF417)</Text>
+      {/* Camera Container */}
+      <View style={styles.cameraWrapper}>
+        <View style={styles.cameraContainer}>
+          <CameraView
+            style={StyleSheet.absoluteFillObject}
+            facing="back"
+            barcodeScannerSettings={{
+              barcodeTypes: ["pdf417"],
+            }}
+            onBarcodeScanned={handleBarCodeScanned}
+          />
+        </View>
+      </View>
 
-        {scanned ? (
-          <TouchableOpacity style={styles.button} onPress={() => setScanned(false)}>
-            <Text style={styles.buttonText}>Escanear otra vez</Text>
-          </TouchableOpacity>
-        ) : (
-          <Text style={{ marginTop: 8 }}>Escaneando...</Text>
-        )}
+      {/* Instructions Section */}
+      <View style={styles.instructionsSection}>
+        <View style={styles.instructionItem}>
+          <MaterialIcons name="info" size={20} color={theme.colors.primary} />
+          <Text style={styles.instructionText}>
+            Asegúrate que la cédula esté completamente visible y bien iluminada.
+          </Text>
+        </View>
+        <View style={styles.instructionItem}>
+          <MaterialIcons name="check-circle" size={20} color={theme.colors.primary} />
+          <Text style={styles.instructionText}>
+            Evita reflejos y sombras sobre el documento.
+          </Text>
+        </View>
+      </View>
+
+      {/* Action Buttons */}
+      <View style={styles.actionsSection}>
+        <TouchableOpacity 
+          style={styles.buttonSecondary} 
+          onPress={() => setScanned(false)}
+        >
+          <Text style={styles.buttonSecondaryText}>Reintentar</Text>
+        </TouchableOpacity>
       </View>
     </View>));
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  center: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  cameraContainer: {
-    flex: 1,
-  },
-  info: {
-    padding: 20,
-    backgroundColor: 'white',
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  button: {
-    marginTop: 16,
-    backgroundColor: '#007AFF',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: '600',
-  },
-});
+

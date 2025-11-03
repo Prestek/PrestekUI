@@ -1,6 +1,6 @@
-import { ParsedCedula, ScanResult, Sexo } from "@/models/scannerModels";
-import { Camera, CameraView, useCameraPermissions } from "expo-camera";
-import { useCallback, useEffect, useState, useRef } from "react";
+import { ParsedCedula, ScanResult, Gender } from "@/models/scannerModels";
+import { useCameraPermissions } from "expo-camera";
+import { useCallback, useState } from "react";
 
 
 // ---- Hook ----
@@ -50,7 +50,7 @@ function sanitizeRaw(raw: string): string {
   return cleaned.normalize("NFC");
 }
 
-function toSexo(val: string | undefined | null): Sexo | null {
+function toGender(val: string | undefined | null): Gender | null {
   if (!val) return null;
   const v = val.toUpperCase();
   return v === "M" || v === "F" ? v : null;
@@ -63,18 +63,18 @@ export function parseCedulaPdf417(raw: string | null | undefined): ParsedCedula 
 
   // 1) Sexo + Fecha: patrón como 0F20011208[HHMM]...
   //    Flag (0 o 1), sexo (M/F), fecha YYYYMMDD
-  const sexDateBlock = s.match(/\b[01]([MF])(\d{4})(\d{2})(\d{2})/);
-  const sexo = toSexo(sexDateBlock?.[1] ?? null);
-  const yyyy = sexDateBlock?.[2];
-  const mm = sexDateBlock?.[3];
-  const dd = sexDateBlock?.[4];
-  const fecha = yyyy && mm && dd ? `${yyyy}-${mm}-${dd}` : null;
+  const genderDateBlock = s.match(/\b[01]([MF])(\d{4})(\d{2})(\d{2})/);
+  const gender = toGender(genderDateBlock?.[1] ?? null);
+  const yyyy = genderDateBlock?.[2];
+  const mm = genderDateBlock?.[3];
+  const dd = genderDateBlock?.[4];
+  const date = yyyy && mm && dd ? `${yyyy}-${mm}-${dd}` : null;
 
   // 2) Documento: Buscar el número en el bloque largo que precede a los apellidos
   //    El formato es: [número largo de ~18 dígitos][APELLIDO1][APELLIDO2]...
   //    El documento está en los últimos 10 dígitos de ese número largo
   //    Ejemplo: 850275371001077841 -> el documento es 1001077841
-  let documento: string | null = null;
+  let document: string | null = null;
   
   // Buscar números largos (15-20 dígitos) que están seguidos inmediatamente por letras mayúsculas (apellidos)
   // Esto identifica el número correcto en la posición adecuada
@@ -84,19 +84,19 @@ export function parseCedulaPdf417(raw: string | null | undefined): ParsedCedula 
     const longNum = longNumberBeforeNames[1];
     // El documento está en los últimos 10 dígitos del número largo
     // 850275371001077841 -> documento: 1001077841
-    documento = longNum.slice(-10);
+    document = longNum.slice(-10);
   } else {
     // Fallback: buscar cualquier número largo de 15-20 dígitos
     const longNumberMatch = s.match(/\b(\d{15,20})\b/);
     if (longNumberMatch) {
       const longNum = longNumberMatch[1];
-      documento = longNum.slice(-10);
+      document = longNum.slice(-10);
     }
   }
 
   // Si aún no encontramos documento, buscar patrón alternativo de 8-12 dígitos
   // PERO solo si no encontramos un número largo (para evitar capturar números incorrectos)
-  if (!documento) {
+  if (!document) {
     // Buscar números de 8-12 dígitos que NO empiecen con 0
     // Esto evita capturar números de referencia incorrectos como 0369358580
     const allMatches = s.match(/\b([1-9]\d{7,11})\b/g);
@@ -105,14 +105,14 @@ export function parseCedulaPdf417(raw: string | null | undefined): ParsedCedula 
       const validDocs = allMatches.filter(m => m.length >= 8 && m.length <= 12);
       if (validDocs.length > 0) {
         // Preferir números de 10 dígitos (formato estándar de cédula colombiana)
-        documento = validDocs.find(m => m.length === 10) || validDocs[0];
+        document = validDocs.find(m => m.length === 10) || validDocs[0];
       }
     }
   }
 
   // Normalizar el documento: quitar ceros iniciales (ej: 0060357381 -> 60357381)
-  if (documento) {
-    documento = documento.replace(/^0+/, '') || documento;
+  if (document) {
+    document = document.replace(/^0+/, '') || document;
   }
 
   // 3) Nombres y Apellidos:
@@ -121,16 +121,16 @@ export function parseCedulaPdf417(raw: string | null | undefined): ParsedCedula 
   const pattern = /\d{15,20}\s*([A-ZÁÉÍÓÚÑ]+)\s+([A-ZÁÉÍÓÚÑ]+)\s+([A-ZÁÉÍÓÚÑ]+)\s+([A-ZÁÉÍÓÚÑ]+)\s+[01][MF]\d{8}/;
   const nameMatch = s.match(pattern);
   
-  let apellidos: string | null = null;
-  let nombres: string | null = null;
+  let lastName: string | null = null;
+  let name: string | null = null;
 
   if (nameMatch) {
     // nameMatch[1] = primer apellido
     // nameMatch[2] = segundo apellido  
     // nameMatch[3] = primer nombre
     // nameMatch[4] = segundo nombre
-    apellidos = `${nameMatch[1]} ${nameMatch[2]}`;
-    nombres = `${nameMatch[3]} ${nameMatch[4]}`;
+    lastName = `${nameMatch[1]} ${nameMatch[2]}`;
+    name = `${nameMatch[3]} ${nameMatch[4]}`;
   } else {
     // Fallback: buscar palabras en mayúsculas excluyendo tokens conocidos
     const skipTokens = new Set(["PUBDSK", "PUBDSK_1", "PubDSK", "DSK"]);
@@ -143,28 +143,21 @@ export function parseCedulaPdf417(raw: string | null | undefined): ParsedCedula 
     );
 
     if (humans.length >= 4) {
-      apellidos = `${humans[0]} ${humans[1]}`;
-      nombres = `${humans[2]} ${humans[3]}`;
+      lastName = `${humans[0]} ${humans[1]}`;
+      name = `${humans[2]} ${humans[3]}`;
     } else if (humans.length === 3) {
-      apellidos = `${humans[0]} ${humans[1]}`;
-      nombres = humans[2];
+      lastName = `${humans[0]} ${humans[1]}`;
+      name = humans[2];
     } else if (humans.length === 2) {
-      apellidos = humans[0];
-      nombres = humans[1];
+      lastName = humans[0];
+      name = humans[1];
     }
   }
 
-  // 4) Nacionalidad
-  const nacMatch = s.match(/\b(COLOMBIANA|COLOMBIANO|COLOMBIA)\b/i);
-  const nacionalidad = nacMatch ? nacMatch[1].toUpperCase() : null;
-
   return {
-    documento,
-    nombres,
-    apellidos,
-    fecha,
-    sexo,
-    nacionalidad,
-    raw: s,
+    document,
+    name,
+    lastName,
+    date
   };
 }

@@ -15,7 +15,7 @@ export const LightScheme = {
   onError: "rgb(255, 255, 255)",
   errorContainer: "rgb(255, 218, 214)",
   onErrorContainer: "rgb(65, 0, 2)",
-  background: "rgba(245, 254, 255, 1)", // Cambiado a blanco puro
+  background: "rgb(255, 255, 255)", // Cambiado a blanco puro
   onBackground: "rgb(27, 27, 31)",
   surface: "#FAFCFC", // Cambiado a blanco puro
   onSurface: "#757575ff",

@@ -1,7 +1,7 @@
 import { ClerkProvider } from '@clerk/clerk-expo'
 import { tokenCache } from '@clerk/clerk-expo/token-cache'
 import { Slot } from 'expo-router'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import {
   MD3LightTheme as DefaultTheme,
   MD3DarkTheme,
@@ -35,14 +35,14 @@ export default function RootLayout() {
   const styles = createAuthStyles(theme);
   return (
     <PaperProvider theme={theme}>
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <SafeAreaProvider style={{ flex: 1, backgroundColor: theme.colors.background }}>
-        <StatusBar barStyle="dark-content"/>
-        <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
-          <Slot />
-        </ClerkProvider>
+      <SafeAreaProvider>
+        <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }} edges={['bottom']}>
+          <StatusBar barStyle="dark-content"/>
+          <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
+            <Slot />
+          </ClerkProvider>
+        </SafeAreaView>
       </SafeAreaProvider>
-    </ScrollView>
     </PaperProvider>
   );
 }
