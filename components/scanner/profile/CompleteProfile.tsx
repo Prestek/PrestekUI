@@ -13,6 +13,7 @@ import { RadioButton, Surface, Text, useTheme } from "react-native-paper";
 import { Navigation } from "@/components/Navigation";
 import { createHomeStyles } from "@/assets/styles/home.styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Steps } from "@/components/Steps";
 
 
 export default function CompleteProfile({ data }: { data: ParsedCedula | null }) {
@@ -75,13 +76,14 @@ export default function CompleteProfile({ data }: { data: ParsedCedula | null })
   return (
     <Navigation 
       showExit={true}
-      currentStep={2}
-      totalSteps={2}
-      stepTitle="Profile"
-      stepLabels={["Scan ID", "Profile"]}
       showElevated={true}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
+      <Steps 
+      currentStep={2}
+      totalSteps={2}
+      stepTitle="Profile"
+      stepLabels={["Scan ID", "Profile"]} />
       <View style={styles.container}>
         <View style={styles.introContainer}>
           <View style={[styles.titleContainer, styles.mainTitle]}>

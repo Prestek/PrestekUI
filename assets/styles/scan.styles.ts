@@ -32,12 +32,12 @@ export const createScanStyles = (theme: MD3Theme) =>
             paddingTop: spacing.sm,
           },
           title:{
-            fontSize: typography.sizes.lg,
+            fontSize: typography.sizes.xl,
             fontWeight: 'bold',
             color: theme.colors.secondary,
           },
           subtitle: {
-            fontSize: typography.sizes.sm,
+            fontSize: typography.sizes.md,
             color: theme.colors.onSecondary,
           },
           cameraWrapper: {

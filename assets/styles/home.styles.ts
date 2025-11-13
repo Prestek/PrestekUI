@@ -490,6 +490,7 @@ export const createHomeStyles = (theme: MD3Theme) =>
     titleContainer: {
       flexDirection: "row",
       gap: spacing.sm,
+      marginBottom: spacing.md,
     },
     mainTitle:{
       alignItems: "center",

@@ -20,12 +20,13 @@ export default function WarningScanner() {
 
     return (
         <View style={styles.container}>
+            
             <View style={styles.warningContainer}>
                 <View style={styles.contentContainer}>
                     {/* Header Section */}
                     <View style={styles.headerSection}>
                         <Text style={styles.title}>ID card capture</Text>
-                        <Text style={styles.subtitle}>Take a clear photo of the back side of your ID card</Text>
+                        <Text style={styles.subtitle}>Scan the back side of your ID card</Text>
                     </View>
                     <View style={styles.center}>
                         <LottieView
