@@ -23,20 +23,22 @@ export default function SignInScreen() {
 
   return (
     <AuthLayout>
-      <EmailPasswordForm
-        email={email}
-        password={password}
-        onEmailChange={setEmail}
-        onPasswordChange={setPassword}
-        onSubmit={() => handleSignIn(email, password)}
-        submitLabel={loading ? "Signing in..." : "Continue"}
-        loading={loading}
-      />
-      <AuthDivider />
-      <OAuthButtons onPress={handleOAuth} disabled={loading} />
-      <AuthLink href="/(auth)/sign-up" text="Sign up" disabled={loading} />
-
+      <View style={{ width: "100%" }}>
+        <EmailPasswordForm
+          email={email}
+          password={password}
+          onEmailChange={setEmail}
+          onPasswordChange={setPassword}
+          onSubmit={() => handleSignIn(email, password)}
+          submitLabel={loading ? "Signing in..." : "Continue"}
+          loading={loading}
+        />
+        <AuthDivider />
+        <OAuthButtons onPress={handleOAuth} disabled={loading} />
+        <AuthLink href="/(auth)/sign-up" text="Sign up" disabled={loading} />
+      </View>
       <TermsText />
     </AuthLayout>
   );
 }
+

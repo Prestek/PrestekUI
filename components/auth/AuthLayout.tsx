@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text } from "react-native";
 import { useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
 import { MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { AuthLayoutProps } from "@/models/authModels";
+import Logo from "../Logo";
 
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({
@@ -24,23 +25,17 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
       />
-      <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
-        <View style={styles.innerContainer}>
-          {/* Logo Section */}
-          <View style={styles.logoContainer}>
-            <MaterialIcons
-              name={icon}
-              size={60}
-              color={theme.colors.primary}
-            />
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.subtitle}>{subtitle}</Text>
-          </View>
-
-          {/* Form Section */}
-          <View style={styles.formContainer}>{children}</View>
+      <View style={styles.innerContainer}>
+        {/* Logo Section */}
+        <View style={styles.logoContainer}>
+          <Logo width={100} height={100} color={theme.colors.primary} />
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.subtitle}>{subtitle}</Text>
         </View>
-      </ScrollView>
+
+        {/* Form Section */}
+        <View style={styles.formContainer}>{children}</View>
+      </View>
     </View>
   );
 };

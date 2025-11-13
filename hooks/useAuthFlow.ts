@@ -30,8 +30,6 @@ export const useAuthFlow = () => {
         await setActive!({ session: createdSessionId });
 
         const token = await getToken({ template: "prestek-api" });
-        console.log("JWT generado (OAuth):", token);
-        Alert.alert("JWT generado (OAuth)", token ?? "Token vacío");
 
         // Pequeño delay para asegurar que la sesión esté lista
         setTimeout(() => {

@@ -1,5 +1,5 @@
 import { MD3Theme } from "react-native-paper";
-import { spacing, typography } from "./auth.styles";
+import { borderRadius, spacing, typography } from "./auth.styles";
 import { StyleSheet } from "react-native";
 
 export const createHomeStyles = (theme: MD3Theme) =>
@@ -29,19 +29,27 @@ export const createHomeStyles = (theme: MD3Theme) =>
     subtitle: {
       fontSize: typography.sizes.md,
       color: theme.colors.onSecondary,
-      marginTop: spacing.sm,
+      flex: 1,
+      flexShrink: 1,
     },
     introContainer: {
-      paddingVertical: spacing.md,
+      gap: spacing.md,
+      marginTop: spacing.md,
     },
     introTitle: {
-      fontSize: 28,
+      fontSize: typography.sizes.xl,
       fontWeight: typography.weights.bold,
       color: theme.colors.secondary,
     },
+    formTitleContainer: {
+      padding: spacing.md,
+      backgroundColor: 'rgb(255, 252, 217)',
+      borderRadius: borderRadius.lg,
+    },
     container: {
       flex: 1,
-      padding: 20,
+      backgroundColor: theme.colors.background,
+      paddingHorizontal: spacing.md,
     },
     email: {
       fontSize: 18,
@@ -401,5 +409,123 @@ export const createHomeStyles = (theme: MD3Theme) =>
       fontSize: 12,
       fontWeight: 'bold',
       color: 'white',
+    },
+    divider:{
+      width: "100%",
+      backgroundColor: theme.colors.primary,
+    },
+    formContainer: {
+      flex: 1,
+      width: "100%",
+      gap: spacing.md,
+      borderWidth: 1,
+      borderColor: theme.colors.outline,
+      borderRadius: borderRadius.lg,
+      padding: spacing.lg,
+    },
+    inputDisabled: {
+      backgroundColor: theme.colors.surfaceDisabled,
+      color: theme.colors.onSurfaceDisabled,
+    },
+    selectContainer: {
+      width: "100%",
+      backgroundColor: theme.colors.surface,
+      padding: spacing.md,
+      borderRadius: borderRadius.lg,
+      borderWidth: 1,
+      borderColor: theme.colors.outline,
+    },
+    selectLabel: {
+      fontSize: typography.sizes.md,
+      fontWeight: typography.weights.semibold,
+      color: theme.colors.primary,
+      marginBottom: spacing.xs,
+    },
+    selectOptions: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      gap: spacing.sm,
+    },
+    selectOption: {
+      paddingVertical: spacing.sm,
+      paddingHorizontal: spacing.md,
+      borderRadius: borderRadius.md,
+      borderWidth: 1,
+      borderColor: theme.colors.outline,
+      backgroundColor: theme.colors.surface,
+      fontSize: typography.sizes.sm,
+      color: theme.colors.onSurface,
+      textAlign: "center",
+      minWidth: 100,
+    },
+    selectOptionActive: {
+      backgroundColor: theme.colors.primary,
+      borderColor: theme.colors.primary,
+      color: theme.colors.surface,
+    },
+    basicInformation: {
+      width: "100%",
+      borderRadius: borderRadius.lg,
+      marginBottom: spacing.md,
+      backgroundColor: theme.colors.inverseOnSurface,
+      padding: spacing.md,
+    },
+    basicInformationTitle: {
+      fontSize: typography.sizes.lg,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.onPrimary,
+      marginBottom: spacing.sm,
+    },
+    basicInformationContentText: {
+      fontSize: typography.sizes.sm,
+      fontWeight: typography.weights.regular,
+      color: theme.colors.onPrimary,
+    },
+    basicInformationContent: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: spacing.sm,
+    },
+    titleContainer: {
+      flexDirection: "row",
+      gap: spacing.sm,
+    },
+    mainTitle:{
+      alignItems: "center",
+    },
+    formContainerWrapper: {
+      position: "relative",
+      marginTop: spacing.lg,
+    },
+    formLabel: {
+      position: "absolute",
+      top: -12,
+      left: spacing.md,
+      backgroundColor: theme.colors.background,
+      paddingHorizontal: spacing.sm,
+      fontSize: typography.sizes.md,
+      fontWeight: typography.weights.semibold,
+      color: theme.colors.primary,
+      zIndex: 1,
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.xs,
+    },
+    formButtonContainer: {
+      marginTop: spacing.lg,
+    },
+    radioContainer: {
+      gap: spacing.sm,
+    },
+    radioItem: {
+      flexDirection: "row",
+      alignItems: "center",
+      paddingVertical: spacing.xs,
+    },
+    radioLabel: {
+      fontSize: typography.sizes.md,
+      color: theme.colors.onSurface,
+      marginLeft: spacing.xs,
     },
   });

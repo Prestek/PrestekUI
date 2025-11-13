@@ -3,13 +3,15 @@ import { CameraView } from 'expo-camera';
 import { useScanner } from '@/hooks/useScanner';
 import { useEffect } from 'react';
 import CompleteProfile from './profile/CompleteProfile';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from 'react-native-paper';
 import { createScanStyles } from '@/assets/styles/scan.styles';
+import { useRouter } from 'expo-router';
 
 export default function CedulaScanner() {
   const theme = useTheme();
   const styles = createScanStyles(theme);
+  const router = useRouter();
   const { 
     hasPermission, 
     requestPermission,
@@ -51,11 +53,6 @@ export default function CedulaScanner() {
     lastData ? (<CompleteProfile data={lastData.parsed} />) : 
     (
     <View style={styles.container}>
-      {/* Header Section */}
-      <View style={styles.headerSection}>
-        <Text style={styles.title}>Captura de cedula</Text>
-        <Text style={styles.subtitle}>Toma una foto clara de la parte trase del documento de identidad</Text>
-      </View>
 
       {/* Camera Container */}
       <View style={styles.cameraWrapper}>
@@ -68,33 +65,58 @@ export default function CedulaScanner() {
             }}
             onBarcodeScanned={handleBarCodeScanned}
           />
-        </View>
-      </View>
 
-      {/* Instructions Section */}
-      <View style={styles.instructionsSection}>
-        <View style={styles.instructionItem}>
-          <MaterialIcons name="info" size={20} color={theme.colors.primary} />
-          <Text style={styles.instructionText}>
-            Asegúrate que la cédula esté completamente visible y bien iluminada.
-          </Text>
-        </View>
-        <View style={styles.instructionItem}>
-          <MaterialIcons name="check-circle" size={20} color={theme.colors.primary} />
-          <Text style={styles.instructionText}>
-            Evita reflejos y sombras sobre el documento.
-          </Text>
-        </View>
-      </View>
+          {/* Top Action Buttons */}
+          <View style={styles.topOverlay}>
+            <TouchableOpacity 
+                style={styles.topButton} 
+                onPress={() => setScanned(false)}
+              >
+                <MaterialIcons name="refresh" size={28} color={theme.colors.surface} />
+              </TouchableOpacity>
+              <TouchableOpacity 
+                style={styles.topButton} 
+                onPress={() => router.back()}
+              >
+                <MaterialIcons name="close" size={28} color={theme.colors.surface} />
+              </TouchableOpacity>
+          </View>
 
-      {/* Action Buttons */}
-      <View style={styles.actionsSection}>
-        <TouchableOpacity 
-          style={styles.buttonSecondary} 
-          onPress={() => setScanned(false)}
-        >
-          <Text style={styles.buttonSecondaryText}>Reintentar</Text>
-        </TouchableOpacity>
+          {/* Document Silhouette Overlay */}
+          <View style={[StyleSheet.absoluteFillObject, styles.silhouetteOverlay]}>
+            <View style={styles.dashedBorder}>
+              <Text style={styles.silhouetteText}>Place your ID card here</Text>
+            </View>
+          </View>
+
+          {/* Floating Instructions */}
+          <View style={styles.bottomOverlay}>
+            <View style={styles.bottomPanel}>
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator animating={true} color={theme.colors.primary} />
+                  <Text style={styles.instructionText}>
+                    Scanning document...
+                  </Text>
+              </View>
+              <View style={styles.instructionSectionCamera}>
+                <View style={styles.instructionItem}>
+                  <MaterialIcons name="info" size={20} color={theme.colors.primary} />
+                  <Text style={styles.instructionText}>
+                      Make sure the ID card is fully visible and well lit
+                  </Text>
+                </View>
+                <View style={styles.instructionItem}>
+                  <MaterialIcons name="check-circle" size={20} color={theme.colors.primary} />
+                  <Text style={styles.instructionText}>
+                    Avoid reflections and shadows on the document
+                  </Text>
+                </View>
+              </View>
+            
+
+            </View>
+          </View>
+        </View>
       </View>
     </View>));
 }

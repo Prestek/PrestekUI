@@ -4,17 +4,15 @@ import { MaterialIcons } from "@expo/vector-icons"
 import { View } from "react-native";
 import { Text, useTheme } from "react-native-paper"
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ChildrenProps } from "@/models/childrenModel";
 
-interface TopLayoutProps {
-  children: React.ReactNode;
-}
 
-export const TopBar: React.FC<TopLayoutProps> = ({ children }) => {
+export const TopBar: React.FC<ChildrenProps> = ({ children }) => {
     const theme = useTheme();
     const styles = createHomeStyles(theme);
     const authStyles = createAuthStyles(theme);
     return(
-        <SafeAreaView style={[authStyles.container, { flex: 1 }]}>
+        <View style={[authStyles.container, { flex: 1 }]}>
             <View style={styles.introContainer}>
                 <View style={styles.logoContainer}>
                     <MaterialIcons
@@ -28,6 +26,6 @@ export const TopBar: React.FC<TopLayoutProps> = ({ children }) => {
                 <Text style={styles.subtitle}>To offer you the best loans, we need to know you better</Text>
             </View>
             {children}
-        </SafeAreaView>
+        </View>
     );
 }

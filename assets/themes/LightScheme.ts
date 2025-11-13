@@ -1,6 +1,6 @@
 export const LightScheme = {
   primary: "rgba(51, 159, 173, 1)",
-  onPrimary: "rgba(168, 176, 177, 1)",
+  onPrimary: "rgb(33, 116, 128)",
   primaryContainer: "rgb(223, 224, 255)",
   onPrimaryContainer: "rgb(0, 13, 95)",
   secondary: "rgba(0, 0, 0, 1)",
@@ -15,18 +15,18 @@ export const LightScheme = {
   onError: "rgb(255, 255, 255)",
   errorContainer: "rgb(255, 218, 214)",
   onErrorContainer: "rgb(65, 0, 2)",
-  background: "rgb(255, 255, 255)", // Cambiado a blanco puro
-  onBackground: "rgb(27, 27, 31)",
-  surface: "#FAFCFC", // Cambiado a blanco puro
+  background: "rgb(255, 255, 255)", 
+  onBackground: "rgb(119, 200, 211)",
+  surface: "#FAFCFC", 
   onSurface: "#757575ff",
   surfaceVariant: "#fcffffff",
   onSurfaceVariant: "rgba(95, 95, 95, 1)",
   outline: "rgba(95, 159, 170, 0.2)",
-  outlineVariant: "rgb(199, 197, 208)",
+  outlineVariant: "rgb(227, 230, 233)",
   shadow: "rgb(0, 0, 0)",
   scrim: "rgb(0, 0, 0)",
-  inverseSurface: "rgb(48, 48, 52)",
-  inverseOnSurface: "rgb(243, 240, 244)",
+  inverseSurface: "rgba(51, 159, 173, 0.25)",
+  inverseOnSurface: "rgba(51, 159, 173, 0.1)",
   inversePrimary: "rgba(255, 255, 255, 1)",
   elevation: {
     level0: "transparent",

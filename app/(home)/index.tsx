@@ -1,7 +1,7 @@
 import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo'
 import { Link } from 'expo-router'
 import { Text, View, StyleSheet, ScrollView } from 'react-native'
-import { SignOutButton } from '@/components/SignOutButton'
+import { SignOutButton } from '@/components/auth/SignOutButton'
 import { useCheckUserExists } from '@/hooks/useEmailAuth';
 import { useTheme } from 'react-native-paper';
 import { createHomeStyles } from '@/assets/styles/home.styles';

@@ -6,7 +6,7 @@ import { History } from "./History";
 import { Progress } from "./Progress";
 import { NextPayment } from "./NextPayment";
 import { UserHeader } from "./UserHeader";
-import { SignOutButton } from "@/components/SignOutButton";
+import { SignOutButton } from "@/components/auth/SignOutButton";
 
 
 

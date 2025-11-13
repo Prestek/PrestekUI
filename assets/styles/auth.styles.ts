@@ -9,8 +9,8 @@ export const createAuthStyles = (theme: MD3Theme) =>
     // Containers
     container: {
       flex: 1,
-      paddingHorizontal: spacing.lg,
       backgroundColor: theme.colors.background,
+      padding: spacing.md,
     },
     gradient: {
       position: "absolute",
@@ -22,40 +22,36 @@ export const createAuthStyles = (theme: MD3Theme) =>
     scrollContainer: {
       flexGrow: 1,
     },
+    introTitle: {
+      fontSize: typography.sizes.xl,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.secondary,
+    },
     logoContainer: {
-      paddingTop: spacing.xl,
-      paddingBottom: spacing.lg,
+      paddingTop: (spacing as any)["2xl"],
       alignItems: "center",
       justifyContent: "center",
-      minHeight: 200,
+      flexShrink: 1,
     },
-    formContainer: {
-      width: "100%",
-      alignItems: "center",
-      paddingBottom: spacing.sm,
-    },
-
     // Typography
     title: {
-      fontSize: 28,
+      fontSize: 24,
       fontWeight: typography.weights.bold,
       marginTop: spacing.xs,
       textAlign: "center",
       color: theme.colors.primary,
     },
     subtitle: {
-      fontSize: typography.sizes.md,
+      fontSize: typography.sizes.sm,
       color: theme.colors.onSecondary,
-      marginTop: spacing.sm,
+      marginTop: spacing.xs,
       opacity: 0.9,
-      textAlign: "center",
-      paddingHorizontal: spacing.lg,
     },
 
     // OAuth
     oauthContainer: {
       width: "100%",
-      marginBottom: spacing.sm,
+      marginBottom: spacing.xs,
     },
     oauthButton: {
       flexDirection: "row",
@@ -87,7 +83,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
     divider: {
       flexDirection: "row",
       alignItems: "center",
-      marginVertical: spacing.md,
+      marginVertical: spacing.sm,
     },
     dividerLine: {
       flex: 1,
@@ -126,10 +122,6 @@ export const createAuthStyles = (theme: MD3Theme) =>
     inputWithRightIcon: {
       paddingRight: spacing.xxl,
     },
-    inputDisabled: {
-      backgroundColor: theme.colors.surfaceDisabled,
-      color: theme.colors.onSurfaceDisabled,
-    },
     iconLeft: {
       position: "absolute",
       left: spacing.md,
@@ -152,7 +144,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
       paddingHorizontal: spacing.md,
       borderRadius: borderRadius.lg,
       alignItems: "center",
-      marginTop: spacing.md,
+      marginTop: spacing.sm,
       width: "100%",
     },
     buttonDisabled: {
@@ -171,8 +163,8 @@ export const createAuthStyles = (theme: MD3Theme) =>
     linkContainer: {
       flexDirection: "row",
       justifyContent: "center",
-      marginTop: spacing.md,
-      marginBottom: spacing.md,
+      marginTop: spacing.sm,
+      marginBottom: spacing.xs,
     },
     linkText: {
       color: theme.colors.onSurfaceVariant,
@@ -193,7 +185,10 @@ export const createAuthStyles = (theme: MD3Theme) =>
       fontSize: typography.sizes.xs,
       textAlign: "center",
       marginTop: spacing.sm,
+      marginBottom: spacing.sm,
+      paddingHorizontal: spacing.md,
       opacity: 0.7,
+      flexShrink: 0,
     },
 
     // Error
@@ -207,40 +202,6 @@ export const createAuthStyles = (theme: MD3Theme) =>
       color: theme.colors.onErrorContainer,
       fontSize: typography.sizes.sm,
       textAlign: "center",
-    },
-
-    // Profile form
-    selectContainer: {
-      width: "100%",
-      marginBottom: spacing.md,
-    },
-    selectLabel: {
-      fontSize: typography.sizes.md,
-      fontWeight: typography.weights.semibold,
-      color: theme.colors.primary,
-      marginBottom: spacing.sm,
-    },
-    selectOptions: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-      gap: spacing.sm,
-    },
-    selectOption: {
-      paddingVertical: spacing.sm,
-      paddingHorizontal: spacing.md,
-      borderRadius: borderRadius.md,
-      borderWidth: 1,
-      borderColor: theme.colors.outline,
-      backgroundColor: theme.colors.surface,
-      fontSize: typography.sizes.sm,
-      color: theme.colors.onSurface,
-      textAlign: "center",
-      minWidth: 100,
-    },
-    selectOptionActive: {
-      backgroundColor: theme.colors.primary,
-      borderColor: theme.colors.primary,
-      color: theme.colors.surface,
     },
     buttonOut: {
       backgroundColor: theme.colors.error,
@@ -285,7 +246,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
       alignItems: "center",
     },
     innerContainer: {
-      flexGrow: 1,
-      justifyContent: "center",
+      flex: 1,
+      justifyContent: "space-between",
     },
   });
