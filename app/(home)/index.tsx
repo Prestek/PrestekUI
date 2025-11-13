@@ -8,6 +8,7 @@ import { createHomeStyles } from '@/assets/styles/home.styles';
 import { ResumeLayout } from '@/components/home/Resume/ResumeLayout';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createAuthStyles } from '@/assets/styles/auth.styles';
+import { AppText } from '@/components/AppText';
 
 export default function HomePage() {
   const { user } = useUser();
@@ -19,7 +20,7 @@ export default function HomePage() {
   if (isChecking) {
     return (
       <View style={[styles.container, { backgroundColor: theme.colors.background, justifyContent: 'center' }]}>
-        <Text style={[styles.title, { color: theme.colors.onBackground }]}>Verificando perfil...</Text>
+        <AppText style={[styles.title, { color: theme.colors.onBackground }]}>Verificando perfil...</AppText>
       </View>
     );
   }
@@ -31,13 +32,13 @@ export default function HomePage() {
           <ResumeLayout />
         </SignedIn>
         <SignedOut>
-          <Text style={[styles.title, { color: theme.colors.onBackground }]}>You are signed out</Text>
+          <AppText style={[styles.title, { color: theme.colors.onBackground }]}>You are signed out</AppText>
           <View style={styles.linkContainer}>
             <Link href="/(auth)/sign-in" style={[styles.link, { backgroundColor: theme.colors.primary }]}>
-              <Text style={styles.linkText}>Sign in</Text>
+              <AppText style={styles.linkText}>Sign in</AppText>
             </Link>
             <Link href="/(auth)/sign-up" style={[styles.link, { backgroundColor: theme.colors.primary }]}>
-              <Text style={styles.linkText}>Sign up</Text>
+              <AppText style={styles.linkText}>Sign up</AppText>
             </Link>
             </View>
           </SignedOut>

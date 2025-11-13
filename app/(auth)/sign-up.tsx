@@ -39,7 +39,7 @@ export default function SignUpScreen() {
 
   // Sign up screen
   return (
-    <AuthLayout subtitle="Register to enjoy the best loans management platform">
+    <AuthLayout introTitle="Create your account">
 
       <EmailPasswordForm
         email={email}
@@ -57,7 +57,6 @@ export default function SignUpScreen() {
 
       <AuthLink href="/(auth)/sign-in" text="Sign in" disabled={loading} title="Already have an account?" />
 
-      <TermsText />
     </AuthLayout>
   );
 }

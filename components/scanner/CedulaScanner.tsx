@@ -7,6 +7,7 @@ import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from 'react-native-paper';
 import { createScanStyles } from '@/assets/styles/scan.styles';
 import { useRouter } from 'expo-router';
+import { AppText } from '@/components/AppText';
 
 export default function CedulaScanner() {
   const theme = useTheme();
@@ -31,7 +32,7 @@ export default function CedulaScanner() {
     return (
       <View style={styles.center}>
         <ActivityIndicator />
-        <Text>Pidiendo permiso para usar la cámara...</Text>
+        <AppText>Pidiendo permiso para usar la cámara...</AppText>
       </View>
     );
   }
@@ -39,11 +40,11 @@ export default function CedulaScanner() {
   if (hasPermission === false) {
     return (
       <View style={styles.center}>
-        <Text style={{ marginBottom: 16 }}>
+        <AppText style={{ marginBottom: 16 }}>
           No se otorgó permiso a la cámara.
-        </Text>
+        </AppText>
         <TouchableOpacity style={styles.button} onPress={requestPermission}>
-          <Text style={styles.buttonText}>Solicitar permiso</Text>
+          <AppText style={styles.buttonText}>Solicitar permiso</AppText>
         </TouchableOpacity>
       </View>
     );
@@ -85,7 +86,7 @@ export default function CedulaScanner() {
           {/* Document Silhouette Overlay */}
           <View style={[StyleSheet.absoluteFillObject, styles.silhouetteOverlay]}>
             <View style={styles.dashedBorder}>
-              <Text style={styles.silhouetteText}>Place your ID card here</Text>
+              <AppText style={styles.silhouetteText}>Place your ID card here</AppText>
             </View>
           </View>
 
@@ -94,22 +95,22 @@ export default function CedulaScanner() {
             <View style={styles.bottomPanel}>
             <View style={styles.loadingContainer}>
                 <ActivityIndicator animating={true} color={theme.colors.primary} />
-                  <Text style={styles.instructionText}>
+                  <AppText style={styles.instructionText}>
                     Scanning document...
-                  </Text>
+                  </AppText>
               </View>
               <View style={styles.instructionSectionCamera}>
                 <View style={styles.instructionItem}>
                   <MaterialIcons name="info" size={20} color={theme.colors.primary} />
-                  <Text style={styles.instructionText}>
+                  <AppText style={styles.instructionText}>
                       Make sure the ID card is fully visible and well lit
-                  </Text>
+                  </AppText>
                 </View>
                 <View style={styles.instructionItem}>
                   <MaterialIcons name="check-circle" size={20} color={theme.colors.primary} />
-                  <Text style={styles.instructionText}>
+                  <AppText style={styles.instructionText}>
                     Avoid reflections and shadows on the document
-                  </Text>
+                  </AppText>
                 </View>
               </View>
             

@@ -24,6 +24,8 @@ export const borderRadius = {
 }
 
 export const typography = {
+  fontFamily: 'Mulish-Regular',
+  fontFamilyBold: 'Mulish-Bold',
   sizes: {
     xs: 12,
     sm: 14,

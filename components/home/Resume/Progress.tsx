@@ -2,6 +2,7 @@ import { createHomeStyles } from "@/assets/styles/home.styles";
 import { CreditProps } from "@/models/creditModels";
 import { View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
+import { AppText } from "@/components/AppText";
 
 
 export const Progress: React.FC<CreditProps> = ({loan}) => {
@@ -11,22 +12,22 @@ export const Progress: React.FC<CreditProps> = ({loan}) => {
     return (
         <View style={styles.progressSection}>
             <View style={styles.itemsHorizontal}>
-                <Text style={[styles.progressTitle, { color: theme.colors.onBackground }]}>Progreso</Text>
-                <Text style={[styles.progressPercentage, { color: theme.colors.onBackground }]}>
+                <AppText style={[styles.progressTitle, { color: theme.colors.onBackground }]}>Progreso</AppText>
+                <AppText style={[styles.progressPercentage, { color: theme.colors.onBackground }]}>
                         {loan.progressPercentage}%
-                    </Text>
+                    </AppText>
             </View>
             <View style={styles.progressBar}>
                     <View style={[styles.progressFill, { width: `${loan.progressPercentage}%`, backgroundColor: theme.colors.primary }]} />
                 </View>
                 <View style={styles.progressInfo}>
                     
-                    <Text style={[styles.progressPaid, { color: theme.colors.onBackground }]}>
+                    <AppText style={[styles.progressPaid, { color: theme.colors.onBackground }]}>
                         Pagado: ${loan.paidAmount.toLocaleString('es-ES', { minimumFractionDigits: 2 })}
-                    </Text>
-                    <Text style={[styles.progressRemaining, { color: theme.colors.onBackground }]}>
+                    </AppText>
+                    <AppText style={[styles.progressRemaining, { color: theme.colors.onBackground }]}>
                         Restante: ${loan.remainingAmount.toLocaleString('es-ES', { minimumFractionDigits: 2 })}
-                    </Text>
+                    </AppText>
                 </View>
             </View>
     );

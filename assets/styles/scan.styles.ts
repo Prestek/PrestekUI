@@ -18,6 +18,7 @@ export const createScanStyles = (theme: MD3Theme) =>
           appbarTitle: {
             fontSize: 20,
             fontWeight: 'bold',
+            
             color: theme.colors.primary,
           },
           center: {
@@ -33,11 +34,13 @@ export const createScanStyles = (theme: MD3Theme) =>
           },
           title:{
             fontSize: typography.sizes.xl,
-            fontWeight: 'bold',
+            fontWeight: 'bold',    
             color: theme.colors.secondary,
+            fontFamily: typography.fontFamilyBold,
           },
           subtitle: {
             fontSize: typography.sizes.md,
+            
             color: theme.colors.onSecondary,
           },
           cameraWrapper: {
@@ -104,6 +107,7 @@ export const createScanStyles = (theme: MD3Theme) =>
             color: 'rgba(255, 255, 255, 0.9)',
             fontSize: typography.sizes.md,
             fontWeight: '600',
+            
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
             paddingHorizontal: spacing.md,
             paddingVertical: spacing.sm,
@@ -125,7 +129,8 @@ export const createScanStyles = (theme: MD3Theme) =>
           instructionText: {
             flex: 1,
             fontSize: typography.sizes.sm,
-            color: theme.colors.surface,
+            
+            color: theme.colors.inversePrimary,
             lineHeight: 20,
           },
           actionsSection: {
@@ -146,10 +151,11 @@ export const createScanStyles = (theme: MD3Theme) =>
             color: 'white',
             fontSize: 16,
             fontWeight: '600',
+            
           },
 
           button: {
-            marginTop: spacing.lg,
+            marginVertical: spacing.lg,
             borderRadius: borderRadius.lg,
             alignItems: 'center',
             justifyContent: 'center',
@@ -162,12 +168,14 @@ export const createScanStyles = (theme: MD3Theme) =>
           buttonLabelStyle: {
             fontSize: typography.sizes.md,
             fontWeight: '600',
+            
             lineHeight: 24,
             textAlign: 'center',
           },
           buttonText: {
             color: 'white',
             fontWeight: '600',
+            
           },
           contentContainer: {
             flex: 1,

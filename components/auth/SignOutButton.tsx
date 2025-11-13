@@ -1,8 +1,9 @@
 import { createAuthStyles } from '@/assets/styles/auth.styles'
 import { useClerk } from '@clerk/clerk-expo'
 import { useRouter } from 'expo-router'
-import { Text, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { useTheme } from 'react-native-paper'
+import { AppText } from '../AppText';
 
 export const SignOutButton: React.FC<{text?: string}> = ({text = 'Sign Out'}) => {
   const { signOut } = useClerk()
@@ -22,7 +23,7 @@ export const SignOutButton: React.FC<{text?: string}> = ({text = 'Sign Out'}) =>
 
   return (
     <TouchableOpacity onPress={handleSignOut} style={styles.buttonOut}>
-      <Text style={styles.buttonText}>{text || "Sign Out"}</Text>
+      <AppText style={styles.buttonText}>{text || "Sign Out"}</AppText>
     </TouchableOpacity>
   )
 }

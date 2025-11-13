@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
 import { AuthDividerProps } from "@/models/authModels";
+import { AppText } from "../AppText";
 
 
 export const AuthDivider: React.FC<AuthDividerProps> = ({ text = "OR" }) => {
@@ -12,7 +13,7 @@ export const AuthDivider: React.FC<AuthDividerProps> = ({ text = "OR" }) => {
   return (
     <View style={styles.divider}>
       <View style={styles.dividerLine} />
-      <Text style={styles.dividerText}>{text}</Text>
+      <AppText style={styles.dividerText}>{text}</AppText>
       <View style={styles.dividerLine} />
     </View>
   );

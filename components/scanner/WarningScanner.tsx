@@ -6,6 +6,7 @@ import { Image } from "react-native";
 import { useFocusEffect, useRouter } from "expo-router";
 import LottieView from "lottie-react-native";
 import React, { useRef } from "react";
+import { AppText } from "@/components/AppText";
 
 
 export default function WarningScanner() {
@@ -25,8 +26,8 @@ export default function WarningScanner() {
                 <View style={styles.contentContainer}>
                     {/* Header Section */}
                     <View style={styles.headerSection}>
-                        <Text style={styles.title}>ID card capture</Text>
-                        <Text style={styles.subtitle}>Scan the back side of your ID card</Text>
+                        <AppText style={styles.title}>ID card capture</AppText>
+                        <AppText style={styles.subtitle}>Scan the back side of your ID card</AppText>
                     </View>
                     <View style={styles.center}>
                         <LottieView
@@ -39,28 +40,22 @@ export default function WarningScanner() {
                     <View style={styles.instructionsSection}>
                         <View style={styles.instructionItemContainer}>
                             <View style={styles.instructionItem}>
-                                <MaterialIcons name="lightbulb" size={20} color={theme.colors.surface} />
-                                <Text style={styles.instructionText}>
+                                <MaterialIcons name="lightbulb" size={20} color={theme.colors.inversePrimary} />
+                                <AppText style={styles.instructionText}>
                                     Find a place with good lighting
-                                </Text>
+                                </AppText>
                             </View>
                             <View style={styles.instructionItem}>
-                                <MaterialIcons name="check" size={20} color={theme.colors.surface} />
-                                <Text style={styles.instructionText}>
+                                <MaterialIcons name="check" size={20} color={theme.colors.inversePrimary} />
+                                <AppText style={styles.instructionText}>
                                     Ensure the ID card is completely visible and well lit.
-                                </Text>
+                                </AppText>
                             </View>
                             <View style={styles.instructionItem}>
-                                <MaterialIcons name="block" size={20} color={theme.colors.surface} />
-                                <Text style={styles.instructionText}>
+                                <MaterialIcons name="block" size={20} color={theme.colors.inversePrimary} />
+                                <AppText style={styles.instructionText}>
                                     Avoid reflections and shadows on the document.
-                                </Text>
-                            </View>
-                            <View style={styles.instructionItem}>
-                                <MaterialIcons name="info" size={20} color={theme.colors.surface} />
-                                <Text style={styles.instructionText}>
-                                    Place the document on a flat, dark surface.
-                                </Text>
+                                </AppText>
                             </View>
                         </View>
                     </View>
@@ -70,9 +65,9 @@ export default function WarningScanner() {
                     onPress={handleContinue}
                     style={[styles.buttonWarning, styles.button, styles.fullWidthButton]}
                 >
-                    <Text style={[styles.buttonLabelStyle, { color: theme.colors.primary }]}>
+                    <AppText style={[styles.buttonLabelStyle, { color: theme.colors.primary }]}>
                         Continue
-                    </Text>
+                    </AppText>
                 </TouchableOpacity>
             </View>
         </View>

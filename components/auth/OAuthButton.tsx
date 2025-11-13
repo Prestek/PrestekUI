@@ -4,6 +4,7 @@ import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import { useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
 import { OAuthButtonProps } from "@/models/authModels";
+import { AppText } from "../AppText";
 
 
 const PROVIDER_CONFIG = {
@@ -50,9 +51,9 @@ export const OAuthButton: React.FC<OAuthButtonProps> = ({
         color={config.color}
         style={styles.oauthIcon}
       />
-      <Text style={styles.oauthButtonText}>
+     <AppText style={styles.oauthButtonText}>
         Continue with {config.label}
-      </Text>
+      </AppText>
     </TouchableOpacity>
   );
 };

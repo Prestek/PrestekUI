@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { TextInput, TextInputProps, useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
 import { AuthInputProps } from "@/models/authModels";
+import { spacing } from "@/assets/styles/theme";
 
 
 export const AuthInput: React.FC<AuthInputProps> = ({
@@ -62,7 +63,7 @@ export const AuthInput: React.FC<AuthInputProps> = ({
 
   const inputTheme = {
     ...theme,
-    roundness: 16,
+    roundness: spacing.lg,
     colors: {
       ...theme.colors,
       background: theme.colors.surface,
@@ -73,12 +74,14 @@ export const AuthInput: React.FC<AuthInputProps> = ({
     <View style={[styles.inputContainer]}>
       <TextInput
         mode="outlined"
-        style={[styles.input, disabled && styles.inputDisabled, style]}
+        style={[styles.input, style]}
+        activeOutlineColor={theme.colors.primary}
+        outlineColor="transparent"
         theme={inputTheme}
+        outlineStyle={{ backgroundColor: theme.colors.surfaceVariant }}
         disabled={disabled}
         error={false}
         label={label}
-        outlineStyle={{ borderRadius: 12 }}
         secureTextEntry={secureTextEntry && !isPasswordVisible}
         {...getIconProps()}
         {...props}

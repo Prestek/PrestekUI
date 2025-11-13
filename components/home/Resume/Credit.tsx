@@ -1,7 +1,8 @@
 import { createHomeStyles } from "@/assets/styles/home.styles";
 import { CreditProps } from "@/models/creditModels";
 import { View } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
+import { AppText } from "@/components/AppText";
 
 
 export const Credit: React.FC<CreditProps> = ({loan}) => {
@@ -13,27 +14,27 @@ export const Credit: React.FC<CreditProps> = ({loan}) => {
                     {/* Bank Info */}
                     <View style={styles.itemsHorizontal}>
                         <View>
-                            <Text style={[styles.bankLabel, { color: theme.colors.onSurface }]}>Préstamo con</Text>
-                            <Text style={[styles.bankName, { color: theme.colors.onBackground }]}>{loan.bank}</Text>
+                         <AppText style={[styles.bankLabel, { color: theme.colors.onSurface }]}>Préstamo con</AppText>
+                            <AppText style={[styles.bankName, { color: theme.colors.onBackground }]}>{loan.bank}</AppText>
                         </View>
                         <View style={styles.bankLogo}>
-                            <Text style={styles.logoText}>H</Text>
+                            <AppText style={styles.logoText}>H</AppText>
                         </View>
                     </View>
 
                     {/* Amount Section */}
                     <View style={styles.itemsHorizontal}>
                     <View style={styles.amountSection}>
-                        <Text style={[styles.amountLabel, { color: theme.colors.onSurface }]}>Monto total</Text>
-                        <Text style={[styles.amountValue, { color: theme.colors.onBackground }]}>
+                        <AppText style={[styles.amountLabel, { color: theme.colors.onSurface }]}>Monto total</AppText>
+                        <AppText style={[styles.amountValue, { color: theme.colors.onBackground }]}>
                             ${loan.totalAmount.toLocaleString('es-ES', { minimumFractionDigits: 2 })}
-                        </Text>  
+                        </AppText>  
                     </View>
                     <View style={styles.interestInfo}>
-                    <Text style={[styles.amountLabel, { color: theme.colors.onSurface }]}>Tasa anual</Text>
-                            <Text style={[styles.amountValue, { color: theme.colors.onBackground }]}>
+                    <AppText style={[styles.amountLabel, { color: theme.colors.onSurface }]}>Tasa anual</AppText>
+                            <AppText style={[styles.amountValue, { color: theme.colors.onBackground }]}>
                                 {loan.interestRate}%
-                            </Text>
+                            </AppText>
                         </View>
                         </View>
 
@@ -41,12 +42,12 @@ export const Credit: React.FC<CreditProps> = ({loan}) => {
                     {/* Dates Section */}
                     <View style={styles.itemsHorizontal}>
                         <View style={styles.dateItem}>
-                            <Text style={[styles.dateLabel, { color: theme.colors.onSurface }]}>Fecha de inicio</Text>
-                            <Text style={[styles.dateValue, { color: theme.colors.onBackground }]}>{loan.startDate}</Text>
+                            <AppText style={[styles.dateLabel, { color: theme.colors.onSurface }]}>Fecha de inicio</AppText>
+                            <AppText style={[styles.dateValue, { color: theme.colors.onBackground }]}>{loan.startDate}</AppText>
                         </View>
                         <View style={[styles.dateItem, styles.dateItemLeft]}>
-                            <Text style={[styles.dateLabel, { color: theme.colors.onSurface }]}>Fecha de término</Text>
-                            <Text style={[styles.dateValue, { color: theme.colors.onBackground }]}>{loan.endDate}</Text>
+                            <AppText style={[styles.dateLabel, { color: theme.colors.onSurface }]}>Fecha de término</AppText>
+                            <AppText style={[styles.dateValue, { color: theme.colors.onBackground }]}>{loan.endDate}</AppText>
                         </View>
                     </View>
                 </View>

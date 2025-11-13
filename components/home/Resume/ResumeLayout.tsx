@@ -7,6 +7,7 @@ import { Progress } from "./Progress";
 import { NextPayment } from "./NextPayment";
 import { UserHeader } from "./UserHeader";
 import { SignOutButton } from "@/components/auth/SignOutButton";
+import { AppText } from "@/components/AppText";
 
 
 
@@ -39,14 +40,14 @@ export const ResumeLayout = () => {
             <UserHeader />
             
             <View style={styles.header}>
-                <Text style={[styles.headerTitle, { color: theme.colors.onBackground }]}>Tu Crédito Actual</Text>
+                <AppText style={[styles.headerTitle, { color: theme.colors.onBackground }]}>Tu Crédito Actual</AppText>
                 <View style={styles.headerIcon}>
-                    <Text style={styles.iconText}>★</Text>
+                    <AppText style={styles.iconText}>★</AppText>
                 </View>
             </View>
-            <Text style={[styles.headerSubtitle, { color: theme.colors.onSurface }]}>
+            <AppText style={[styles.headerSubtitle, { color: theme.colors.onSurface }]}>
                 Información detallada de tu préstamo activo
-            </Text>
+            </AppText>
 
             <Credit loan = {loanData}/>
 

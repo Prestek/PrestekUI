@@ -9,8 +9,8 @@ export const createAuthStyles = (theme: MD3Theme) =>
     // Containers
     container: {
       flex: 1,
-      backgroundColor: theme.colors.background,
-      padding: spacing.md,
+      backgroundColor: theme.colors.primary,
+      paddingTop: spacing.lg,
     },
     gradient: {
       position: "absolute",
@@ -25,47 +25,42 @@ export const createAuthStyles = (theme: MD3Theme) =>
     introTitle: {
       fontSize: typography.sizes.xl,
       fontWeight: typography.weights.bold,
+      fontFamily: typography.fontFamilyBold,
       color: theme.colors.secondary,
     },
     logoContainer: {
-      paddingTop: (spacing as any)["2xl"],
+      flexDirection: "row",
+      gap: spacing.md,
       alignItems: "center",
-      justifyContent: "center",
-      flexShrink: 1,
     },
     // Typography
     title: {
-      fontSize: 24,
+      fontSize: typography.sizes.xl,
       fontWeight: typography.weights.bold,
-      marginTop: spacing.xs,
-      textAlign: "center",
-      color: theme.colors.primary,
+      fontFamily: typography.fontFamilyBold,
+      color: theme.colors.surface,
     },
     subtitle: {
       fontSize: typography.sizes.sm,
-      color: theme.colors.onSecondary,
+      color: theme.colors.surface,
       marginTop: spacing.xs,
       opacity: 0.9,
     },
 
     // OAuth
     oauthContainer: {
-      width: "100%",
       marginBottom: spacing.xs,
+      gap: spacing.sm,
+      alignItems: "center",
     },
     oauthButton: {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "center",
-      paddingVertical: 14,
-      paddingHorizontal: spacing.md,
       borderRadius: borderRadius.lg,
-      marginBottom: spacing.sm,
-      backgroundColor: theme.colors.surface,
-      borderColor: theme.colors.outline,
-      width: "100%",
-      borderWidth: 1,
-      borderStyle: "solid",
+      backgroundColor: theme.colors.surfaceVariant,
+      padding: spacing.md,
+      width: '100%',
     },
     oauthIcon: {
       marginRight: spacing.sm,
@@ -73,6 +68,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
     oauthButtonText: {
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.semibold,
+      fontFamily: typography.fontFamilyBold,
       color: theme.colors.onSurfaceVariant,
     },
     oauthButtonTextDisabled: {
@@ -83,7 +79,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
     divider: {
       flexDirection: "row",
       alignItems: "center",
-      marginVertical: spacing.sm,
+      marginVertical: spacing.xs,
     },
     dividerLine: {
       flex: 1,
@@ -94,6 +90,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
       marginHorizontal: spacing.sm,
       color: theme.colors.onSurfaceVariant,
       fontSize: typography.sizes.sm,
+      
     },
 
     // Inputs
@@ -105,14 +102,13 @@ export const createAuthStyles = (theme: MD3Theme) =>
     inputLabel: {
       fontSize: typography.sizes.sm,
       fontWeight: typography.weights.medium,
+      
       color: theme.colors.primary,
       marginBottom: spacing.xs,
       marginLeft: spacing.xs,
     },
     input: {
-      backgroundColor: theme.colors.surface,
       width: "100%",
-      borderRadius: borderRadius.lg,
       overflow: "hidden",
     },
 
@@ -155,6 +151,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
       color: theme.colors.surface,
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.bold,
+      
     },
     buttonTextDisabled: {
       color: theme.colors.primary
@@ -169,10 +166,12 @@ export const createAuthStyles = (theme: MD3Theme) =>
     linkText: {
       color: theme.colors.onSurfaceVariant,
       fontSize: typography.sizes.sm,
+      
     },
     link: {
       color: theme.colors.primary,
       fontWeight: typography.weights.semibold,
+      
     },
     disabledText: {
       color: theme.colors.onSurfaceDisabled,
@@ -182,15 +181,10 @@ export const createAuthStyles = (theme: MD3Theme) =>
     // Terms
     termsText: {
       color: theme.colors.onSurfaceVariant,
-      fontSize: typography.sizes.xs,
-      textAlign: "center",
-      marginTop: spacing.sm,
-      marginBottom: spacing.sm,
-      paddingHorizontal: spacing.md,
-      opacity: 0.7,
-      flexShrink: 0,
+      fontSize: typography.sizes.md,
+      
+      width: '100%',
     },
-
     // Error
     errorContainer: {
       backgroundColor: theme.colors.errorContainer,
@@ -201,6 +195,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
     errorText: {
       color: theme.colors.onErrorContainer,
       fontSize: typography.sizes.sm,
+      
       textAlign: "center",
     },
     buttonOut: {
@@ -215,10 +210,10 @@ export const createAuthStyles = (theme: MD3Theme) =>
       color: "white",
       fontSize: 16,
       fontWeight: "bold",
+      
     },
     otpContainer: {
-      paddingHorizontal: 20,
-      paddingVertical: 30,
+      paddingVertical: spacing.sm,
     },
     cellRoot: {
       width: 45,
@@ -234,6 +229,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
     cellText: {
       color: theme.colors.onSurface,
       fontSize: 24,
+      
       textAlign: "center",
     },
     focusCell: {
@@ -242,11 +238,35 @@ export const createAuthStyles = (theme: MD3Theme) =>
     },
     otp: {
       flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
+      justifyContent: "space-between",
+      backgroundColor: theme.colors.background,
+      paddingHorizontal: spacing.md,
     },
     innerContainer: {
       flex: 1,
       justifyContent: "space-between",
+    },
+    formContainerWrapper: {
+      flex: 1,
+      gap: spacing.md,
+      justifyContent: "space-between",
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.lg,
+      marginTop: spacing.xl,
+      backgroundColor: theme.colors.background,
+      borderTopLeftRadius: borderRadius.lg,
+      borderTopRightRadius: borderRadius.lg,
+      shadowColor: theme.colors.shadow,
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+    },
+    introContainer: {
+      gap: spacing.md,
+      paddingHorizontal: spacing.md,
+    },
+    otpContent: {
+      gap: spacing.md,
     },
   });

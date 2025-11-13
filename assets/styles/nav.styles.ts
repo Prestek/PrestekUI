@@ -37,15 +37,19 @@ export const createNavigationStyles = (theme: MD3Theme) =>
           title: {
             fontSize: typography.sizes.lg,
             fontWeight: 'bold',
+            
             color: theme.colors.primary,
           },
           progressContainer: {
             backgroundColor: theme.colors.background,
-            paddingBottom: spacing.md,
-            paddingTop: spacing.sm,
+            paddingBottom: spacing.sm,
+            paddingTop: spacing.xs,
+            borderBottomWidth: 1,
+            borderBottomColor: theme.colors.outlineVariant,
           },
           progressStepTitle: {
             fontSize: typography.sizes.md,
+            
             color: theme.colors.onSurface,
             fontWeight: '600',
             marginBottom: spacing.sm,
@@ -105,6 +109,7 @@ export const createNavigationStyles = (theme: MD3Theme) =>
           },
           stepLabel: {
             fontSize: typography.sizes.xs,
+            
             color: theme.colors.onSurfaceVariant,
             marginTop: spacing.xs,
             textAlign: 'center',

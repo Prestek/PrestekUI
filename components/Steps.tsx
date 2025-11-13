@@ -5,7 +5,8 @@ import { useClerk } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, View } from "react-native";
-import { Appbar, Text, useTheme } from "react-native-paper";
+import { Appbar, useTheme } from "react-native-paper";
+import { AppText } from "./AppText";
 
 
 export const Steps: React.FC<NavigationProps> = ({ 
@@ -41,7 +42,7 @@ export const Steps: React.FC<NavigationProps> = ({
                                     isCompleted && styles.stepCircleCompleted
                                 ]}
                             >
-                                <Text 
+                                <AppText 
                                     style={[
                                         styles.stepNumber,
                                         isCompleted && styles.stepNumberCompleted,
@@ -49,16 +50,16 @@ export const Steps: React.FC<NavigationProps> = ({
                                     ]}
                                 >
                                     {i}
-                                </Text>
+                                </AppText>
                             </View>
-                            <Text 
+                            <AppText 
                                 style={[
                                     styles.stepLabel,
                                     isActive && styles.stepLabelActive
                                 ]}
                             >
                                 {label}
-                            </Text>
+                            </AppText>
                         </View>
                     </View>
                 </View>

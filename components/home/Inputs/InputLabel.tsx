@@ -1,7 +1,8 @@
 import { createAuthStyles } from "@/assets/styles/auth.styles";
 import { createHomeStyles } from "@/assets/styles/home.styles";
+import { AppText } from "@/components/AppText";
 import { View } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 
 
 export const InputLabel: React.FC<{ label: string, children: React.ReactNode }> = ({ label, children }) => {
@@ -10,7 +11,7 @@ export const InputLabel: React.FC<{ label: string, children: React.ReactNode }> 
   const authStyles = createAuthStyles(theme);
     return (
     <View style={styles.inputLabelContainer}>
-      <Text style={authStyles.inputLabel}>{label}</Text>
+      <AppText style={authStyles.inputLabel}>{label}</AppText>
       {children}
     </View>
   );

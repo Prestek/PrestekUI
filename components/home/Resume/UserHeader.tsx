@@ -2,7 +2,7 @@ import { createHomeStyles } from "@/assets/styles/home.styles";
 import { View, TouchableOpacity } from "react-native";
 import { Badge, Text, useTheme } from "react-native-paper";
 import { useUser } from '@clerk/clerk-expo';
-
+import { AppText } from "@/components/AppText";
 export const UserHeader: React.FC = () => {
     const theme = useTheme();
     const styles = createHomeStyles(theme);
@@ -52,11 +52,11 @@ export const UserHeader: React.FC = () => {
             {/* Left side - Profile */}
             <View style={styles.profileSection}>
                 <View style={[styles.profileAvatar, { backgroundColor: theme.colors.primary }]}>
-                    <Text style={styles.profileInitials}>{userInitials}</Text>
+                 <AppText style={styles.profileInitials}>{userInitials}</AppText>
                 </View>
                 <View style={styles.profileInfo}>
-                    <Text style={[styles.greetingText, { color: theme.colors.onSurface }]}>{greeting}</Text>
-                    <Text style={[styles.userNameText, { color: theme.colors.onBackground }]}>{userName}</Text>
+                    <AppText style={[styles.greetingText, { color: theme.colors.onSurface }]}>{greeting}</AppText>
+                    <AppText style={[styles.userNameText, { color: theme.colors.onBackground }]}>{userName}</AppText>
                 </View>
             </View>
 

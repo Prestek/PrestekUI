@@ -1,5 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { TextInputProps } from "react-native-paper";
+import { Mask } from "react-native-mask-input";
 
 export interface AuthButtonProps {
     onPress: () => void;
@@ -11,16 +12,18 @@ export interface AuthDividerProps {
     text?: string;
 }
 
-export interface AuthInputProps extends TextInputProps {
+export interface AuthInputProps extends Omit<TextInputProps, 'mask'> {
     disabled?: boolean;
     icon?: string;
     iconPosition?: "left" | "right";
     label?: string;
     onIconPress?: () => void;
+    mask?: Mask;
 }
 
 export interface AuthLayoutProps {
     title?: string;
+    introTitle?: string;
     subtitle?: string;
     icon?: keyof typeof MaterialIcons.glyphMap;
     children: React.ReactNode;

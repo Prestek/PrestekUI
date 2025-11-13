@@ -23,8 +23,7 @@ export default function SignInScreen() {
 
   return (
     <AuthLayout>
-      <View style={{ width: "100%" }}>
-        <EmailPasswordForm
+      <EmailPasswordForm
           email={email}
           password={password}
           onEmailChange={setEmail}
@@ -36,8 +35,6 @@ export default function SignInScreen() {
         <AuthDivider />
         <OAuthButtons onPress={handleOAuth} disabled={loading} />
         <AuthLink href="/(auth)/sign-up" text="Sign up" disabled={loading} />
-      </View>
-      <TermsText />
     </AuthLayout>
   );
 }

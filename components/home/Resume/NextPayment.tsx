@@ -1,7 +1,8 @@
 import { createHomeStyles } from "@/assets/styles/home.styles";
 import { NextPaymentProps } from "@/models/creditModels";
 import { View } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
+import { AppText } from "@/components/AppText";
 
 
 export const NextPayment: React.FC<NextPaymentProps> = ({ nextPaymentDate, nextPaymentAmount, paymentDateLabel }) => {
@@ -54,23 +55,23 @@ export const NextPayment: React.FC<NextPaymentProps> = ({ nextPaymentDate, nextP
             {/* Top Section - Next Payment */}
             <View style={styles.nextPaymentTop}>
                 <View style={styles.nextPaymentLeft}>
-                <Text style={styles.nextPaymentIconText}>!</Text>
-                    <Text style={styles.nextPaymentTitle}>Próximo pago</Text>
+                    <AppText style={styles.nextPaymentIconText}>!</AppText>
+                    <AppText style={styles.nextPaymentTitle}>Próximo pago</AppText>
                 </View>
-                <Text style={styles.nextPaymentAmount}>
+                <AppText style={styles.nextPaymentAmount}>
                     ${nextPaymentAmount.toLocaleString('es-ES', { minimumFractionDigits: 2 })}
-                </Text>
+                </AppText>
             </View>
 
             {/* Middle Section - Due Date */}
             <View style={styles.nextPaymentMiddle}>
-                <Text style={styles.nextPaymentDueLabel}>Fecha límite</Text>
-                <Text style={styles.nextPaymentDueDate}>{paymentDateLabel}</Text>
+                <AppText style={styles.nextPaymentDueLabel}>Fecha límite</AppText>
+                <AppText style={styles.nextPaymentDueDate}>{paymentDateLabel}</AppText>
             </View>
 
             {/* Bottom Section - Countdown */}
             <View style={[styles.nextPaymentBottom, { backgroundColor: cardColor === '#FF3B30' ? '#FF6B61' : cardColor === '#F5C700' ? '#FFE55C' : '#66BB6A' }]}>
-                <Text style={styles.nextPaymentCountdown}>{daysMessage}</Text>
+                <AppText style={styles.nextPaymentCountdown}>{daysMessage}</AppText>
             </View>
         </View>
     );

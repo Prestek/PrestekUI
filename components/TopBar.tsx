@@ -5,6 +5,7 @@ import { View } from "react-native";
 import { Text, useTheme } from "react-native-paper"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChildrenProps } from "@/models/childrenModel";
+import { AppText } from "./AppText";
 
 
 export const TopBar: React.FC<ChildrenProps> = ({ children }) => {
@@ -20,10 +21,10 @@ export const TopBar: React.FC<ChildrenProps> = ({ children }) => {
                         size={30}
                         color={theme.colors.primary}
                     />
-                    <Text style={styles.title}> Prestek</Text>
+                    <AppText style={styles.title}> Prestek</AppText>
                 </View>
-                <Text style={styles.introTitle} >Complete your profile</Text>
-                <Text style={styles.subtitle}>To offer you the best loans, we need to know you better</Text>
+                <AppText style={styles.introTitle} >Complete your profile</AppText>
+                <AppText style={styles.subtitle}>To offer you the best loans, we need to know you better</AppText>
             </View>
             {children}
         </View>
