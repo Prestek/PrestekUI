@@ -5,7 +5,7 @@ import { useClerk } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, View } from "react-native";
-import { Appbar, useTheme } from "react-native-paper";
+import { Appbar, IconButton, useTheme } from "react-native-paper";
 import { AppText } from "./AppText";
 
 
@@ -74,7 +74,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                     <View style={styles.headerLayout}>
                         <View style={styles.headerSide}>
                             {showBackButton && <View style={styles.backButtonContainer}>
-                                <Appbar.BackAction onPress={handleBack} color={theme.colors.primary} size={15} />
+                                <IconButton icon="arrow-left" onPress={handleBack} iconColor={theme.colors.primary} size={22} style={styles.iconButtonStyle} />
                             </View>}
                         </View>
                         <View style={styles.headerCenter}>
@@ -83,7 +83,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                         <View style={styles.headerSide}>
                             {showExit && 
                             <View style={styles.backButtonContainer}>
-                                <Appbar.Action icon="close" onPress={handleSignOut} color={theme.colors.primary} size={15} />
+                                <IconButton icon="close" onPress={handleSignOut} iconColor={theme.colors.primary} size={22} style={styles.iconButtonStyle} />
                             </View>
                             }
                         </View>
@@ -93,11 +93,11 @@ export const Navigation: React.FC<NavigationProps> = ({
                         showBackButton && !showExit && styles.titleContainerWithBackButton, 
                         showExit && !showBackButton && styles.titleContainerWithExitButton]}>
                         {showBackButton && <View style={styles.backButtonContainer}>
-                            <Appbar.BackAction onPress={handleBack} color={theme.colors.primary} size={15} />
+                            <IconButton icon="arrow-left" onPress={handleBack} iconColor={theme.colors.primary} size={22} style={styles.iconButtonStyle} />
                         </View>}
                         {showExit && 
                         <View style={styles.backButtonContainer}>
-                            <Appbar.Action icon="close" onPress={handleSignOut} color={theme.colors.primary} size={15} />
+                            <IconButton icon="close" onPress={handleSignOut} iconColor={theme.colors.primary} size={22} style={styles.iconButtonStyle} />
                         </View>
                         }
                     </View>

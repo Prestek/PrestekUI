@@ -404,17 +404,8 @@ export const createHomeStyles = (theme: MD3Theme) =>
       right: -4,
       width: 20,
       height: 20,
-      borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
-      borderWidth: 2,
-      borderColor: 'white',
-    },
-    badgeText: {
-      fontSize: 12,
-      fontWeight: 'bold',
-      
-      color: 'white',
     },
     divider:{
       width: "100%",

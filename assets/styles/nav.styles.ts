@@ -30,6 +30,10 @@ export const createNavigationStyles = (theme: MD3Theme) =>
             borderRadius: borderRadius.lg,
             overflow: 'hidden',
           },
+          iconButtonStyle: {
+            margin: 0,
+            padding: 0,
+          },
           titleContainer: {
             flexDirection: 'row',
             alignItems: 'center',

@@ -64,8 +64,8 @@ export const UserHeader: React.FC = () => {
             {/* Right side - Notifications */}
             <TouchableOpacity style={styles.notificationButton}>
                 <View style={styles.notificationIcon}>
-                    <Badge>3</Badge>
-                    <MaterialIcons name="notifications" size={30} color={theme.colors.primary} />
+                    <MaterialIcons name="notifications" size={35} color={theme.colors.primary} />
+                    <Badge style={styles.notificationBadge} size={18}></Badge>
                 </View>
             </TouchableOpacity>
         </View>
