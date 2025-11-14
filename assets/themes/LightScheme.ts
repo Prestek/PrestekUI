@@ -19,7 +19,7 @@ export const LightScheme = {
   onBackground: "rgb(245, 249, 250)",
   surface: "#FAFCFC", 
   onSurface: "#757575ff",
-  surfaceVariant: "rgba(51, 159, 173, 0.04)",
+  surfaceVariant: "rgba(51, 159, 173, 0.08)",
   onSurfaceVariant: "rgb(80, 80, 80)",
   outline: "rgba(73, 118, 126, 0.2)",
   outlineVariant: "rgb(245, 245, 245)",

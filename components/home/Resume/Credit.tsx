@@ -13,7 +13,7 @@ export const Credit: React.FC<CreditProps> = ({ loan }) => {
                 {/* Bank Info */}
                 <View style={[styles.itemsHorizontal]}>
                     <View style={styles.cardHeader}>
-                        <AppText style={styles.basicInformationTitle}>Current loan</AppText>
+                        <AppText style={styles.basicInformationTitle}>Last Application</AppText>
                         <AppText style={[styles.basicInformationContentText, styles.bankColor]}>{loan.bank}</AppText>
                     </View>
                     <View style={styles.bankLogo}>
@@ -29,23 +29,12 @@ export const Credit: React.FC<CreditProps> = ({ loan }) => {
                             ${loan.totalAmount.toLocaleString('es-ES', { minimumFractionDigits: 2 })}
                         </AppText>
                     </View>
-                    <View style={styles.interestInfo}>
-                        <AppText style={[styles.amountLabel, styles.basicInformationContentText]}>Annual interest rate</AppText>
-                        <AppText style={[styles.amountValue, styles.basicInformationContentText]}>
-                            {loan.interestRate}%
-                        </AppText>
-                    </View>
-                </View>
-                <View style={styles.itemsHorizontal}>
                     <View style={styles.amountSection}>
-                        <AppText style={styles.basicInformationContentText}>Start date</AppText>
+                        <AppText style={styles.basicInformationContentText}>Requested date</AppText>
                         <AppText style={[styles.basicInformationContentText, styles.bankName]}>{loan.startDate}</AppText>
                     </View>
-                    <View style={styles.amountSection}>
-                        <AppText style={[styles.basicInformationContentText, styles.alignTextRight]}>End date</AppText>
-                        <AppText style={[styles.basicInformationContentText, styles.alignTextRight, styles.bankName]}>{loan.endDate}</AppText>
-                    </View>
                 </View>
+                
             </View>
         </View>
     );

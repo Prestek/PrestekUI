@@ -45,10 +45,14 @@ export const createHomeStyles = (theme: MD3Theme) =>
       marginTop: spacing.md,
     },
     introTitle: {
-      fontSize: typography.sizes.xl,
+      fontSize: typography.sizes.xl2,
       fontWeight: typography.weights.bold,
       fontFamily: typography.fontFamilyBold,
       color: theme.colors.secondary,
+    },
+    seeAllLink:{
+      fontSize: typography.sizes.md,
+      color: theme.colors.primary,
     },
     itemsCarousel: {
       marginTop: spacing.md,
@@ -270,12 +274,6 @@ export const createHomeStyles = (theme: MD3Theme) =>
       alignItems: 'center',
       marginBottom: 16,
     },
-    seeAllLink: {
-      fontSize: 14,
-      fontWeight: '500',
-      
-    },
-    // Next Payment card styles
     nextPaymentCard: {
       borderRadius: 12,
       marginBottom: 24,
@@ -571,5 +569,11 @@ export const createHomeStyles = (theme: MD3Theme) =>
       gap: spacing.sm,
 
     },
+    applicationHeader:{
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: spacing.md,
+    }
   });
 

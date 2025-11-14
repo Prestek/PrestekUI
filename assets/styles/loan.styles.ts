@@ -326,7 +326,7 @@ export const createLoanStyles = (theme: MD3Theme) =>
       paddingTop: spacing.md,
     },
     detailBankCard: {
-      backgroundColor: theme.colors.primaryContainer,
+      backgroundColor: theme.colors.tertiary,
       borderRadius: 16,
       padding: 24,
       alignItems: "center",

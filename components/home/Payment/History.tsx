@@ -1,60 +1,92 @@
 import { createHomeStyles } from "@/assets/styles/home.styles";
 import { ScrollView, View } from "react-native";
-import { Avatar, IconButton, MD3Colors, Text, useTheme } from "react-native-paper";
+import { Avatar, IconButton, MD3Colors, Text, useTheme, Searchbar, Button, Chip, Surface } from "react-native-paper";
 import { AppText } from "@/components/AppText";
 import { createPaymentStyles } from "@/assets/styles/payment.styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { spacing } from "@/assets/styles/theme";
-import { NextPayment } from "./NextPayment";
+import { spacing, typography } from "@/assets/styles/theme";
+import { useState } from "react";
+import { Topbar } from "@/components/Topbar";
+import { Applications } from "./Applications";
+import { creditRequests } from "@/hooks/const/data";
 
 
 export const History = () => {
     const theme = useTheme();
     const paymentStyles = createPaymentStyles(theme);
-    const paymentHistory = [
-        { date: "15 June 2023", amount: 1250.00, status: "Completed" },
-        { date: "15 May 2023", amount: 1250.00, status: "Completed" },
-        { date: "15 April 2023", amount: 1250.00, status: "Completed" },
-    ];
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const filteredRequests = creditRequests.filter(request =>
+        request.bank.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        request.amount.toString().includes(searchQuery) ||
+        request.status.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+
     return (
-        <View style={paymentStyles.container}>
-            <View style={paymentStyles.historyHeader}>
-                <AppText style={paymentStyles.historyTitle}>Payment history</AppText>
-                <IconButton
-                    icon="filter-variant"
-                    iconColor={theme.colors.onPrimary}
-                    style={paymentStyles.filterButton}
-                    size={20}
-                    onPress={() => console.log('Pressed')}
-                />
-            </View>
+        <Topbar
+            headerContent={
+                <>
+                    <View style={{ width: '100%', gap: spacing.md }}>
+                        <View style={paymentStyles.historyHeader}>
+                            <AppText style={paymentStyles.historyTitle}>Credit Applications</AppText>
+                            <Chip
+                                mode="outlined"
+                                icon="file-document-outline"
+                                textStyle={{ color: theme.colors.primary, fontSize: 14 }}
+                            >
+                                Applications: {filteredRequests.length}
+                            </Chip>
+                        </View>
+
+                        <View style={{ 
+                            paddingHorizontal: spacing.md, 
+                            flexDirection: 'row', 
+                            alignItems: 'center',
+                            gap: spacing.sm
+                        }}>
+                            <Searchbar
+                                placeholder="Search requests..."
+                                onChangeText={setSearchQuery}
+                                value={searchQuery}
+                                style={{
+                                    borderWidth: 1,
+                                    borderColor: theme.colors.outline,
+                                    flex: 1,
+                                    height: 40,
+                                    justifyContent: 'center',
+                                }}
+                                inputStyle={{ 
+                                    fontSize: 14,
+                                    minHeight: 0,
+                                    alignSelf: 'center',
+                                }}
+                                iconColor={theme.colors.onSurfaceVariant}
+                            />
+                            <IconButton
+                                icon="filter-variant"
+                                iconColor={theme.colors.onSurfaceVariant}
+                                size={24}
+                                onPress={() => console.log('Abrir filtros')}
+                                style={{ 
+                                    margin: 0,
+                                    borderWidth: 1,
+                                    borderColor: theme.colors.outline,
+                                    borderRadius: 8,
+                                }}
+                            />
+                        </View>
+                    </View>
+                </>
+            }
+        >
             <ScrollView
-                style={{ flex: 1 }}
-                contentContainerStyle={{ flexGrow: 1, paddingBottom: spacing["4xl"] }}
+                style={{ flex: 1, backgroundColor: theme.colors.surfaceVariant, paddingHorizontal: spacing.md }}
+                contentContainerStyle={{ flexGrow: 1, paddingBottom: spacing["4xl"], paddingTop: spacing.md }}
                 showsVerticalScrollIndicator={false}
             >
-                <View style={paymentStyles.historyContent}>
-                    <NextPayment
-                        nextPaymentDate="2025-11-25"
-                        nextPaymentAmount={1250.00}
-                        paymentDateLabel="8 November 2025"
-                    />
-                    {paymentHistory.map((payment, index) => (
-                        <View key={index} style={paymentStyles.paymentItem}>
-                            <View style={paymentStyles.bankLogo}>
-                                <MaterialCommunityIcons name="bank" size={24} color={theme.colors.onPrimary} />
-                            </View>
-                            <View style={paymentStyles.paymentContent}>
-                                <AppText style={[paymentStyles.paymentType, { color: theme.colors.secondary }]}>Monthly payment</AppText>
-                                <AppText style={[paymentStyles.paymentDate, { color: theme.colors.secondary }]}>{payment.date}</AppText>
-                            </View>
-                            <AppText style={[paymentStyles.paymentAmount, { color: theme.colors.secondary }]}>
-                                ${payment.amount.toLocaleString('es-CO', { minimumFractionDigits: 2 })}
-                            </AppText>
-                        </View>
-                    ))}
-                </View>
+                <Applications filteredRequests={filteredRequests} showElevation={true} />
             </ScrollView>
-        </View>
+        </Topbar>
     );
 }

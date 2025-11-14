@@ -9,6 +9,8 @@ import { Items } from "./Items";
 import { AppText } from "@/components/AppText";
 import { ItemsProps } from "@/models/itemsModels";
 import { spacing } from "@/assets/styles/auth.styles";
+import { Applications } from "../Payment/Applications";
+import { creditRequests } from "@/hooks/const/data";
 
 export const ResumeLayout = () => {
 
@@ -25,15 +27,15 @@ export const ResumeLayout = () => {
 
     const quickActions: ItemsProps[] = [
         {
-            icon: "history",
-            title: "Payment history",
-            description: "View your payment history",
-            onPress: () => { },
-        },
-        {
             icon: "credit-card",
             title: "Request loan",
             description: "Request a new loan",
+            onPress: () => { },
+        },
+        {
+            icon: "history",
+            title: "Credit applications",
+            description: "View your applications",
             onPress: () => { },
         },
         {
@@ -65,28 +67,35 @@ export const ResumeLayout = () => {
 
                 <Credit loan={loanData} />
             </View>
-            <Progress loan={loanData} />
-
-            <View style={styles.gradientContainer}>
-                <AppText style={styles.introTitle}>Services</AppText>
-                <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={styles.itemsCarouselContent}
-                    style={styles.itemsCarousel}
-                >
-                    {quickActions.map((item, index) => (
-                        <View
-                            key={item.title}
-                            style={[
-                                styles.itemSlide,
-                                index === quickActions.length - 1 && styles.itemSlideLast,
-                            ]}
-                        >
-                            <Items {...item} />
-                        </View>
-                    ))}
-                </ScrollView>
+            <View style={[styles.gradientContainer, { gap: spacing.lg }]}>
+                <View>
+                    <View style={styles.applicationHeader}>
+                        <AppText style={styles.introTitle}>Recent applications</AppText>
+                        <AppText style={styles.seeAllLink}>View all</AppText>
+                    </View>
+                    <Applications filteredRequests={creditRequests} showElevation={false} limit={2} />
+                </View>
+                <View>
+                    <AppText style={styles.introTitle}>Services</AppText>
+                    <ScrollView
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={styles.itemsCarouselContent}
+                        style={styles.itemsCarousel}
+                    >
+                        {quickActions.map((item, index) => (
+                            <View
+                                key={item.title}
+                                style={[
+                                    styles.itemSlide,
+                                    index === quickActions.length - 1 && styles.itemSlideLast,
+                                ]}
+                            >
+                                <Items {...item} />
+                            </View>
+                        ))}
+                    </ScrollView>
+                </View>
             </View>
         </ScrollView>
     );

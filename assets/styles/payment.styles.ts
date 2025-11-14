@@ -8,16 +8,21 @@ export const createPaymentStyles = (theme: MD3Theme) =>
         flex: 1,
       },
       historyTitle: {
-        fontSize: typography.sizes.xl,
+        fontSize: typography.sizes.lg,
         fontWeight: typography.weights.bold,
         fontFamily: typography.fontFamilyBold,
-        color: theme.colors.onPrimary,
+        color: theme.colors.primary,
       },
       paymentItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: spacing.lg,
         gap: spacing.md,
+        padding: spacing.md,
+        borderRadius: borderRadius.lg,
+      },
+      withoutElevantion:{
+        borderWidth: 1,
+        borderColor: theme.colors.outline,
+        borderRadius: borderRadius.lg,
+        backgroundColor: theme.colors.onBackground,
       },
       paymentIndicator: {
         width: 4,
@@ -32,11 +37,14 @@ export const createPaymentStyles = (theme: MD3Theme) =>
       paymentType: {
         fontSize: typography.sizes.md,
         fontWeight: typography.weights.semibold,
-        marginBottom: spacing.xs,
+        marginLeft: spacing.sm,
+        fontFamily: typography.fontFamilyBold,
+        color: theme.colors.secondary,
       },
       paymentDate: {
         fontSize: typography.sizes.sm,
         marginBottom: spacing.xs,
+        color: theme.colors.secondary
       },
       paymentStatus: {
         fontSize: typography.sizes.sm,
@@ -46,19 +54,17 @@ export const createPaymentStyles = (theme: MD3Theme) =>
         fontSize: typography.sizes.lg,
         fontWeight: typography.weights.bold,
         fontFamily: typography.fontFamilyBold,
+        color: theme.colors.secondary
       },
       historyHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: spacing.md,
-        backgroundColor: theme.colors.tertiary,
+        paddingHorizontal: spacing.md,
       },
       historyContent: {
-        padding: spacing.md,
-        paddingTop: spacing.xl,
-        borderTopRightRadius: borderRadius.xl,
-        borderTopLeftRadius: borderRadius.xl,
+        paddingTop: spacing.sm,
+        gap: spacing.lg,
       },
       filterButton: {
         borderRadius: borderRadius.lg,
@@ -69,8 +75,17 @@ export const createPaymentStyles = (theme: MD3Theme) =>
         width: spacing.xxl,
         height: spacing.xxl,
         borderRadius: borderRadius.full,
-        backgroundColor: theme.colors.surfaceVariant,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: theme.colors.surfaceVariant,
+      },
+      horizontalItems: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      },
+      labelText: {
+        color: theme.colors.onSurfaceVariant,
+        fontSize: 12,
       },
     });

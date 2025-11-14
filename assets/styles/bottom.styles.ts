@@ -10,6 +10,8 @@ export const createBottomNavigationStyles = (theme: MD3Theme) =>
             left: 0,
             right: 0,
             height: 68,
-            backgroundColor: theme.colors.onBackground,
+            backgroundColor: theme.colors.background,
+            borderTopWidth: 1,
+            borderColor: theme.colors.outline,
           }
     });
