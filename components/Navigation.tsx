@@ -12,11 +12,10 @@ import { AppText } from "./AppText";
 export const Navigation: React.FC<NavigationProps> = ({ 
     children, 
     showExit = false,
-    currentStep,
-    totalSteps,
-    stepLabels = [],
     showBackButton = true,
-    showElevated = false
+    showElevated = false,
+    header = false,
+    headerChildren
 }) => {
     const router = useRouter();
     const theme = useTheme();
@@ -59,59 +58,8 @@ export const Navigation: React.FC<NavigationProps> = ({
         return child;
     });
 
-    const showProgressSteps = currentStep !== undefined && totalSteps !== undefined;
 
-    const renderSteps = () => {
-        const steps = [];
-        for (let i = 1; i <= (totalSteps || 0); i++) {
-            const isActive = i === currentStep;
-            const isCompleted = i < (currentStep || 0);
-            const label = stepLabels[i - 1] || `Step ${i}`;
-            
-            steps.push(
-                <View key={i} style={styles.stepItemContainer}>
-                    <View style={styles.stepWrapper}>
-                        {i > 1 && (
-                            <View 
-                                style={[
-                                    styles.stepConnector,
-                                    (isCompleted || isActive) && styles.stepConnectorActive
-                                ]} 
-                            />
-                        )}
-                        <View style={styles.stepCircleContainer}>
-                            <View 
-                                style={[
-                                    styles.stepCircle,
-                                    isActive && styles.stepCircleActive,
-                                    isCompleted && styles.stepCircleCompleted
-                                ]}
-                            >
-                                <AppText 
-                                    style={[
-                                        styles.stepNumber,
-                                        isCompleted && styles.stepNumberCompleted,
-                                        isActive && styles.stepNumberActive,
-                                    ]}
-                                >
-                                    {i}
-                                </AppText>
-                            </View>
-                            <AppText 
-                                style={[
-                                    styles.stepLabel,
-                                    isActive && styles.stepLabelActive
-                                ]}
-                            >
-                                {label}
-                            </AppText>
-                        </View>
-                    </View>
-                </View>
-            );
-        }
-        return steps;
-    };
+    
 
     return (
         <View style={styles.container}>
@@ -122,25 +70,39 @@ export const Navigation: React.FC<NavigationProps> = ({
                 ]}
                 elevated={showElevated ? isScrolled : false}
             >
-                <View style={[styles.titleContainer, showBackButton && !showExit && styles.titleContainerWithBackButton, showExit && !showBackButton && styles.titleContainerWithExitButton]}>
-                    {showBackButton && <View style={styles.backButtonContainer}>
-                        <Appbar.BackAction onPress={handleBack} color={theme.colors.primary} size={15} />
-                    </View>}
-                    {showExit && 
-                    <View style={styles.backButtonContainer}>
-                        <Appbar.Action icon="close" onPress={handleSignOut} color={theme.colors.primary} size={15} />
+                {header && headerChildren ? (
+                    <View style={styles.headerLayout}>
+                        <View style={styles.headerSide}>
+                            {showBackButton && <View style={styles.backButtonContainer}>
+                                <Appbar.BackAction onPress={handleBack} color={theme.colors.primary} size={15} />
+                            </View>}
+                        </View>
+                        <View style={styles.headerCenter}>
+                            {headerChildren}
+                        </View>
+                        <View style={styles.headerSide}>
+                            {showExit && 
+                            <View style={styles.backButtonContainer}>
+                                <Appbar.Action icon="close" onPress={handleSignOut} color={theme.colors.primary} size={15} />
+                            </View>
+                            }
+                        </View>
                     </View>
-                    }
-                </View>
+                ) : (
+                    <View style={[styles.titleContainer, 
+                        showBackButton && !showExit && styles.titleContainerWithBackButton, 
+                        showExit && !showBackButton && styles.titleContainerWithExitButton]}>
+                        {showBackButton && <View style={styles.backButtonContainer}>
+                            <Appbar.BackAction onPress={handleBack} color={theme.colors.primary} size={15} />
+                        </View>}
+                        {showExit && 
+                        <View style={styles.backButtonContainer}>
+                            <Appbar.Action icon="close" onPress={handleSignOut} color={theme.colors.primary} size={15} />
+                        </View>
+                        }
+                    </View>
+                )}
             </Appbar.Header>
-            
-            {showProgressSteps && !isScrolled && (
-                <View style={styles.progressContainer}>
-                    <View style={styles.stepsContainer}>
-                        {renderSteps()}
-                    </View>
-                </View>
-            )}
             
             {showElevated ? childrenWithScroll : children}
         </View>

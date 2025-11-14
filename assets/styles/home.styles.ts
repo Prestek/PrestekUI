@@ -4,6 +4,11 @@ import { StyleSheet } from "react-native";
 
 export const createHomeStyles = (theme: MD3Theme) =>
   StyleSheet.create({
+    scrollViewContent: {
+      paddingVertical: spacing.md,
+      paddingHorizontal: spacing.md,
+      backgroundColor: theme.colors.background,
+    },
     logoContainer: {
       display: "flex",
       flexDirection: "row",
@@ -17,10 +22,12 @@ export const createHomeStyles = (theme: MD3Theme) =>
       top: 0,
       bottom: 0,
     },
+    gradientContainer:{
+      padding: spacing.md,
+    },
     title: {
       fontSize: 23,
       fontWeight: typography.weights.bold,
-      
       color: theme.colors.primary,
     },
     inputLabelContainer: {
@@ -29,7 +36,6 @@ export const createHomeStyles = (theme: MD3Theme) =>
     },
     subtitle: {
       fontSize: typography.sizes.md,
-      
       color: theme.colors.onSecondary,
       flex: 1,
       flexShrink: 1,
@@ -44,6 +50,19 @@ export const createHomeStyles = (theme: MD3Theme) =>
       fontFamily: typography.fontFamilyBold,
       color: theme.colors.secondary,
     },
+    itemsCarousel: {
+      marginTop: spacing.md,
+    },
+    itemsCarouselContent: {
+      flexDirection: "row",
+    },
+    itemSlide: {
+      width: 200,
+      marginRight: spacing.md,
+    },
+    itemSlideLast: {
+      marginRight: 0,
+    },
     formTitleContainer: {
       padding: spacing.md,
       backgroundColor: 'rgb(255, 252, 217)',
@@ -53,6 +72,10 @@ export const createHomeStyles = (theme: MD3Theme) =>
       flex: 1,
       backgroundColor: theme.colors.background,
       paddingHorizontal: spacing.md,
+    },
+    homeContainer: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
     },
     email: {
       fontSize: 18,
@@ -123,18 +146,13 @@ export const createHomeStyles = (theme: MD3Theme) =>
       shadowRadius: 3.84,
       elevation: 5,
     },
-    cardContent: {
-      gap: 12,
-    },
     bankLabel: {
       fontSize: 14,
-      
       marginBottom: 4,
     },
     bankName: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      
+      fontWeight: typography.weights.bold,
+      fontFamily: typography.fontFamilyBold,
     },
     amountSection: {
       marginVertical: 3,
@@ -156,19 +174,17 @@ export const createHomeStyles = (theme: MD3Theme) =>
       marginTop: 8,
     },
     bankLogo: {
-      width: 35,
-      height: 35,
-      borderRadius: 16,
-      backgroundColor: '#E3F2FD',
+      width: spacing.xxl,
+      height: spacing.xxl,
+      borderRadius: borderRadius.md,
+      backgroundColor: theme.colors.tertiary,
       alignItems: 'center',
       justifyContent: 'center',
-      marginRight: 8,
     },
     logoText: {
-      fontSize: 18,
+      fontSize: spacing.lg,
       fontWeight: 'bold',
-      
-      color: '#1976D2',
+      color: theme.colors.primary,
     },
     interestInfo: {
       alignItems: 'flex-end',
@@ -204,9 +220,14 @@ export const createHomeStyles = (theme: MD3Theme) =>
     dateItemLeft: {
       alignSelf: 'flex-end'
     },
-    // Progress styles
     progressSection: {
-      marginBottom: 24,
+      padding: spacing.md,
+      borderRadius: borderRadius.lg,
+    },
+    progressContainer:{
+      backgroundColor: theme.colors.primary,
+      padding: spacing.md,
+      borderRadius: borderRadius.lg,
     },
     progressTitle: {
       fontSize: 18,
@@ -216,7 +237,7 @@ export const createHomeStyles = (theme: MD3Theme) =>
     },
     progressBar: {
       height: 8,
-      backgroundColor: '#E0E0E0',
+      backgroundColor: theme.colors.surface,
       borderRadius: 4,
       marginBottom: 12,
     },
@@ -242,61 +263,16 @@ export const createHomeStyles = (theme: MD3Theme) =>
       fontSize: 14,
       
     },
-    // Payment history styles
-    historySection: {
-      marginBottom: 24,
-    },
+
     historyHeader: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       marginBottom: 16,
     },
-    historyTitle: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      
-    },
     seeAllLink: {
       fontSize: 14,
       fontWeight: '500',
-      
-    },
-    paymentItem: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 16,
-      paddingLeft: 8,
-    },
-    paymentIndicator: {
-      width: 4,
-      height: 40,
-      backgroundColor: '#4CAF50',
-      borderRadius: 2,
-      marginRight: 12,
-    },
-    paymentContent: {
-      flex: 1,
-    },
-    paymentType: {
-      fontSize: 14,
-      fontWeight: '500',
-      
-      marginBottom: 2,
-    },
-    paymentDate: {
-      fontSize: 12,
-      
-      marginBottom: 2,
-    },
-    paymentStatus: {
-      fontSize: 12,
-      fontWeight: '500',
-      
-    },
-    paymentAmount: {
-      fontSize: 14,
-      fontWeight: 'bold',
       
     },
     // Next Payment card styles
@@ -304,14 +280,6 @@ export const createHomeStyles = (theme: MD3Theme) =>
       borderRadius: 12,
       marginBottom: 24,
       overflow: 'hidden',
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 3.84,
-      elevation: 5,
     },
     nextPaymentTop: {
       flexDirection: 'row',
@@ -384,7 +352,8 @@ export const createHomeStyles = (theme: MD3Theme) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: 8,
+      paddingBottom: spacing.xl,
+      paddingTop: spacing.xs
     },
     profileSection: {
       flexDirection: 'row',
@@ -428,7 +397,6 @@ export const createHomeStyles = (theme: MD3Theme) =>
     },
     bellIcon: {
       fontSize: 24,
-      
     },
     notificationBadge: {
       position: 'absolute',
@@ -502,23 +470,20 @@ export const createHomeStyles = (theme: MD3Theme) =>
       color: theme.colors.surface,
     },
     basicInformation: {
-      width: "100%",
+      padding: spacing.md,
       borderRadius: borderRadius.lg,
       marginBottom: spacing.md,
       backgroundColor: theme.colors.inverseOnSurface,
-      padding: spacing.md,
     },
     basicInformationTitle: {
       fontSize: typography.sizes.lg,
       fontWeight: typography.weights.bold,
       fontFamily: typography.fontFamilyBold,
-      color: theme.colors.onPrimary,
+      color: theme.colors.primary,
       marginBottom: spacing.sm,
     },
     basicInformationContentText: {
       fontSize: typography.sizes.sm,
-      fontWeight: typography.weights.regular,
-      
       color: theme.colors.onPrimary,
     },
     basicInformationContent: {
@@ -571,4 +536,49 @@ export const createHomeStyles = (theme: MD3Theme) =>
       color: theme.colors.onSurface,
       marginLeft: spacing.xs,
     },
+    resumeContrainer: {
+      borderRadius: borderRadius.lg,
+      backgroundColor: theme.colors.background,
+      borderWidth: 1,
+      borderColor: theme.colors.primary,
+      padding: spacing.md,
+    },
+    alignTextRight: {
+      textAlign: "right",
+    },
+    cardHeader: {
+      gap: spacing.xs,
+    },
+    headerContainer: {
+      paddingHorizontal: spacing.md,
+      borderTopLeftRadius: borderRadius.lg,
+      borderTopRightRadius: borderRadius.lg,
+    },
+    cardContent: {
+      paddingVertical: spacing.sm,
+    },
+    bankColor: {
+      color: theme.colors.primary,
+      fontSize: typography.sizes.md,
+    },
+    itemContainer: {
+      gap: spacing.sm,
+      justifyContent: "space-between",
+      padding: spacing.md,
+      borderRadius: borderRadius.lg,
+      flex: 1,
+      borderWidth: 1,
+      borderColor: theme.colors.outline,
+    },
+    itemTitle: {
+      fontSize: typography.sizes.md,
+      fontWeight: typography.weights.semibold,
+      fontFamily: typography.fontFamilyBold,
+      color: theme.colors.primary,
+    },
+    itemContent: {
+      gap: spacing.sm,
+
+    },
   });
+

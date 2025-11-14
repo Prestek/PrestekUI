@@ -10,7 +10,10 @@ export const createNavigationStyles = (theme: MD3Theme) =>
           appbar: {
             elevation: 0,
             backgroundColor: theme.colors.background,
-
+            alignItems: 'center',
+            padding: 0,
+            marginTop: -20,
+            paddingVertical: spacing.md,
           },
           appbarElevated: {
             elevation: 4,
@@ -41,19 +44,13 @@ export const createNavigationStyles = (theme: MD3Theme) =>
             color: theme.colors.primary,
           },
           progressContainer: {
-            backgroundColor: theme.colors.background,
-            paddingBottom: spacing.sm,
-            paddingTop: spacing.xs,
-            borderBottomWidth: 1,
-            borderBottomColor: theme.colors.outlineVariant,
+
           },
           progressStepTitle: {
-            fontSize: typography.sizes.md,
-            
-            color: theme.colors.onSurface,
-            fontWeight: '600',
-            marginBottom: spacing.sm,
+            fontSize: typography.sizes.lg,
+            color: theme.colors.secondary,
             textAlign: 'center',
+            fontFamily: typography.fontFamilyBold,
           },
           stepsContainer: {
             flexDirection: 'row',
@@ -80,21 +77,21 @@ export const createNavigationStyles = (theme: MD3Theme) =>
             backgroundColor: theme.colors.primary,
           },
           stepCircle: {
-            width: 30,
-            height: 30,
+            width: 12,
+            height: 12,
             borderRadius: borderRadius.full,
-            backgroundColor: theme.colors.surfaceVariant,
+            backgroundColor: theme.colors.outlineVariant,
             borderWidth: 2,
             borderColor: theme.colors.outlineVariant,
-            justifyContent: 'center',
-            alignItems: 'center',
           },
           stepCircleActive: {
+            width: 16,
+            height: 16,
             backgroundColor: theme.colors.primary,
             borderColor: theme.colors.primary,
           },
           stepCircleCompleted: {
-            backgroundColor: 'transparent',
+            backgroundColor: theme.colors.primary,
             borderColor: theme.colors.primary,
           },
           stepNumber: {
@@ -124,5 +121,23 @@ export const createNavigationStyles = (theme: MD3Theme) =>
           },
           titleContainerWithExitButton: {
             justifyContent: 'flex-end',
+          },
+          titleContainerCentered: {
+            justifyContent: 'center',
+          },
+          headerLayout: {
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingHorizontal: spacing.sm,
+          },
+          headerSide: {
+            minWidth: 48,
+            alignItems: 'center',
+          },
+          headerCenter: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
           },
     });

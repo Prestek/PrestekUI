@@ -97,7 +97,6 @@ export const createAuthStyles = (theme: MD3Theme) =>
     inputContainer: {
       width: "100%",
       position: "relative",
-      marginBottom: spacing.sm,
     },
     inputLabel: {
       fontSize: typography.sizes.sm,
@@ -140,7 +139,6 @@ export const createAuthStyles = (theme: MD3Theme) =>
       paddingHorizontal: spacing.md,
       borderRadius: borderRadius.lg,
       alignItems: "center",
-      marginTop: spacing.sm,
       width: "100%",
     },
     buttonDisabled: {
@@ -154,7 +152,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
       
     },
     buttonTextDisabled: {
-      color: theme.colors.primary
+      color: theme.colors.onSurfaceDisabled
     },
     // Links
     linkContainer: {

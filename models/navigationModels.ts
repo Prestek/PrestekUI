@@ -9,4 +9,7 @@ export interface NavigationProps extends ChildrenProps {
     showBackButton?: boolean;
     showShadow?: boolean;
     showElevated?: boolean;
+    header?: boolean;
+    headerChildren?: React.ReactNode;
+    title?: string;
 }

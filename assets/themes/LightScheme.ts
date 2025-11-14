@@ -1,11 +1,11 @@
 export const LightScheme = {
   primary: "rgba(51, 159, 173, 1)",
   onPrimary: "rgb(33, 116, 128)",
-  primaryContainer: "rgb(223, 224, 255)",
+  primaryContainer: "rgba(51, 159, 173, 0.14)",
   onPrimaryContainer: "rgb(0, 13, 95)",
   secondary: "rgba(0, 0, 0, 1)",
   onSecondary: "rgba(145, 145, 145, 1)",
-  secondaryContainer: "rgb(206, 229, 255)",
+  secondaryContainer: "rgb(111, 193, 204)",
   onSecondaryContainer: "rgb(0, 29, 50)",
   tertiary: "rgba(51, 159, 173, 0.17)",
   onTertiary: "rgba(11, 74, 110, 0.37)",
@@ -16,12 +16,12 @@ export const LightScheme = {
   errorContainer: "rgb(255, 218, 214)",
   onErrorContainer: "rgb(65, 0, 2)",
   background: "rgb(255, 255, 255)", 
-  onBackground: "rgb(119, 200, 211)",
+  onBackground: "rgb(245, 249, 250)",
   surface: "#FAFCFC", 
   onSurface: "#757575ff",
   surfaceVariant: "rgba(51, 159, 173, 0.04)",
   onSurfaceVariant: "rgb(80, 80, 80)",
-  outline: "rgba(95, 159, 170, 0.2)",
+  outline: "rgba(73, 118, 126, 0.2)",
   outlineVariant: "rgb(245, 245, 245)",
   shadow: "rgb(0, 0, 0)",
   scrim: "rgb(0, 0, 0)",
@@ -36,7 +36,7 @@ export const LightScheme = {
     level4: "rgb(255, 255, 255)", // Cambiado a blanco puro
     level5: "rgb(255, 255, 255)", // Cambiado a blanco puro
   },
-  surfaceDisabled: "#f6ffffff",
-  onSurfaceDisabled: "rgb(62, 135, 145)",
+  surfaceDisabled: "rgb(240, 240, 240)",
+  onSurfaceDisabled: "rgb(148, 148, 148)",
   backdrop: "rgba(47, 48, 56, 0.4)",
 };

@@ -60,7 +60,7 @@ export default function RootLayout() {
   return (
     <PaperProvider theme={theme}>
       <SafeAreaProvider>
-        <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }} edges={['top', 'bottom']}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.onBackground }} edges={['top', 'bottom']}>
           <StatusBar barStyle="dark-content"/>
           <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
             <Slot />

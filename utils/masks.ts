@@ -4,27 +4,15 @@ import { Mask, MaskArray } from 'react-native-mask-input';
  * Crea una máscara dinámica para moneda colombiana
  * Formato: $1.600.000
  */
-export const createCurrencyMask = (value: string = ''): MaskArray => {
-  const cleanValue = value.replace(/\D/g, '');
-  const mask: MaskArray = ['$'];
-  
-  if (cleanValue.length === 0) {
-    return ['$', /\d/];
+export const formatAmount = (text: string, setAmount: (amount: string) => void) => {
+  const cleanText = text.replace(/[^0-9]/g, "");
+  if (cleanText) {
+    const formatted = new Intl.NumberFormat("es-CO").format(parseInt(cleanText));
+    setAmount(cleanText);
+    return cleanText;
   }
-  
-  const digits = cleanValue.split('');
-  const length = digits.length;
-  
-  digits.forEach((_, index) => {
-    const position = length - index;
-    mask.push(/\d/);
-    
-    if (position > 1 && (position - 1) % 3 === 0) {
-      mask.push('.');
-    }
-  });
-  
-  return mask;
+  setAmount("");
+  return "";
 };
 
 /**

@@ -10,13 +10,17 @@ export default function DocumentScanner() {
             showExit={true}
             showElevated={true}
             showBackButton={false}
-        >
-            <Steps
+            header={true}
+            headerChildren={
+                <Steps
                 currentStep={1}
                 totalSteps={2}
                 stepTitle="Scan ID Card"
                 stepLabels={["Scan ID", "Profile"]}
+                title="ID card capture"
             />
+        }
+        >
             <WarningScanner />
         </Navigation>
     );

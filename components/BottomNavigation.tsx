@@ -1,33 +1,46 @@
-
-import { useRouter } from 'expo-router';
+import React from 'react';
 import { useState } from 'react';
-import { BottomNavigation, Provider } from 'react-native-paper';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import ProfilePage from '@/app/(home)/profile';
-import HomePage from '@/app/(home)';
+import { View, ScrollView } from 'react-native';
+import { BottomNavigation, Icon, useTheme } from 'react-native-paper';
+import { ResumeLayout } from './home/Resume/ResumeLayout';
+import { createBottomNavigationStyles } from '@/assets/styles/bottom.styles';
+import { spacing } from '@/assets/styles/theme';
+import { History } from './home/Payment/History';
+import { Loan } from './home/Loan/Loan';
+import Profile from './home/profile/Profile';
 
 
-export const BottomNavigationMenu = () => {
-    const [index, setIndex] = useState(0);
+export const NavigationBottom = () => {
+  const [index, setIndex] = useState(0);
+  const theme = useTheme();
+  const styles = createBottomNavigationStyles(theme);
   const routes = [
     { key: 'home', title: 'Home', icon: 'home' },
-    { key: 'settings', title: 'Settings', icon: 'cog' },
+    { key: 'history', title: 'History', icon: 'history' },
+    { key: 'loan', title: 'Loan', icon: 'credit-card' },
+    { key: 'profile', title: 'Profile', icon: 'account' }
   ];
 
-  const renderScene = ({ route }: any) => {
+  const renderScene = ({ route }: { route: any }) => {
+    
     switch (route.key) {
       case 'home':
-        return <HomePage />;
-      case 'settings':
-        return <ProfilePage />;
+        return <ResumeLayout />;
+      case 'history':
+        return <History />;
+      case 'loan':
+        return <Loan />;
+      case 'profile':
+        return <Profile />;
       default:
         return null;
     }
   };
 
   return (
-    <Provider>
-      {renderScene({ route: routes[index] })}
+    <View style={{ flex: 1 }}>
+      
+        {renderScene({ route: routes[index] })}
       <BottomNavigation.Bar
         navigationState={{ index, routes }}
         onTabPress={({ route }) => {
@@ -37,10 +50,18 @@ export const BottomNavigationMenu = () => {
           }
         }}
         renderIcon={({ route, color }) => (
-            <MaterialCommunityIcons name={route.icon as any} size={24} color={color} />
+          <Icon source={route.icon} size={24} color={color} />
         )}
         getLabelText={({ route }) => route.title}
+        style={styles.bottomBar}
+        safeAreaInsets={{ bottom: 0 }}
+        compact={true}
+        activeColor={theme.colors.primary}
+        inactiveColor={theme.colors.onSurface}
+        activeIndicatorStyle={{ backgroundColor: 'transparent' }}
       />
-    </Provider>
+    </View>
   );
-};
+}
+
+

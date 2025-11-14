@@ -13,6 +13,7 @@ export const Steps: React.FC<NavigationProps> = ({
     currentStep,
     totalSteps,
     stepLabels = [],
+    title,
 }) => {
     const theme = useTheme();
     const styles = createNavigationStyles(theme);
@@ -39,19 +40,8 @@ export const Steps: React.FC<NavigationProps> = ({
                                 style={[
                                     styles.stepCircle,
                                     isActive && styles.stepCircleActive,
-                                    isCompleted && styles.stepCircleCompleted
                                 ]}
-                            >
-                                <AppText 
-                                    style={[
-                                        styles.stepNumber,
-                                        isCompleted && styles.stepNumberCompleted,
-                                        isActive && styles.stepNumberActive,
-                                    ]}
-                                >
-                                    {i}
-                                </AppText>
-                            </View>
+                            />
                             <AppText 
                                 style={[
                                     styles.stepLabel,
@@ -69,6 +59,7 @@ export const Steps: React.FC<NavigationProps> = ({
     };
     return (
         <View style={styles.progressContainer}>
+            <AppText style={styles.progressStepTitle}>{title}</AppText>
             <View style={styles.stepsContainer}>
                 {renderSteps()}
             </View>

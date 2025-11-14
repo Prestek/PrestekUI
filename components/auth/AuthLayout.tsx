@@ -18,12 +18,6 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
 
   return (
     <View style={styles.container}>
-      {/*<LinearGradient
-        colors={[theme.colors.inversePrimary, theme.colors.tertiary]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.gradient}
-      />*/}
       <View style={styles.innerContainer}>
         {/* Logo Section */}
         <View style={styles.introContainer}>

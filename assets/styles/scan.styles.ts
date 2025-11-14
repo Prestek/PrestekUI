@@ -22,15 +22,12 @@ export const createScanStyles = (theme: MD3Theme) =>
             color: theme.colors.primary,
           },
           center: {
-            flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            padding: 20,
           },
           headerSection: {
             gap: spacing.md,
-            paddingBottom: spacing.lg,
-            paddingTop: spacing.sm,
+            paddingTop: spacing.lg,
           },
           title:{
             fontSize: typography.sizes.xl,
@@ -39,9 +36,8 @@ export const createScanStyles = (theme: MD3Theme) =>
             fontFamily: typography.fontFamilyBold,
           },
           subtitle: {
-            fontSize: typography.sizes.md,
-            
-            color: theme.colors.onSecondary,
+            fontSize: typography.sizes.md, 
+            color: theme.colors.secondary,
           },
           cameraWrapper: {
             flex: 1,
@@ -116,7 +112,6 @@ export const createScanStyles = (theme: MD3Theme) =>
           },
           instructionsSection: {
             gap: spacing.md,
-            paddingTop: spacing.lg,
           },
           instructionSectionCamera:{
             gap: spacing.md,
@@ -159,7 +154,7 @@ export const createScanStyles = (theme: MD3Theme) =>
             borderRadius: borderRadius.lg,
             alignItems: 'center',
             justifyContent: 'center',
-            paddingVertical: spacing.sm,
+            paddingVertical: spacing.md,
           },
           fullWidthButton: {
             width: '100%',
@@ -194,7 +189,6 @@ export const createScanStyles = (theme: MD3Theme) =>
           warningContainer:{
             flex: 1,
             paddingHorizontal: spacing.md,
-            paddingTop: spacing.sm,
           },
           loadingContainer: {
             flexDirection: 'row',

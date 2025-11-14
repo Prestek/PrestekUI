@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { AuthInput } from "./AuthInput";
 import { AuthButton } from "./AuthButton";
 import { EmailPasswordFormProps } from "@/models/authModels";
+import { spacing } from "@/assets/styles/theme";
 
 
 export const EmailPasswordForm: React.FC<EmailPasswordFormProps> = ({
@@ -15,7 +16,7 @@ export const EmailPasswordForm: React.FC<EmailPasswordFormProps> = ({
   loading = false,
 }) => {
   return (
-    <View style={{ width: "100%" }}>
+    <View style={{ gap: spacing.sm }}>
       <AuthInput
         value={email}
         onChangeText={onEmailChange}

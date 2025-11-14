@@ -26,14 +26,13 @@ export default function WarningScanner() {
                 <View style={styles.contentContainer}>
                     {/* Header Section */}
                     <View style={styles.headerSection}>
-                        <AppText style={styles.title}>ID card capture</AppText>
                         <AppText style={styles.subtitle}>Scan the back side of your ID card</AppText>
                     </View>
                     <View style={styles.center}>
                         <LottieView
                             source={lottie}
                             autoPlay
-                            style={{ width: 250, height: 250 }}
+                            style={{ width: 280, height: 280 }}
                         />
                     </View>
                     {/* Instructions Section */}

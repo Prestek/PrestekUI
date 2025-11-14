@@ -2,7 +2,8 @@ import { createHomeStyles } from "@/assets/styles/home.styles";
 import { View, TouchableOpacity } from "react-native";
 import { Badge, Text, useTheme } from "react-native-paper";
 import { useUser } from '@clerk/clerk-expo';
-import { AppText } from "@/components/AppText";
+import { MaterialIcons } from "@expo/vector-icons";
+
 export const UserHeader: React.FC = () => {
     const theme = useTheme();
     const styles = createHomeStyles(theme);
@@ -52,20 +53,19 @@ export const UserHeader: React.FC = () => {
             {/* Left side - Profile */}
             <View style={styles.profileSection}>
                 <View style={[styles.profileAvatar, { backgroundColor: theme.colors.primary }]}>
-                 <AppText style={styles.profileInitials}>{userInitials}</AppText>
+                    <Text style={styles.profileInitials}>{userInitials}</Text>
                 </View>
                 <View style={styles.profileInfo}>
-                    <AppText style={[styles.greetingText, { color: theme.colors.onSurface }]}>{greeting}</AppText>
-                    <AppText style={[styles.userNameText, { color: theme.colors.onBackground }]}>{userName}</AppText>
+                    <Text style={[styles.greetingText, { color: theme.colors.onSurface }]}>{greeting}</Text>
+                    <Text style={[styles.userNameText, { color: theme.colors.primary }]}>{userName}</Text>
                 </View>
             </View>
 
             {/* Right side - Notifications */}
             <TouchableOpacity style={styles.notificationButton}>
                 <View style={styles.notificationIcon}>
-                <Badge>3</Badge>
-
-                    
+                    <Badge>3</Badge>
+                    <MaterialIcons name="notifications" size={30} color={theme.colors.primary} />
                 </View>
             </TouchableOpacity>
         </View>

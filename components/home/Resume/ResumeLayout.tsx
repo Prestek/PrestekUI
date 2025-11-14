@@ -1,16 +1,14 @@
 import { createHomeStyles } from "@/assets/styles/home.styles";
 import { View, ScrollView } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 import { Credit } from "./Credit";
-import { History } from "./History";
 import { Progress } from "./Progress";
-import { NextPayment } from "./NextPayment";
 import { UserHeader } from "./UserHeader";
-import { SignOutButton } from "@/components/auth/SignOutButton";
+import { LinearGradient } from "expo-linear-gradient";
+import { Items } from "./Items";
 import { AppText } from "@/components/AppText";
-
-
-
+import { ItemsProps } from "@/models/itemsModels";
+import { spacing } from "@/assets/styles/auth.styles";
 
 export const ResumeLayout = () => {
 
@@ -25,42 +23,71 @@ export const ResumeLayout = () => {
         progressPercentage: 42
     };
 
-    // Datos del próximo pago - ejemplo con fecha cercana para mostrar color rojo
-    const nextPaymentData = {
-        nextPaymentDate: "2025-10-25", // Cambiar esta fecha para probar diferentes colores
-        nextPaymentAmount: 1250.00,
-        paymentDateLabel: "8 noviembre 2025"
-    };
+    const quickActions: ItemsProps[] = [
+        {
+            icon: "history",
+            title: "Historial de pagos",
+            description: "Consulta tus pagos realizados",
+            onPress: () => { },
+        },
+        {
+            icon: "credit-card",
+            title: "Solicitar préstamo",
+            description: "Solicita un nuevo préstamo",
+            onPress: () => { },
+        },
+        {
+            icon: "help-outline",
+            title: "Necesito ayuda",
+            description: "Contactar soporte",
+            onPress: () => { },
+        }
+    ];
 
     const theme = useTheme();
     const styles = createHomeStyles(theme);
 
+
     return (
-        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-            <UserHeader />
-            
-            <View style={styles.header}>
-                <AppText style={[styles.headerTitle, { color: theme.colors.onBackground }]}>Tu Crédito Actual</AppText>
-                <View style={styles.headerIcon}>
-                    <AppText style={styles.iconText}>★</AppText>
-                </View>
+        <ScrollView
+            style={{ flex: 1 }}
+            contentContainerStyle={{ flexGrow: 1, paddingBottom: spacing["4xl"] }}
+            showsVerticalScrollIndicator={false}
+        >
+            <View style={styles.gradientContainer}>
+                <LinearGradient
+                    colors={[theme.colors.primaryContainer, theme.colors.background]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 0, y: 1 }}
+                    style={styles.gradient}
+                />
+                <UserHeader />
+
+                <Credit loan={loanData} />
             </View>
-            <AppText style={[styles.headerSubtitle, { color: theme.colors.onSurface }]}>
-                Información detallada de tu préstamo activo
-            </AppText>
+            <Progress loan={loanData} />
 
-            <Credit loan = {loanData}/>
-
-            <Progress loan={loanData} /> 
-            
-            <NextPayment 
-                nextPaymentDate={nextPaymentData.nextPaymentDate}
-                nextPaymentAmount={nextPaymentData.nextPaymentAmount}
-                paymentDateLabel = {nextPaymentData.paymentDateLabel}
-            />
-
-            <History />
-            <SignOutButton />
+            <View style={styles.gradientContainer}>
+                <AppText style={styles.introTitle}>Servicios</AppText>
+                <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.itemsCarouselContent}
+                    style={styles.itemsCarousel}
+                >
+                    {quickActions.map((item, index) => (
+                        <View
+                            key={item.title}
+                            style={[
+                                styles.itemSlide,
+                                index === quickActions.length - 1 && styles.itemSlideLast,
+                            ]}
+                        >
+                            <Items {...item} />
+                        </View>
+                    ))}
+                </ScrollView>
+            </View>
         </ScrollView>
     );
 }
