@@ -13,7 +13,7 @@ export const Progress: React.FC<CreditProps> = ({ loan }) => {
         <View style={styles.progressSection}>
             <View style={styles.progressContainer}>
             <View style={styles.itemsHorizontal}>
-                <AppText style={[styles.progressTitle, { color: theme.colors.inversePrimary }]}>Progreso</AppText>
+                    <AppText style={[styles.progressTitle, { color: theme.colors.inversePrimary }]}>Progress</AppText>
                 <AppText style={[styles.progressPercentage, { color: theme.colors.inversePrimary }]}>
                     {loan.progressPercentage}%
                 </AppText>
@@ -23,10 +23,10 @@ export const Progress: React.FC<CreditProps> = ({ loan }) => {
             </View>
             <View style={styles.progressInfo}>
                 <AppText style={[styles.progressPaid, { color: theme.colors.inversePrimary }]}>
-                    Pagado: ${loan.paidAmount.toLocaleString('es-ES', { minimumFractionDigits: 2 })}
+                    Paid: ${loan.paidAmount.toLocaleString('es-CO', { minimumFractionDigits: 2 })}
                 </AppText>
                 <AppText style={[styles.progressRemaining, { color: theme.colors.inversePrimary }]}>
-                    Restante: ${loan.remainingAmount.toLocaleString('es-ES', { minimumFractionDigits: 2 })}
+                    Remaining: ${loan.remainingAmount.toLocaleString('es-CO', { minimumFractionDigits: 2 })}
                 </AppText>
             </View>
             </View>

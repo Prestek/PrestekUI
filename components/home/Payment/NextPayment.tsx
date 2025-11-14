@@ -60,11 +60,11 @@ export const NextPayment: React.FC<NextPaymentProps> = ({ nextPaymentDate, nextP
     // Función para obtener el mensaje de días restantes
     const getDaysMessage = (daysUntilPayment: number): string => {
         if (daysUntilPayment <= 0) {
-            return "Vencido";
+            return "Expired";
         } else if (daysUntilPayment === 1) {
-            return "Falta 1 día para vencer";
+            return "1 day left to expire";
         } else {
-            return `Faltan ${daysUntilPayment} días para vencer`;
+            return `${daysUntilPayment} days left to expire`;
         }
     };
 
@@ -86,18 +86,18 @@ export const NextPayment: React.FC<NextPaymentProps> = ({ nextPaymentDate, nextP
                 <View style={styles.nextPaymentLeft}>
                     <MaterialCommunityIcons name="cash-multiple" size={24} color={cardColors.textColor} />
                     <AppText style={[styles.nextPaymentTitle, { color: cardColors.textColor }]}>
-                        Próximo pago
+                        Next payment
                     </AppText>
                 </View>
                 <AppText style={[styles.nextPaymentAmount, { color: cardColors.textColor }]}>
-                    ${nextPaymentAmount.toLocaleString('es-ES', { minimumFractionDigits: 2 })}
+                    ${nextPaymentAmount.toLocaleString('es-CO', { minimumFractionDigits: 2 })}
                 </AppText>
             </View>
 
             {/* Middle Section - Due Date */}
             <View style={styles.nextPaymentMiddle}>
                 <AppText style={[styles.nextPaymentDueLabel, { color: cardColors.textColor }]}>
-                    Fecha límite
+                    Due date
                 </AppText>
                 <AppText style={[styles.nextPaymentDueDate, { color: cardColors.textColor }]}>
                     {paymentDateLabel}

@@ -13,33 +13,33 @@ import { spacing } from "@/assets/styles/auth.styles";
 export const ResumeLayout = () => {
 
     const loanData = {
-        bank: "Banco Nacional",
+        bank: "National Bank",
         totalAmount: 25000.00,
         interestRate: 12.5,
-        startDate: "15 marzo 2023",
-        endDate: "15 diciembre 2025",
+        startDate: "15 March 2023",
+        endDate: "15 December 2025",
         paidAmount: 10500.00,
         remainingAmount: 14500.00,
-        progressPercentage: 42
+        progressPercentage: 42,
     };
 
     const quickActions: ItemsProps[] = [
         {
             icon: "history",
-            title: "Historial de pagos",
-            description: "Consulta tus pagos realizados",
+            title: "Payment history",
+            description: "View your payment history",
             onPress: () => { },
         },
         {
             icon: "credit-card",
-            title: "Solicitar préstamo",
-            description: "Solicita un nuevo préstamo",
+            title: "Request loan",
+            description: "Request a new loan",
             onPress: () => { },
         },
         {
             icon: "help-outline",
-            title: "Necesito ayuda",
-            description: "Contactar soporte",
+            title: "Need help",
+            description: "Contact support",
             onPress: () => { },
         }
     ];
@@ -68,7 +68,7 @@ export const ResumeLayout = () => {
             <Progress loan={loanData} />
 
             <View style={styles.gradientContainer}>
-                <AppText style={styles.introTitle}>Servicios</AppText>
+                <AppText style={styles.introTitle}>Services</AppText>
                 <ScrollView
                     horizontal
                     showsHorizontalScrollIndicator={false}

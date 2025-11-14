@@ -19,7 +19,7 @@ export const UserHeader: React.FC = () => {
         } else if (user?.emailAddresses[0]?.emailAddress) {
             return user.emailAddresses[0].emailAddress.split('@')[0];
         }
-        return 'Usuario';
+        return 'User';
     };
 
     // Obtener las iniciales para el avatar
@@ -36,11 +36,11 @@ export const UserHeader: React.FC = () => {
     const getGreeting = () => {
         const hour = new Date().getHours();
         if (hour < 12) {
-            return 'Buenos días';
+            return 'Good morning';
         } else if (hour < 18) {
-            return 'Buenas tardes';
+            return 'Good afternoon';
         } else {
-            return 'Buenas noches';
+            return 'Good evening';
         }
     };
 

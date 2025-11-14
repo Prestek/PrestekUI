@@ -24,7 +24,7 @@ export const LoanDetail = ({ offer, onAccept, onBack }: LoanDetailProps) => {
 
   return (
     <Navigation header={true} headerChildren={
-      <AppText style={styles.optionsTitle}>Detalle de oferta</AppText>
+      <AppText style={styles.optionsTitle}>Offer details</AppText>
     } 
     showElevated={true}>
     <View style={styles.container}>
@@ -47,42 +47,42 @@ export const LoanDetail = ({ offer, onAccept, onBack }: LoanDetailProps) => {
               color={theme.colors.primary}
             />
             <AppText style={styles.detailApprovalText}>
-              {offer.approvalProbability}% de aprobación
+              {offer.approvalProbability}% approval probability
             </AppText>
           </View>
         </View>
 
         <View style={styles.detailSummaryCard}>
-          <AppText style={styles.detailSectionTitle}>Resumen del crédito</AppText>
+          <AppText style={styles.detailSectionTitle}>Credit summary</AppText>
           
           <View style={styles.detailSummaryRow}>
-            <AppText style={styles.detailSummaryLabel}>Monto aprobado</AppText>
+            <AppText style={styles.detailSummaryLabel}>Approved amount</AppText>
             <AppText style={styles.detailSummaryValue}>
               ${new Intl.NumberFormat("es-CO").format(offer.amount)}
             </AppText>
           </View>
 
           <View style={styles.detailSummaryRow}>
-            <AppText style={styles.detailSummaryLabel}>Plazo</AppText>
-            <AppText style={styles.detailSummaryValue}>{offer.installments} meses</AppText>
+            <AppText style={styles.detailSummaryLabel}>Installments</AppText>
+            <AppText style={styles.detailSummaryValue}>{offer.installments} months</AppText>
           </View>
 
           <View style={styles.detailSummaryRow}>
-            <AppText style={styles.detailSummaryLabel}>Tasa de interés</AppText>
+            <AppText style={styles.detailSummaryLabel}>Interest rate</AppText>
             <AppText style={styles.detailSummaryValue}>{offer.interestRate}% EA</AppText>
           </View>
 
           <View style={styles.detailDivider} />
 
           <View style={styles.detailSummaryRow}>
-            <AppText style={styles.detailSummaryLabelBold}>Cuota mensual</AppText>
+            <AppText style={styles.detailSummaryLabelBold}>Monthly payment</AppText>
             <AppText style={styles.detailSummaryValueHighlight}>
               ${new Intl.NumberFormat("es-CO").format(offer.monthlyPayment)}
             </AppText>
           </View>
 
           <View style={styles.detailSummaryRow}>
-            <AppText style={styles.detailSummaryLabelBold}>Total a pagar</AppText>
+            <AppText style={styles.detailSummaryLabelBold}>Total to pay</AppText>
             <AppText style={styles.detailSummaryLabelBold}>
               ${new Intl.NumberFormat("es-CO").format(offer.totalPayment)}
             </AppText>
@@ -90,14 +90,14 @@ export const LoanDetail = ({ offer, onAccept, onBack }: LoanDetailProps) => {
         </View>
 
         <View style={styles.detailSummaryCard}>
-          <AppText style={styles.detailSectionTitle}>Desglose de cuota mensual</AppText>
+          <AppText style={styles.detailSectionTitle}>Monthly payment breakdown</AppText>
           
           <View style={styles.detailBreakdownItem}>
             <View style={styles.detailBreakdownIconContainer}>
               <MaterialCommunityIcons name="cash" size={24} color={theme.colors.primary} />
             </View>
             <View style={styles.detailBreakdownContent}>
-              <AppText style={styles.detailBreakdownLabel}>Capital</AppText>
+              <AppText style={styles.detailBreakdownLabel}>Capital amount</AppText>
               <AppText style={styles.detailBreakdownValue}>
                 ${new Intl.NumberFormat("es-CO").format(monthlyPaymentBreakdown.capital)}
               </AppText>
@@ -109,7 +109,7 @@ export const LoanDetail = ({ offer, onAccept, onBack }: LoanDetailProps) => {
               <MaterialCommunityIcons name="percent" size={24} color={theme.colors.primary} />
             </View>
             <View style={styles.detailBreakdownContent}>
-              <AppText style={styles.detailBreakdownLabel}>Intereses</AppText>
+              <AppText style={styles.detailBreakdownLabel}>Interests</AppText>
               <AppText style={styles.detailBreakdownValue}>
                 ${new Intl.NumberFormat("es-CO").format(monthlyPaymentBreakdown.interest)}
               </AppText>
@@ -121,7 +121,7 @@ export const LoanDetail = ({ offer, onAccept, onBack }: LoanDetailProps) => {
           onPress={() => onAccept(offer)}
           disabled={false}
         >
-          Aceptar oferta
+          Accept offer
         </AuthButton>
         </View>
     </ScrollView>

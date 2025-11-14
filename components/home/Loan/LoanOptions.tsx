@@ -38,9 +38,9 @@ export const LoanOptions = ({
   return (
     <Navigation header={true} headerChildren={
         <View style={styles.optionsHeader}>
-          <AppText style={styles.optionsTitle}>Ofertas disponibles</AppText>
+          <AppText style={styles.optionsTitle}>Available offers</AppText>
           <AppText style={styles.optionsSubtitle}>
-            ${new Intl.NumberFormat("es-CO").format(parseInt(requestedAmount))} • {requestedInstallments} meses
+            ${new Intl.NumberFormat("es-CO").format(parseInt(requestedAmount))} • {requestedInstallments} months
           </AppText>
         </View>
       } 
@@ -52,7 +52,7 @@ export const LoanOptions = ({
         contentContainerStyle={styles.optionsListContent}
       >
         <AppText style={styles.resultsCount}>
-          Encontramos {offers.length} {offers.length === 1 ? "oferta" : "ofertas"} para ti
+          We found {offers.length} {offers.length === 1 ? "offer" : "offers"} for you
         </AppText>
 
         {offers.map((offer) => (
@@ -73,7 +73,7 @@ export const LoanOptions = ({
                       color={theme.colors.primary}
                     />
                     <AppText style={styles.approvalText}>
-                      {offer.approvalProbability}% probabilidad de aprobación
+                      {offer.approvalProbability}% approval probability
                     </AppText>
                   </View>
                 </View>
@@ -83,11 +83,11 @@ export const LoanOptions = ({
             <View style={styles.offerDetails}>
               <View style={styles.offerDetailRow}>
                 <View style={styles.offerDetailItem}>
-                  <AppText style={styles.offerDetailLabel}>Tasa de interés</AppText>
+                  <AppText style={styles.offerDetailLabel}>Interest rate</AppText>
                   <AppText style={styles.offerDetailValue}>{offer.interestRate.toFixed(2)}% EA</AppText>
                 </View>
                 <View style={styles.offerDetailItem}>
-                  <AppText style={styles.offerDetailLabel}>Monto aprobado</AppText>
+                  <AppText style={styles.offerDetailLabel}>Approved amount</AppText>
                   <AppText style={styles.offerDetailValue}>
                     ${new Intl.NumberFormat("es-CO").format(offer.amount)}
                   </AppText>
@@ -96,7 +96,7 @@ export const LoanOptions = ({
 
               <View style={styles.offerDetailRow}>
                 <View style={styles.offerDetailItem}>
-                  <AppText style={styles.offerDetailLabel}>Cuota mensual</AppText>
+                  <AppText style={styles.offerDetailLabel}>Monthly payment</AppText>
                   <AppText style={styles.offerDetailValueHighlight}>
                     ${new Intl.NumberFormat("es-CO").format(offer.monthlyPayment)}
                   </AppText>
@@ -108,7 +108,7 @@ export const LoanOptions = ({
               style={styles.detailButton}
               onPress={() => onSelectOffer(offer)}
             >
-              <AppText style={styles.detailButtonText}>Ver detalle</AppText>
+              <AppText style={styles.detailButtonText}>View details</AppText>
               <MaterialCommunityIcons
                 name="arrow-right"
                 size={20}

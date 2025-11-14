@@ -12,14 +12,14 @@ export const History = () => {
     const theme = useTheme();
     const paymentStyles = createPaymentStyles(theme);
     const paymentHistory = [
-        { date: "15 junio 2023", amount: 1250.00, status: "Completado" },
-        { date: "15 mayo 2023", amount: 1250.00, status: "Completado" },
-        { date: "15 abril 2023", amount: 1250.00, status: "Completado" },
+        { date: "15 June 2023", amount: 1250.00, status: "Completed" },
+        { date: "15 May 2023", amount: 1250.00, status: "Completed" },
+        { date: "15 April 2023", amount: 1250.00, status: "Completed" },
     ];
     return (
         <View style={paymentStyles.container}>
             <View style={paymentStyles.historyHeader}>
-                <AppText style={paymentStyles.historyTitle}>Historial de pagos</AppText>
+                <AppText style={paymentStyles.historyTitle}>Payment history</AppText>
                 <IconButton
                     icon="filter-variant"
                     iconColor={theme.colors.onPrimary}
@@ -37,7 +37,7 @@ export const History = () => {
                     <NextPayment
                         nextPaymentDate="2025-11-25"
                         nextPaymentAmount={1250.00}
-                        paymentDateLabel="8 noviembre 2025"
+                        paymentDateLabel="8 November 2025"
                     />
                     {paymentHistory.map((payment, index) => (
                         <View key={index} style={paymentStyles.paymentItem}>
@@ -45,11 +45,11 @@ export const History = () => {
                                 <MaterialCommunityIcons name="bank" size={24} color={theme.colors.onPrimary} />
                             </View>
                             <View style={paymentStyles.paymentContent}>
-                                <AppText style={[paymentStyles.paymentType, { color: theme.colors.secondary }]}>Pago mensual</AppText>
+                                <AppText style={[paymentStyles.paymentType, { color: theme.colors.secondary }]}>Monthly payment</AppText>
                                 <AppText style={[paymentStyles.paymentDate, { color: theme.colors.secondary }]}>{payment.date}</AppText>
                             </View>
                             <AppText style={[paymentStyles.paymentAmount, { color: theme.colors.secondary }]}>
-                                ${payment.amount.toLocaleString('es-ES', { minimumFractionDigits: 2 })}
+                                ${payment.amount.toLocaleString('es-CO', { minimumFractionDigits: 2 })}
                             </AppText>
                         </View>
                     ))}

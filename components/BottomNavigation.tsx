@@ -1,10 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View,  } from 'react-native';
 import { BottomNavigation, Icon, useTheme } from 'react-native-paper';
 import { ResumeLayout } from './home/Resume/ResumeLayout';
 import { createBottomNavigationStyles } from '@/assets/styles/bottom.styles';
-import { spacing } from '@/assets/styles/theme';
 import { History } from './home/Payment/History';
 import { Loan } from './home/Loan/Loan';
 import Profile from './home/profile/Profile';
