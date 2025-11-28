@@ -3,6 +3,7 @@ export interface ApplicationProps {
   showElevation?: boolean;
   limit?: number;
   role?: string;
+  all?: boolean;
 }
 
 import { LoanRequest } from "@/hooks/const/data";
@@ -10,6 +11,7 @@ import { LoanRequest } from "@/hooks/const/data";
 export interface RequestProps {
   request: LoanRequest | any;
   showElevation?: boolean;
+  all?: boolean;
 }
 
 export interface RequestBankProps {

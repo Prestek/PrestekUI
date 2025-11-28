@@ -36,11 +36,11 @@ export const UserHeader: React.FC = () => {
     const getGreeting = () => {
         const hour = new Date().getHours();
         if (hour < 12) {
-            return 'Good morning';
+            return 'Buenos días';
         } else if (hour < 18) {
-            return 'Good afternoon';
+            return 'Buenas tardes';
         } else {
-            return 'Good evening';
+            return 'Buenas noches';
         }
     };
 
@@ -61,13 +61,7 @@ export const UserHeader: React.FC = () => {
                 </View>
             </View>
 
-            {/* Right side - Notifications */}
-            <TouchableOpacity style={styles.notificationButton}>
-                <View style={styles.notificationIcon}>
-                    <MaterialIcons name="notifications" size={35} color={theme.colors.primary} />
-                    <Badge style={styles.notificationBadge} size={18}></Badge>
-                </View>
-            </TouchableOpacity>
+
         </View>
     );
 };

@@ -13,6 +13,7 @@ export const Applications: React.FC<ApplicationProps> = ({
   showElevation = true,
   limit,
   role,
+  all = true,
 }) => {
   const theme = useTheme();
   const paymentStyles = createPaymentStyles(theme);
@@ -35,6 +36,7 @@ export const Applications: React.FC<ApplicationProps> = ({
               request={request}
               showElevation={showElevation}
               key={index}
+              all={all}
             />
           )
         )}

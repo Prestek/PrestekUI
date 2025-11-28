@@ -20,6 +20,7 @@ export const RecentRequests: React.FC<ApplicationProps> = ({ filteredRequests = 
         showElevation={false}
         limit={2}
         role={role}
+        all={false}
       />
     </View>
   );

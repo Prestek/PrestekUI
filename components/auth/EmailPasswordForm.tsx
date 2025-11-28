@@ -22,14 +22,14 @@ export const EmailPasswordForm: React.FC<EmailPasswordFormProps> = ({
         onChangeText={onEmailChange}
         keyboardType="email-address"
         disabled={loading}
-        label="Email Address"
+        label="Correo electrónico"
         icon="email"
         iconPosition="left"
       />
       <AuthInput
         value={password}
         secureTextEntry
-        label="Password"
+        label="Contraseña"
         onChangeText={onPasswordChange}
         disabled={loading}
         icon="eye"

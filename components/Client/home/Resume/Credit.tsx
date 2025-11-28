@@ -12,23 +12,23 @@ export const Credit: React.FC<CreditProps> = ({ loan }) => {
         <View style={[styles.basicInformation, styles.resumeContrainer]}>
                 <View style={[styles.itemsHorizontal]}>
                     <View style={styles.cardHeader}>
-                        <AppText style={styles.basicInformationTitle}>Last Application</AppText>
+                        <AppText style={styles.basicInformationTitle}>Última solicitud</AppText>
                         <AppText style={[styles.basicInformationContentText, styles.bankColor]}>{loan.bank}</AppText>
                     </View>
                     <View style={styles.bankLogo}>
-                        <AppText style={styles.logoText}>N</AppText>
+                        <AppText style={styles.logoText}>B</AppText>
                     </View>
                 </View>
             <View style={styles.cardContent}>
                 <View style={styles.itemsHorizontal}>
                     <View style={styles.amountSection}>
-                        <AppText style={[styles.amountLabel, styles.basicInformationContentText]}>Total amount</AppText>
+                        <AppText style={[styles.amountLabel, styles.basicInformationContentText]}>Total solicitado</AppText>
                         <AppText style={[styles.amountValue, styles.basicInformationContentText]}>
-                            ${loan.totalAmount.toLocaleString('es-ES', { minimumFractionDigits: 2 })}
+                            ${loan.totalAmount.toLocaleString('es-CO', { minimumFractionDigits: 2 })}
                         </AppText>
                     </View>
                     <View style={styles.amountSection}>
-                        <AppText style={styles.basicInformationContentText}>Requested date</AppText>
+                        <AppText style={styles.basicInformationContentText}>Fecha de solicitud</AppText>
                         <AppText style={[styles.basicInformationContentText, styles.bankName]}>{loan.startDate}</AppText>
                     </View>
                 </View>

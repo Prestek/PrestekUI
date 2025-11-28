@@ -17,8 +17,10 @@ import {
 } from "react-native-paper";
 import { router, useLocalSearchParams } from "expo-router";
 import { AppText } from "@/components/AppText";
-import { initialRequests, LoanRequestStatus, statusLabels } from "@/hooks/const/data";
+import { statusLabels } from "@/hooks/const/data";
+import { LoanRequestStatus } from "@/models/enums/Request";
 import { spacing, borderRadius, typography } from "@/assets/styles/theme";
+import { Navigation } from "@/components/Navigation";
 
 // Extended request model with additional fields
 type ExtendedLoanRequest = {
@@ -43,7 +45,7 @@ const extendedRequests: Record<string, ExtendedLoanRequest> = {
         requestedAt: "2025-11-10T09:30:00",
         amount: 35000000,
         installments: 48,
-        status: "Pending",
+        status: LoanRequestStatus.PENDING,
         reason: "Capital de trabajo para Pyme",
         observations: "",
     },
@@ -54,7 +56,7 @@ const extendedRequests: Record<string, ExtendedLoanRequest> = {
         requestedAt: "2025-11-08T14:15:00",
         amount: 15000000,
         installments: 36,
-        status: "Approved",
+        status: LoanRequestStatus.APPROVED,
         reason: "Compra de vehículo de reparto",
         observations: "Cliente con buen historial crediticio. Aprobado con tasa preferencial.",
     },
@@ -65,7 +67,7 @@ const extendedRequests: Record<string, ExtendedLoanRequest> = {
         requestedAt: "2025-11-07T11:45:00",
         amount: 42000000,
         installments: 60,
-        status: "Rejected",
+        status: LoanRequestStatus.REJECTED,
         reason: "Consolidación de deudas",
         rejectionReason: "Ratio deuda/ingreso supera límite permitido",
         observations: "Cliente presenta mora en otros productos. Recomendado reevaluar en 6 meses.",
@@ -77,7 +79,7 @@ const extendedRequests: Record<string, ExtendedLoanRequest> = {
         requestedAt: "2025-11-06T16:05:00",
         amount: 28000000,
         installments: 42,
-        status: "Pending",
+        status: LoanRequestStatus.PENDING,
         reason: "Ampliación de local comercial",
         observations: "",
     },
@@ -93,6 +95,7 @@ export default function DetailScreen() {
     const [observations, setObservations] = useState("");
     const [dialogVisible, setDialogVisible] = useState(false);
     const [pendingStatus, setPendingStatus] = useState<LoanRequestStatus | null>(null);
+    const [dialogObservations, setDialogObservations] = useState("");
 
     useEffect(() => {
         const foundRequest = extendedRequests[requestId];
@@ -104,6 +107,7 @@ export default function DetailScreen() {
 
     const handleStatusChange = (newStatus: LoanRequestStatus) => {
         setPendingStatus(newStatus);
+        setDialogObservations(observations);
         setDialogVisible(true);
     };
 
@@ -113,11 +117,13 @@ export default function DetailScreen() {
             const updatedRequest = {
                 ...request,
                 status: pendingStatus,
-                observations,
-                ...(pendingStatus === "Rejected" && { rejectionReason: observations }),
+                observations: dialogObservations,
+                ...(pendingStatus === LoanRequestStatus.REJECTED && { rejectionReason: dialogObservations }),
             };
             setRequest(updatedRequest);
+            setObservations(dialogObservations);
             setDialogVisible(false);
+            setDialogObservations("");
 
             // Navigate back after a short delay
             setTimeout(() => {
@@ -142,132 +148,125 @@ export default function DetailScreen() {
     return (
         <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
             {/* Header */}
-            <Surface style={[styles.header, { backgroundColor: theme.colors.surface }]} elevation={2}>
-                <IconButton
-                    icon="arrow-left"
-                    size={24}
-                    onPress={() => router.back()}
-                />
-                <AppText style={[styles.headerTitle, { color: theme.colors.secondary }]}>
-                    Detalle de solicitud
-                </AppText>
-                <View style={{ width: 40 }} />
-            </Surface>
+            <Navigation header={true} headerChildren={
+                <AppText style={styles.headerTitle}>Detalle de solicitud</AppText>
+            }
+                showElevated={true}>
 
-            <ScrollView
-                contentContainerStyle={styles.scrollContent}
-                showsVerticalScrollIndicator={false}
-            >
+                <ScrollView
+                    contentContainerStyle={styles.scrollContent}
+                    showsVerticalScrollIndicator={false}
+                >
 
-                {/* Applicant Info */}
-                <Card style={[styles.card, { backgroundColor: theme.colors.tertiary }]} mode="contained" >
-                    <Card.Title
-                        title="Información del solicitante"
-                        titleStyle={[styles.cardTitle, { color: theme.colors.primary }]}
-                        left={(props) => <IconButton {...props} icon="account" iconColor={theme.colors.primary} size={30} />}
-                    />
-                    <Card.Content style={styles.cardContent}>
-                        <View style={styles.infoRow}>
-                            <Text style={[styles.label, { color: theme.colors.onPrimary }]}>
-                                Nombre completo
-                            </Text>
-                            <AppText style={[styles.value, { color: theme.colors.secondary }]}>
-                                {request.applicant}
-                            </AppText>
-                        </View>
-                        <Divider style={styles.divider} />
-                        <View style={styles.infoRow}>
-                            <Text style={[styles.label, { color: theme.colors.onPrimary }]}>
-                                Identificación
-                            </Text>
-                            <AppText style={[styles.value, { color: theme.colors.secondary }]}>
-                                {request.applicantId}
-                            </AppText>
-                        </View>
-                    </Card.Content>
-                </Card>
-
-                {/* Request Info */}
-                <Card style={styles.card} mode="contained">
-                    <Card.Title
-                        title="Detalles de la solicitud"
-                        titleStyle={[styles.cardTitle, { color: theme.colors.primary }]}
-                        left={(props) => <IconButton {...props} icon="file-document" iconColor={theme.colors.primary} size={30} />}
-                    />
-                    <Card.Content style={styles.cardContent}>
-                        <View style={styles.infoRow}>
-                            <Text style={[styles.label, { color: theme.colors.onSurfaceVariant }]}>
-                                ID Solicitud
-                            </Text>
-                            <AppText style={[styles.value, { color: theme.colors.secondary }]}>
-                                {request.id}
-                            </AppText>
-                        </View>
-                        <Divider style={styles.divider} />
-                        <View style={styles.infoRow}>
-                            <Text style={[styles.label, { color: theme.colors.onSurfaceVariant }]}>
-                                Fecha de solicitud
-                            </Text>
-                            <AppText style={[styles.value, { color: theme.colors.secondary }]}>
-                                {new Date(request.requestedAt).toLocaleDateString("es-CO", {
-                                    day: "2-digit",
-                                    month: "long",
-                                    year: "numeric",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                })}
-                            </AppText>
-                        </View>
-                        <Divider style={styles.divider} />
-                        <View style={styles.infoRow}>
-                            <Text style={[styles.label, { color: theme.colors.onSurfaceVariant }]}>
-                                Monto solicitado
-                            </Text>
-                            <AppText style={[styles.valueHighlight, { color: theme.colors.primary }]}>
-                                ${request.amount.toLocaleString("es-CO")}
-                            </AppText>
-                        </View>
-                        <Divider style={styles.divider} />
-                        <View style={styles.infoRow}>
-                            <Text style={[styles.label, { color: theme.colors.onSurfaceVariant }]}>
-                                Número de cuotas
-                            </Text>
-                            <AppText style={[styles.value, { color: theme.colors.secondary }]}>
-                                {request.installments} meses
-                            </AppText>
-                        </View>
-                        <Divider style={styles.divider} />
-                        <View style={styles.infoRow}>
-                            <Text style={[styles.label, { color: theme.colors.onSurfaceVariant }]}>
-                                Estado
-                            </Text>
-                            <Chip
-                                style={[styles.statusChip, { backgroundColor: statusColor }]}
-                                textStyle={styles.chipText}
-                            >
-                                {statusLabels[request.status]?.label}
-                            </Chip>
-                        </View>
-                    </Card.Content>
-                </Card>
-
-                {/* Rejection Reason if exists */}
-                {request.rejectionReason && (
-                    <Card style={styles.card} mode="contained">
+                    {/* Applicant Info */}
+                    <Card style={[styles.card, { backgroundColor: theme.colors.tertiary }]} mode="contained" >
                         <Card.Title
-                            title="Motivo de rechazo"
-                            titleStyle={[styles.cardTitle, { color: theme.colors.error }]}
-                            left={(props) => <IconButton {...props} icon="alert-circle" iconColor={theme.colors.error} size={30} />}
+                            title="Información del solicitante"
+                            titleStyle={[styles.cardTitle, { color: theme.colors.primary }]}
+                            left={(props) => <IconButton {...props} icon="account" iconColor={theme.colors.primary} size={30} />}
                         />
-                        <Card.Content>
-                            <AppText style={[styles.value, { color: theme.colors.onSurface }]}>
-                                {request.rejectionReason}
-                            </AppText>
+                        <Card.Content style={styles.cardContent}>
+                            <View style={styles.infoRow}>
+                                <Text style={[styles.label, { color: theme.colors.onPrimary }]}>
+                                    Nombre completo
+                                </Text>
+                                <AppText style={[styles.value, { color: theme.colors.secondary }]}>
+                                    {request.applicant}
+                                </AppText>
+                            </View>
+                            <Divider style={styles.divider} />
+                            <View style={styles.infoRow}>
+                                <Text style={[styles.label, { color: theme.colors.onPrimary }]}>
+                                    Identificación
+                                </Text>
+                                <AppText style={[styles.value, { color: theme.colors.secondary }]}>
+                                    {request.applicantId}
+                                </AppText>
+                            </View>
                         </Card.Content>
                     </Card>
-                )}
 
-                {/* Observations */}
+                    {/* Request Info */}
+                    <Card style={styles.card} mode="contained">
+                        <Card.Title
+                            title="Detalles de la solicitud"
+                            titleStyle={[styles.cardTitle, { color: theme.colors.primary }]}
+                            left={(props) => <IconButton {...props} icon="file-document" iconColor={theme.colors.primary} size={30} />}
+                        />
+                        <Card.Content style={styles.cardContent}>
+                            <View style={styles.infoRow}>
+                                <Text style={[styles.label, { color: theme.colors.onSurfaceVariant }]}>
+                                    ID Solicitud
+                                </Text>
+                                <AppText style={[styles.value, { color: theme.colors.secondary }]}>
+                                    {request.id}
+                                </AppText>
+                            </View>
+                            <Divider style={styles.divider} />
+                            <View style={styles.infoRow}>
+                                <Text style={[styles.label, { color: theme.colors.onSurfaceVariant }]}>
+                                    Fecha de solicitud
+                                </Text>
+                                <AppText style={[styles.value, { color: theme.colors.secondary }]}>
+                                    {new Date(request.requestedAt).toLocaleDateString("es-CO", {
+                                        day: "2-digit",
+                                        month: "long",
+                                        year: "numeric",
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                    })}
+                                </AppText>
+                            </View>
+                            <Divider style={styles.divider} />
+                            <View style={styles.infoRow}>
+                                <Text style={[styles.label, { color: theme.colors.onSurfaceVariant }]}>
+                                    Monto solicitado
+                                </Text>
+                                <AppText style={[styles.valueHighlight, { color: theme.colors.primary }]}>
+                                    ${request.amount.toLocaleString("es-CO")}
+                                </AppText>
+                            </View>
+                            <Divider style={styles.divider} />
+                            <View style={styles.infoRow}>
+                                <Text style={[styles.label, { color: theme.colors.onSurfaceVariant }]}>
+                                    Número de cuotas
+                                </Text>
+                                <AppText style={[styles.value, { color: theme.colors.secondary }]}>
+                                    {request.installments} meses
+                                </AppText>
+                            </View>
+                            <Divider style={styles.divider} />
+                            <View style={styles.infoRow}>
+                                <Text style={[styles.label, { color: theme.colors.onSurfaceVariant }]}>
+                                    Estado
+                                </Text>
+                                <Chip
+                                    style={[styles.statusChip, { backgroundColor: statusColor }]}
+                                    textStyle={styles.chipText}
+                                >
+                                    {statusLabels[request.status as LoanRequestStatus]?.label}
+                                </Chip>
+                            </View>
+                        </Card.Content>
+                    </Card>
+
+                    {/* Rejection Reason if exists */}
+                    {request.rejectionReason && (
+                        <Card style={styles.card} mode="contained">
+                            <Card.Title
+                                title="Motivo de rechazo"
+                                titleStyle={[styles.cardTitle, { color: theme.colors.error }]}
+                                left={(props) => <IconButton {...props} icon="alert-circle" iconColor={theme.colors.error} size={30} />}
+                            />
+                            <Card.Content>
+                                <AppText style={[styles.value, { color: theme.colors.onSurface }]}>
+                                    {request.rejectionReason}
+                                </AppText>
+                            </Card.Content>
+                        </Card>
+                    )}
+
+                    {/* Observations 
                 <Card style={styles.card} mode="contained">
                     <Card.Title
                         title="Observaciones del banco"
@@ -287,56 +286,87 @@ export default function DetailScreen() {
                             activeOutlineColor={theme.colors.primary}
                         />
                     </Card.Content>
-                </Card>
+                </Card>*/}
 
-                {/* Action Buttons */}
-                {request.status === "Pending" && (
-                    <View style={styles.actionsContainer}>
-                        <Button
-                            mode="contained-tonal"
-                            onPress={() => handleStatusChange("Rejected")}
-                            buttonColor={theme.colors.errorContainer}
-                            textColor={theme.colors.error}
-                            icon="close"
-                            style={styles.actionButton}
-                        >
-                            Rechazar
-                        </Button>
-                        <Button
-                            mode="contained"
-                            onPress={() => handleStatusChange("Approved")}
-                            icon="check"
-                            style={styles.actionButton}
-                            textColor={theme.colors.surface}
-                        >
-                            Aprobar
-                        </Button>
-                    </View>
-                )}
+                    {/* Action Buttons */}
+                    {request.status === LoanRequestStatus.PENDING && (
+                        <View style={styles.actionsContainer}>
+                            <Button
+                                mode="contained-tonal"
+                                onPress={() => handleStatusChange(LoanRequestStatus.REJECTED)}
+                                buttonColor={theme.colors.errorContainer}
+                                textColor={theme.colors.inversePrimary}
+                                icon="close"
+                                style={styles.actionButton}
+                            >
+                                Rechazar
+                            </Button>
+                            <Button
+                                mode="contained"
+                                onPress={() => handleStatusChange(LoanRequestStatus.APPROVED)}
+                                icon="check"
+                                style={styles.actionButton}
+                                textColor={theme.colors.inversePrimary}
+                            >
+                                Aprobar
+                            </Button>
+                        </View>
+                    )}
 
-                {request.status !== "Pending" && (
-                    <View style={styles.statusInfoContainer}>
-                        <AppText style={[styles.statusInfoText, { color: theme.colors.onSurfaceVariant }]}>
-                            Esta solicitud ya ha sido {request.status === "Approved" ? "aprobada" : "rechazada"}.
-                        </AppText>
-                    </View>
-                )}
-            </ScrollView>
-
+                    {request.status !== LoanRequestStatus.PENDING && (
+                        <View style={styles.statusInfoContainer}>
+                            <AppText style={[styles.statusInfoText, { color: theme.colors.onSurfaceVariant }]}>
+                                Esta solicitud ya ha sido {request.status === LoanRequestStatus.APPROVED ? "aprobada" : "rechazada"}.
+                            </AppText>
+                        </View>
+                    )}
+                </ScrollView>
+            </Navigation>
             {/* Confirmation Dialog */}
             <Portal>
                 <Dialog visible={dialogVisible} onDismiss={() => setDialogVisible(false)}>
-                    <Dialog.Title>Confirmar acción</Dialog.Title>
-                    <Dialog.Content>
-                        <Text>
-                            ¿Estás seguro de que deseas {pendingStatus === "Approved" ? "aprobar" : "rechazar"} esta
+                    <Dialog.Title>
+                        {pendingStatus === LoanRequestStatus.APPROVED ? "Aprobar solicitud" : "Rechazar solicitud"}
+                    </Dialog.Title>
+                    <Dialog.Content style={{ gap: spacing.md }}>
+                        <AppText>
+                            ¿Estás seguro de que deseas {pendingStatus === LoanRequestStatus.APPROVED ? "aprobar" : "rechazar"} esta
                             solicitud?
-                            {pendingStatus === "Rejected" && "\n\nAsegúrate de incluir el motivo en las observaciones."}
-                        </Text>
+                        </AppText>
+                        <TextInput
+                            mode="outlined"
+                            label={pendingStatus === LoanRequestStatus.REJECTED ? "Motivo del rechazo *" : "Observaciones (opcional)"}
+                            multiline
+                            numberOfLines={4}
+                            value={dialogObservations}
+                            onChangeText={setDialogObservations}
+                            placeholder={
+                                pendingStatus === LoanRequestStatus.REJECTED
+                                    ? "Describe el motivo del rechazo..."
+                                    : "Añade observaciones sobre esta decisión..."
+                            }
+                            outlineColor={theme.colors.outline}
+                            activeOutlineColor={theme.colors.primary}
+                        />
+                        {pendingStatus === LoanRequestStatus.REJECTED && !dialogObservations.trim() && (
+                            <AppText style={{ color: theme.colors.error, fontSize: 12 }}>
+                                El motivo del rechazo es obligatorio
+                            </AppText>
+                        )}
                     </Dialog.Content>
                     <Dialog.Actions>
-                        <Button onPress={() => setDialogVisible(false)}>Cancelar</Button>
-                        <Button onPress={confirmStatusChange}>Confirmar</Button>
+                        <Button onPress={() => {
+                            setDialogVisible(false);
+                            setDialogObservations("");
+                        }}>
+                            Cancelar
+                        </Button>
+                        <Button
+                            onPress={confirmStatusChange}
+                            disabled={pendingStatus === LoanRequestStatus.REJECTED && !dialogObservations.trim()}
+                        >
+                            Confirmar
+                        </Button>
                     </Dialog.Actions>
                 </Dialog>
             </Portal>

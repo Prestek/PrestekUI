@@ -26,9 +26,9 @@ export const LoanRequest = ({ onSubmit }: LoanRequestProps) => {
   return (
     <View style={styles.loanContainer}>
       <View style={styles.requestContainer}>
-        <AppText style={styles.requestTitle}>Request your loan</AppText>
+        <AppText style={styles.requestTitle}>Solicita tu préstamo</AppText>
         <AppText style={styles.requestSubtitle}>
-          Complete the information to find the best offers
+          Completa la información para encontrar las mejores ofertas
         </AppText>
 
         <View style={styles.formContainer}>
@@ -37,7 +37,7 @@ export const LoanRequest = ({ onSubmit }: LoanRequestProps) => {
             keyboardType="numeric"
             icon="cash-plus"
             iconPosition="left"
-            label="Loan amount"
+            label="Monto del préstamo"
             value={amount ? new Intl.NumberFormat("es-CO").format(parseInt(amount)) : ""}
           />
           <AuthInput
@@ -46,12 +46,12 @@ export const LoanRequest = ({ onSubmit }: LoanRequestProps) => {
             keyboardType="numeric"
             icon="calendar-month"
             iconPosition="left"
-            label="Number of installments"
+            label="Número de cuotas"
           />
 
 
           <View style={styles.quickOptions}>
-            <AppText style={styles.quickOptionsLabel}>Suggested installments:</AppText>
+            <AppText style={styles.quickOptionsLabel}>Cuotas sugeridas:</AppText>
             <View style={styles.quickOptionsRow}>
               {["6", "12", "24", "36"].map((option) => (
                 <TouchableOpacity
@@ -81,7 +81,7 @@ export const LoanRequest = ({ onSubmit }: LoanRequestProps) => {
         onPress={handleSubmit}
         disabled={!amount || !installments}
       >
-        Search offers
+        Buscar ofertas
       </AuthButton>
     </View>
   );

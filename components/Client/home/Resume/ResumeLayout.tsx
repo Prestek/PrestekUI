@@ -13,11 +13,11 @@ import { RecentRequests } from "@/components/RecentRequests";
 
 export const ResumeLayout = () => {
   const loanData = {
-    bank: "National Bank",
+    bank: "Bancolombia",
     totalAmount: 25000.0,
     interestRate: 12.5,
-    startDate: "15 March 2023",
-    endDate: "15 December 2025",
+    startDate: "15 de marzo de 2023",
+    endDate: "15 de diciembre de 2025",
     paidAmount: 10500.0,
     remainingAmount: 14500.0,
     progressPercentage: 42,
@@ -26,20 +26,20 @@ export const ResumeLayout = () => {
   const quickActions: ItemsProps[] = [
     {
       icon: "credit-card",
-      title: "Request loan",
-      description: "Request a new loan",
+      title: "Solicitar préstamo",
+      description: "Solicitar un nuevo préstamo",
       onPress: () => {},
     },
     {
       icon: "history",
-      title: "Credit applications",
-      description: "View your applications",
+      title: "Solicitudes de crédito",
+      description: "Ver tus solicitudes",
       onPress: () => {},
     },
     {
       icon: "help-outline",
-      title: "Need help",
-      description: "Contact support",
+      title: "Necesita ayuda",
+      description: "Contactar soporte",
       onPress: () => {},
     },
   ];
@@ -65,9 +65,9 @@ export const ResumeLayout = () => {
         <Credit loan={loanData} />
       </View>
       <View style={[styles.gradientContainer, { gap: spacing.lg }]}>
-        <RecentRequests filteredRequests={creditUserRequests} />
+        <RecentRequests filteredRequests={creditUserRequests} role="client" />
         <View>
-          <AppText style={styles.introTitle}>Services</AppText>
+          <AppText style={styles.introTitle}>Servicios</AppText>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}

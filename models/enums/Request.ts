@@ -1,5 +1,5 @@
 export enum LoanRequestStatus {
-  PENDING = "Pending",
-  APPROVED = "Approved",
-  REJECTED = "Rejected",
+  PENDING = "Pendiente",
+  APPROVED = "Aprobada",
+  REJECTED = "Rechazada",
 }

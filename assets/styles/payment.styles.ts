@@ -22,7 +22,6 @@ export const createPaymentStyles = (theme: MD3Theme) =>
         borderWidth: 1,
         borderColor: theme.colors.outline,
         borderRadius: borderRadius.lg,
-        backgroundColor: theme.colors.onBackground,
       },
       paymentIndicator: {
         width: 4,

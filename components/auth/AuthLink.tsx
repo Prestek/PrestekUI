@@ -8,7 +8,7 @@ import { AppText } from "../AppText";
 
 
 export const AuthLink: React.FC<AuthLinkProps> = ({
-  title = "Don't have an account?",
+  title = "¿No tienes una cuenta?",
   href,
   text,
   disabled = false,

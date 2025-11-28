@@ -1,50 +1,51 @@
+import { LoanRequestStatus } from "@/models/enums/Request";
+
 export const creditUserRequests = [
   {
     bank: "Davivienda",
-    date: "15 June 2023",
+    date: "15 de junio de 2023",
     amount: 5000000,
-    status: "Approved",
+    status: LoanRequestStatus.APPROVED.toString(),
   },
   {
     bank: "Bancolombia",
-    date: "10 May 2023",
+    date: "10 de mayo de 2023",
     amount: 3500000,
-    status: "Pending",
+    status: LoanRequestStatus.PENDING.toString(),
   },
   {
     bank: "Banco Nacional",
-    date: "22 March 2023",
+    date: "22 de marzo de 2023",
     amount: 7500000,
-    status: "Rejected",
+    status: LoanRequestStatus.REJECTED.toString(),
   },
-  { bank: "BBVA", date: "05 Marzo 2023", amount: 4200000, status: "Approved" },
+  { bank: "BBVA", date: "05 de marzo de 2023", amount: 4200000, status: LoanRequestStatus.APPROVED.toString() },
   {
     bank: "Davivienda",
-    date: "18 February 2023",
+    date: "18 de febrero de 2023",
     amount: 2800000,
-    status: "Approved",
+    status: LoanRequestStatus.APPROVED.toString(),
   },
   {
     bank: "Banco de Bogotá",
-    date: "30 January 2023",
+    date: "30 de enero de 2023",
     amount: 6000000,
-    status: "Pending",
+    status: LoanRequestStatus.PENDING.toString(),
   },
   {
     bank: "Bancolombia",
-    date: "12 December 2022",
+    date: "12 de diciembre de 2022",
     amount: 3000000,
-    status: "Approved",
+    status: LoanRequestStatus.APPROVED.toString(),
   },
   {
     bank: "Banco Nacional",
-    date: "25 November 2022",
+    date: "25 de noviembre de 2022",
     amount: 5500000,
-    status: "Rejected",
+    status: LoanRequestStatus.REJECTED.toString(),
   },
 ];
 
-export type LoanRequestStatus = "Pending" | "Approved" | "Rejected";
 
 export type LoanRequest = {
   id: string;
@@ -61,7 +62,7 @@ export const initialRequests: LoanRequest[] = [
     applicant: "María Gómez",
     requestedAt: "2025-11-10T09:30:00",
     amount: 35000000,
-    status: "Pending",
+    status: LoanRequestStatus.PENDING,
     reason: "Capital de trabajo para Pyme",
   },
   {
@@ -69,7 +70,7 @@ export const initialRequests: LoanRequest[] = [
     applicant: "Carlos Pérez",
     requestedAt: "2025-11-08T14:15:00",
     amount: 15000000,
-    status: "Approved",
+    status: LoanRequestStatus.APPROVED,
     reason: "Compra de vehículo de reparto",
   },
   {
@@ -77,7 +78,7 @@ export const initialRequests: LoanRequest[] = [
     applicant: "Lucía Torres",
     requestedAt: "2025-11-07T11:45:00",
     amount: 42000000,
-    status: "Rejected",
+    status: LoanRequestStatus.REJECTED,
     reason: "Consolidación de deudas",
   },
   {
@@ -85,7 +86,7 @@ export const initialRequests: LoanRequest[] = [
     applicant: "Julián Herrera",
     requestedAt: "2025-11-06T16:05:00",
     amount: 28000000,
-    status: "Pending",
+    status: LoanRequestStatus.PENDING,
     reason: "Ampliación de local comercial",
   },
 ];
@@ -94,7 +95,7 @@ export const statusLabels: Record<
   LoanRequestStatus,
   { label: string; color: string }
 > = {
-  Pending: { label: "Pendiente", color: "#F4A259" },
-  Approved: { label: "Aprobada", color: "#32B768" },
-  Rejected: { label: "Rechazada", color: "#D94141" },
+  [LoanRequestStatus.PENDING]: { label: "Pendiente", color: "#F4A259" },
+  [LoanRequestStatus.APPROVED]: { label: "Aprobada", color: "#32B768" },
+  [LoanRequestStatus.REJECTED]: { label: "Rechazada", color: "#D94141" },
 };

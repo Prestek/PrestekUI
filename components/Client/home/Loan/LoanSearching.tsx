@@ -50,18 +50,18 @@ export const LoanSearching = () => {
   const steps = [
     {
       icon: "shield-check",
-      title: "Verification in process",
-      subtitle: "Validating your information",
+      title: "Verificación en proceso",
+      subtitle: "Validando tu información",
     },
     {
       icon: "chart-line",
-      title: "Analyzing recent transactions",
-      subtitle: "Reviewing financial history",
+      title: "Analizando transacciones recientes",
+      subtitle: "Revisando historial financiero",
     },
     {
       icon: "credit-card-outline",
-      title: "Evaluating credit limits",
-      subtitle: "Calculating availability",
+      title: "Evaluando límites de crédito",
+      subtitle: "Calculando disponibilidad",
     },
   ];
 
@@ -84,9 +84,9 @@ export const LoanSearching = () => {
             />
           </Animated.View>
         </View>
-        <AppText style={styles.searchingTitle}>Evaluating Financial Policies</AppText>
+        <AppText style={styles.searchingTitle}>Evaluando políticas financieras</AppText>
         <AppText style={styles.searchingSubtitle}>
-          We are verifying the best credit offers available for you
+          Estamos verificando las mejores ofertas de crédito disponibles para ti
         </AppText>
 
         <View style={styles.stepsContainer}>
@@ -124,7 +124,7 @@ export const LoanSearching = () => {
         </View>
 
         <AppText style={styles.searchingFooter}>
-          We are preparing everything for you... This process may take a few moments.
+          Estamos preparando todo para ti... Este proceso puede tomar unos minutos.
         </AppText>
       </View>
     </View>

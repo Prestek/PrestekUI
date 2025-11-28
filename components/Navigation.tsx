@@ -34,7 +34,7 @@ export const Navigation: React.FC<NavigationProps> = ({
         console.log("Sign out button pressed")
         try {
             await signOut()
-            router.replace("/(auth)/sign-in")
+            router.replace("/(auth)/role")
         } catch (err) {
             console.error(JSON.stringify(err, null, 2))
         }

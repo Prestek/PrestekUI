@@ -3,7 +3,7 @@ import Logo from "@/components/Logo";
 import { AppText } from "@/components/AppText";
 import { saveItem } from "@/utils/secureStorage";
 import { router } from "expo-router";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { Image, SafeAreaView, StyleSheet, View } from "react-native";
 import { Button, MD3Theme, Surface, useTheme } from "react-native-paper";
 
 type RoleOption = "client" | "bank";
@@ -29,7 +29,7 @@ export default function RoleScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.heroContainer}>
-      <Logo width={60} height={60} color={theme.colors.inversePrimary} />
+        <Image source={require('@/assets/logo/blanco.png')} style={{ width: 200, height: 60, resizeMode: 'contain', margin: 0, padding: 0 }} />
         <AppText style={styles.welcomeLabel}>Bienvenido</AppText>
         <AppText style={styles.description}>
           Conecta tus finanzas y gestiona tus productos desde un único lugar.

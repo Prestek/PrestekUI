@@ -9,41 +9,22 @@ import { AuthLink } from "@/components/auth/AuthLink";
 import { useAuthFlow } from "@/hooks/useAuthFlow";
 import { useEmailSignIn } from "@/hooks/useEmailAuth";
 import { useLocalSearchParams } from "expo-router";
-import { useColorScheme } from "react-native";
-import { PaperProvider } from "react-native-paper";
-import { getAppTheme, getBankTheme } from "@/assets/themes/paperTheme";
-import { getItem } from "@/utils/secureStorage";
+import { MD3Theme, PaperProvider } from "react-native-paper";
+import { useTheme } from "@/hooks/useTheme";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function SignInScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<string | null>(null);
-
   const params = useLocalSearchParams();
-  const colorScheme = useColorScheme();
-
+  const theme = useTheme(params.role as string);
   const { handleOAuth, loading: oauthLoading } = useAuthFlow();
   const { handleSignIn, loading: emailLoading } = useEmailSignIn();
-
   const loading = oauthLoading || emailLoading;
 
-  useEffect(() => {
-    const paramRole = typeof params.role === "string" ? params.role : null;
-    if (paramRole) {
-      setRole(paramRole);
-      return;
-    }
-  }, [params.role]);
-
-  const theme = useMemo(
-    () => (role === "bank" ? getBankTheme(colorScheme) : getAppTheme(colorScheme)),
-    [role, colorScheme]
-  );
-
   return (
-    <PaperProvider theme={theme}>
+    <PaperProvider theme={theme as MD3Theme}>
       <AuthLayout>
         <EmailPasswordForm
           email={email}
@@ -51,12 +32,15 @@ export default function SignInScreen() {
           onEmailChange={setEmail}
           onPasswordChange={setPassword}
           onSubmit={() => handleSignIn(email, password)}
-          submitLabel={loading ? "Signing in..." : "Continue"}
+          submitLabel={loading ? "Iniciando sesión..." : "Continuar"}
           loading={loading}
         />
         <AuthDivider />
         <OAuthButtons onPress={handleOAuth} disabled={loading} />
-        <AuthLink href="/(auth)/sign-up" text="Sign up" disabled={loading} />
+        <AuthLink href={{
+          pathname: "/(auth)/sign-up",
+          params: { role: params.role as string },
+        }} text="Registrarme" disabled={loading} />
       </AuthLayout>
     </PaperProvider>
   );

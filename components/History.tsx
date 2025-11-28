@@ -42,9 +42,9 @@ export const History = () => {
       request.status.toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesTab =
-      (selectedTab === "pending" && request.status === "Pending") ||
-      (selectedTab === "approved" && request.status === "Approved") ||
-      (selectedTab === "rejected" && request.status === "Rejected");
+      (selectedTab === "pending" && request.status === "Pendiente") ||
+      (selectedTab === "approved" && request.status === "Aprobada") ||
+      (selectedTab === "rejected" && request.status === "Rechazada");
 
     return matchesSearch && matchesTab;
   });
@@ -94,7 +94,7 @@ export const History = () => {
                 iconColor={theme.colors.onSurfaceVariant}
               />
             </View>
-            
+
 
             {/* Tabs para filtrar por estado */}
             <View

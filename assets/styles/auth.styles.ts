@@ -29,9 +29,6 @@ export const createAuthStyles = (theme: MD3Theme) =>
       color: theme.colors.secondary,
     },
     logoContainer: {
-      flexDirection: "row",
-      gap: spacing.md,
-      alignItems: "center",
     },
     // Typography
     title: {
@@ -42,8 +39,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
     },
     subtitle: {
       fontSize: typography.sizes.sm,
-      color: theme.colors.surface,
-      marginTop: spacing.xs,
+      color: theme.colors.inversePrimary,
       opacity: 0.9,
     },
 
@@ -146,7 +142,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
       opacity: 0.6,
     },
     buttonText: {
-      color: theme.colors.surface,
+      color: theme.colors.inversePrimary,
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.bold,
       
@@ -261,8 +257,13 @@ export const createAuthStyles = (theme: MD3Theme) =>
       elevation: 5,
     },
     introContainer: {
-      gap: spacing.md,
       paddingHorizontal: spacing.md,
+    },
+    introBranding: {
+
+    },
+    introBrandingLogo: {
+      width: 150, height: 60, resizeMode: 'contain', margin: 0, padding: 0, marginBottom: -spacing.sm, marginLeft: -15, 
     },
     otpContent: {
       gap: spacing.md,

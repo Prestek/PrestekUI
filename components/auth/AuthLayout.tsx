@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
 import { AuthLayoutProps } from "@/models/authModels";
@@ -8,9 +8,9 @@ import { AppText } from "../AppText";
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({
   title = "Prestek",
-  subtitle = "Connecting people with financial opportunities",
+  subtitle = "Conectando personas con oportunidades financieras",
   icon = "credit-card",
-  introTitle = "Login to your account",
+  introTitle = "Inicia sesión en tu cuenta",
   children,
 }) => {
   const theme = useTheme();
@@ -18,21 +18,18 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
 
   return (
     <View style={styles.container}>
-      <View style={styles.innerContainer}>
-        {/* Logo Section */}
-        <View style={styles.introContainer}>
-          <View style={styles.logoContainer}>
-            {/*<Image source={require('@/assets/logoBlanco.png')} style={{ width: 60, height: 60 }} />*/}
-            <Logo width={40} height={40} color={theme.colors.surface} />
-           <AppText style={styles.title}>{title}</AppText>
-          </View>
-          <AppText style={styles.subtitle}>{subtitle}</AppText>
-        </View>
-        {/* Form Section */}
-        <View style={styles.formContainerWrapper}>
-          <AppText style={styles.introTitle}>{introTitle}</AppText>
-          {children}
-        </View>
+      {/* Logo Section */}
+      <View style={styles.introContainer}>
+        <Image
+          source={require('@/assets/logo/blanco.png')}
+          style={styles.introBrandingLogo}
+        />
+        <AppText style={styles.subtitle}>{subtitle}</AppText>
+      </View>
+      {/* Form Section */}
+      <View style={styles.formContainerWrapper}>
+        <AppText style={styles.introTitle}>{introTitle}</AppText>
+        {children}
       </View>
     </View>
   );

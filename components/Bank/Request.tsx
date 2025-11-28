@@ -7,6 +7,7 @@ import { spacing, typography } from "@/assets/styles/auth.styles";
 import { View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { LoanRequestStatus } from "@/models/enums/Request";
 
 export const BankRequest: React.FC<RequestBankProps> = ({
   request,
@@ -17,11 +18,11 @@ export const BankRequest: React.FC<RequestBankProps> = ({
 
   const getBackgroundColorByStatus = (status: string) => {
     switch (status) {
-      case "Approved":
+      case LoanRequestStatus.APPROVED:
         return "rgba(0, 146, 54, 0.57)";
-      case "Pending":
+      case LoanRequestStatus.PENDING:
         return "rgba(255, 208, 0, 0.46)";
-      case "Rejected":
+      case LoanRequestStatus.REJECTED:
         return "rgba(194, 0, 0, 0.61)";
       default:
         return theme.colors.onSurface;

@@ -13,6 +13,9 @@ import { AuthLink } from "@/components/auth/AuthLink";
 import { useAuthFlow } from "@/hooks/useAuthFlow";
 import { useEmailSignUp } from "@/hooks/useEmailAuth";
 import { EmailVerificationStep } from "@/components/auth/EmailVerification";
+import { MD3Theme, PaperProvider } from "react-native-paper";
+import { useLocalSearchParams } from "expo-router";
+import { useTheme } from "@/hooks/useTheme";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -20,7 +23,8 @@ export default function SignUpScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
-
+  const params = useLocalSearchParams();
+  const theme = useTheme(params.role as string);
   const { handleOAuth, loading: oauthLoading } = useAuthFlow();
   const {
     handleSignUp,
@@ -32,31 +36,29 @@ export default function SignUpScreen() {
   const loading = oauthLoading || emailLoading;
 
 
-  // Verification screen
-  if (pendingVerification) {
-    return <EmailVerificationStep email={email} code={code} setCode={setCode} loading={loading} handleVerify={handleVerify} />;
-  }
 
   // Sign up screen
   return (
-    <AuthLayout introTitle="Create your account">
+    <PaperProvider theme={theme as MD3Theme}>
+      {pendingVerification ? <EmailVerificationStep email={email} code={code} setCode={setCode} loading={loading} handleVerify={handleVerify} /> :
+        <AuthLayout introTitle="Create your account">
+          <EmailPasswordForm
+            email={email}
+            password={password}
+            onEmailChange={setEmail}
+            onPasswordChange={setPassword}
+            onSubmit={() => handleSignUp(email, password)}
+            submitLabel={loading ? "Creating account..." : "Continue"}
+            loading={loading}
+          />
 
-      <EmailPasswordForm
-        email={email}
-        password={password}
-        onEmailChange={setEmail}
-        onPasswordChange={setPassword}
-        onSubmit={() => handleSignUp(email, password)}
-        submitLabel={loading ? "Creating account..." : "Continue"}
-        loading={loading}
-      />
+          <AuthDivider />
 
-      <AuthDivider />
+          <OAuthButtons onPress={handleOAuth} disabled={loading} />
 
-      <OAuthButtons onPress={handleOAuth} disabled={loading} />
+          <AuthLink href="/(auth)/sign-in" text="Sign in" disabled={loading} title="Already have an account?" />
 
-      <AuthLink href="/(auth)/sign-in" text="Sign in" disabled={loading} title="Already have an account?" />
-
-    </AuthLayout>
+        </AuthLayout>}
+    </PaperProvider>
   );
 }
