@@ -1,11 +1,9 @@
 import { createScanStyles } from "@/assets/styles/scan.styles";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, TouchableOpacity } from "react-native";
-import { Text, useTheme } from "react-native-paper";
-import { Image } from "react-native";
-import { useFocusEffect, useRouter } from "expo-router";
+import { useTheme } from "react-native-paper";
+import { useRouter } from "expo-router";
 import LottieView from "lottie-react-native";
-import React, { useRef } from "react";
 import { AppText } from "@/components/AppText";
 
 
@@ -15,7 +13,7 @@ export default function WarningScanner() {
     const styles = createScanStyles(theme);
     const lottie = require('@/assets/animationID.json');
     const handleContinue = () => {
-        router.push('/(home)/scan-camera');
+        router.push('/(client)/(home)/scan-camera');
     };
 
 

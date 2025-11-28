@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "http://192.168.20.38:8080/api/users";
+const API = "http://people.eci-pigball.online:8080/api/users";
 
 export async function getAllUsers() {
   const response = await axios.get(API);

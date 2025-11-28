@@ -10,7 +10,6 @@ export const Credit: React.FC<CreditProps> = ({ loan }) => {
     const styles = createHomeStyles(theme);
     return (
         <View style={[styles.basicInformation, styles.resumeContrainer]}>
-                {/* Bank Info */}
                 <View style={[styles.itemsHorizontal]}>
                     <View style={styles.cardHeader}>
                         <AppText style={styles.basicInformationTitle}>Last Application</AppText>
@@ -21,7 +20,6 @@ export const Credit: React.FC<CreditProps> = ({ loan }) => {
                     </View>
                 </View>
             <View style={styles.cardContent}>
-                {/* Amount Section */}
                 <View style={styles.itemsHorizontal}>
                     <View style={styles.amountSection}>
                         <AppText style={[styles.amountLabel, styles.basicInformationContentText]}>Total amount</AppText>

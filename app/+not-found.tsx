@@ -16,8 +16,8 @@ export default function NotFoundScreen() {
 
   // Redirigir según el estado de autenticación
   if (isSignedIn) {
-    return <Redirect href="/(home)" />;
+    return <Redirect href="/(client)/(home)" />;
   }
 
-  return <Redirect href="/(auth)/sign-in" />;
+  return <Redirect href="/(auth)/role" />;
 }

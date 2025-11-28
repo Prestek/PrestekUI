@@ -1,9 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { CameraView } from 'expo-camera';
 import { useScanner } from '@/hooks/useScanner';
 import { useEffect } from 'react';
 import CompleteProfile from './profile/CompleteProfile';
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from 'react-native-paper';
 import { createScanStyles } from '@/assets/styles/scan.styles';
 import { useRouter } from 'expo-router';
@@ -16,7 +16,6 @@ export default function CedulaScanner() {
   const { 
     hasPermission, 
     requestPermission,
-    scanned, 
     lastData, 
     handleBarCodeScanned, 
     setScanned 

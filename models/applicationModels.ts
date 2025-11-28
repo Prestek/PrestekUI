@@ -1,10 +1,18 @@
 export interface ApplicationProps {
-    filteredRequests: any[];
-    showElevation?: boolean;
-    limit?: number;
+  filteredRequests: any[];
+  showElevation?: boolean;
+  limit?: number;
+  role?: string;
 }
 
+import { LoanRequest } from "@/hooks/const/data";
+
 export interface RequestProps {
-    request: any;
-    showElevation?: boolean;
+  request: LoanRequest | any;
+  showElevation?: boolean;
+}
+
+export interface RequestBankProps {
+  request: LoanRequest;
+  showElevation?: boolean;
 }

@@ -1,6 +1,6 @@
 
 import { Navigation } from "@/components/Navigation";
-import WarningScanner from "@/components/scanner/WarningScanner";
+import WarningScanner from "@/components/Client/scanner/WarningScanner";
 import { Steps } from "@/components/Steps";
 
 export default function DocumentScanner() {

@@ -1,27 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { View, } from 'react-native';
 import { BottomNavigation, Icon, useTheme } from 'react-native-paper';
-import { ResumeLayout } from './home/Resume/ResumeLayout';
 import { createBottomNavigationStyles } from '@/assets/styles/bottom.styles';
-import { History } from './home/Payment/History';
-import { Loan } from './home/Loan/Loan';
-import Profile from './home/profile/Profile';
+import { ResumeLayout } from './Client/home/Resume/ResumeLayout';
+import { Loan } from './Client/home/Loan/Loan';
+import Profile from './Client/home/profile/Profile';
+import { getItem } from '@/utils/secureStorage';
+import Resume from './Bank/Resume';
+import { Applications } from './Bank/Applications';
+import { History } from './History';
 
 
 export const NavigationBottom = () => {
   const [index, setIndex] = useState(0);
   const theme = useTheme();
   const styles = createBottomNavigationStyles(theme);
-  const routes = [
+  const [role, setRole] = useState<string | null>(null);
+  const [routes, setRoutes] = useState([
     { key: 'home', title: 'Home', icon: 'home' },
     { key: 'applications', title: 'Applications', icon: 'history' },
     { key: 'loan', title: 'Loan', icon: 'credit-card' },
     { key: 'profile', title: 'Profile', icon: 'account' }
-  ];
+  ]);
+  useEffect(() => {
+    const getRole = async () => {
+      const role = await getItem('role');
+      setRole(role);
+      if (role === 'bank') {
+        setRoutes([
+          { key: 'home', title: 'Resumen', icon: 'home' },
+          { key: 'applications', title: 'Solicitudes', icon: 'history' },
+          { key: 'profile', title: 'Cuenta', icon: 'account' }
+        ]);
+      }
+    };
+    getRole();
+  },[]);
 
-  const renderScene = ({ route }: { route: any }) => {
 
+  const renderUserRoutes = ({ route }: { route: any }) => {
     switch (route.key) {
       case 'home':
         return <ResumeLayout />;
@@ -36,10 +54,23 @@ export const NavigationBottom = () => {
     }
   };
 
+  const renderBankRoutes = ({ route }: { route: any }) => {
+    switch (route.key) {
+      case 'home':
+        return <Resume />;
+      case 'applications':
+        return <History />;
+      case 'profile':
+        return <Profile />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
 
-      {renderScene({ route: routes[index] })}
+      {role === 'bank' ? renderBankRoutes({ route: routes[index] }) : renderUserRoutes({ route: routes[index] })}
       <BottomNavigation.Bar
         navigationState={{ index, routes }}
         onTabPress={({ route }) => {

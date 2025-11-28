@@ -5,7 +5,7 @@ import { useUser } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
-import { RadioButton, Surface, Text, useTheme } from "react-native-paper";
+import { RadioButton, useTheme } from "react-native-paper";
 import { Navigation } from "@/components/Navigation";
 import { createHomeStyles } from "@/assets/styles/home.styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -60,7 +60,7 @@ export default function CompleteProfile({ data }: { data: ParsedCedula | null })
         monthlyExpenses: parseInt(monthlyExpenses) || 0,
         employmentStatus,
       });
-      router.replace("/(home)");
+      router.replace("/(client)/(home)");
     } catch (error) {
       Alert.alert("Error", "No se pudo completar el perfil. Inténtalo de nuevo.");
     } finally {

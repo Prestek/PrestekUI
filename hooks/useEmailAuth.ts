@@ -6,8 +6,6 @@ import { checkUserExists, createUserProfile } from "../services/userAPI";
 export const useEmailSignIn = () => {
   const [loading, setLoading] = useState(false);
   const { signIn, setActive } = useSignIn();
-  const { getToken } = useAuth();
-  const router = useRouter();
 
   const handleSignIn = async (email: string, password: string) => {
     if (!email || !password) {
@@ -42,7 +40,6 @@ export const useEmailSignUp = () => {
   const [pendingVerification, setPendingVerification] = useState(false);
   const { signUp, setActive } = useSignUp();
   const { user } = useUser();
-
   const handleSignUp = async (email: string, password: string) => {
     console.log("Handling sign up for:", email);
     if (!email || !password) {
@@ -116,7 +113,7 @@ export const useEmailSignUp = () => {
       });
       userId = userId + 1;
       // Solo redirigir al home después de completar el perfil
-      router.replace("/(home)");
+      router.replace("/(client)/(home)");
     } catch (error) {
       console.error("Error creating user profile:", error);
       throw error;
@@ -166,7 +163,7 @@ export const useCheckUserExists = (userEmail: string) => {
 
         if (!exists) {
           console.log("User does not exist, redirecting to complete-profile");
-          const target = "/(home)/scan";
+          const target = "/(client)/(home)/scan";
           router.replace(target);
         } else {
           console.log("User exists, staying on current page");

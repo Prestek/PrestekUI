@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router'
 import { TouchableOpacity } from 'react-native'
 import { useTheme } from 'react-native-paper'
 import { AppText } from '../AppText';
+import { deleteItem } from '@/utils/secureStorage';
 
 export const SignOutButton: React.FC<{text?: string}> = ({text = 'Sign Out'}) => {
   const { signOut } = useClerk()
@@ -15,7 +16,8 @@ export const SignOutButton: React.FC<{text?: string}> = ({text = 'Sign Out'}) =>
     console.log("Sign out button pressed")
     try {
       await signOut()
-      router.replace("/(auth)/sign-in")
+      await deleteItem("role")
+      router.replace("/(auth)/role")
     } catch (err) {
       console.error(JSON.stringify(err, null, 2))
     }

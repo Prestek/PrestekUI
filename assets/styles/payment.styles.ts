@@ -11,7 +11,7 @@ export const createPaymentStyles = (theme: MD3Theme) =>
         fontSize: typography.sizes.lg,
         fontWeight: typography.weights.bold,
         fontFamily: typography.fontFamilyBold,
-        color: theme.colors.primary,
+        color: theme.colors.secondary,
       },
       paymentItem: {
         gap: spacing.md,

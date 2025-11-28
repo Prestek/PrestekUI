@@ -27,9 +27,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     const handleBack = () => {
         if (router.canGoBack()) {
             router.back();
-        } else {
-            router.replace('/(home)');
-        }
+        } 
     };
 
     const handleSignOut = async () => {
