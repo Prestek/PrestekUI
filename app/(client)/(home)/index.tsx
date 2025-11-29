@@ -10,15 +10,15 @@ import { useCheckUserExists } from "@/hooks/useEmailAuth";
 
 export default function HomePage() {
   const { user } = useUser();
-  /*const { isChecking } = useCheckUserExists(
+  const { isChecking } = useCheckUserExists(
     user?.emailAddresses[0].emailAddress || ""
-  );*/
+  );
   const theme = useTheme();
   const styles = createHomeStyles(theme);
 
-  /*if (isChecking) {
+  if (isChecking) {
     return <LoadingTransition />;
-  }*/
+  }
 
   return (
     <View style={[styles.homeContainer]}>
