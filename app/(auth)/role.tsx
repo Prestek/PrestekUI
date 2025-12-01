@@ -78,9 +78,9 @@ const createStyles = (theme: MD3Theme) =>
     },
     welcomeLabel: {
       fontSize: typography.sizes.xl,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.onBackground,
       textAlign: "center",
+      fontWeight: typography.weights.bold,
     },
     description: {
       fontSize: typography.sizes.md,
@@ -95,12 +95,11 @@ const createStyles = (theme: MD3Theme) =>
     },
     actionTitle: {
       fontSize: typography.sizes.lg,
-      fontFamily: typography.fontFamilyBold,
-      color: theme.colors.onSurface,
+      color: theme.colors.secondary,
     },
     actionSubtitle: {
       fontSize: typography.sizes.sm,
-      color: theme.colors.onSurfaceVariant,
+      color: theme.colors.onSecondary,
     },
     buttonContent: {
       paddingVertical: spacing.xs,

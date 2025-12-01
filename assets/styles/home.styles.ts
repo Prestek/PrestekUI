@@ -47,7 +47,6 @@ export const createHomeStyles = (theme: MD3Theme) =>
     introTitle: {
       fontSize: typography.sizes.xl2,
       fontWeight: typography.weights.bold,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.secondary,
     },
     seeAllLink:{
@@ -156,7 +155,6 @@ export const createHomeStyles = (theme: MD3Theme) =>
     },
     bankName: {
       fontWeight: typography.weights.bold,
-      fontFamily: typography.fontFamilyBold,
     },
     amountSection: {
       marginVertical: 3,
@@ -467,7 +465,6 @@ export const createHomeStyles = (theme: MD3Theme) =>
     basicInformationTitle: {
       fontSize: typography.sizes.lg,
       fontWeight: typography.weights.bold,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.primary,
       marginBottom: spacing.sm,
     },
@@ -562,7 +559,6 @@ export const createHomeStyles = (theme: MD3Theme) =>
     itemTitle: {
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.semibold,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.primary,
     },
     itemContent: {

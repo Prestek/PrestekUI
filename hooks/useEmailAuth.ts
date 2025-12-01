@@ -63,10 +63,9 @@ export const useEmailSignUp = () => {
 
   const handleVerify = async (code: string) => {
     if (!code) {
-      alert("Please enter the verification code");
+      alert("Por favor ingresa el código de verificación");
       return;
     }
-
     setLoading(true);
     try {
       const result = await signUp?.attemptEmailAddressVerification({ code });
@@ -77,7 +76,7 @@ export const useEmailSignUp = () => {
       }
     } catch (err) {
       console.error("Verification error:", err);
-      alert("Verification failed. Please check your code and try again.");
+      alert("Verificación fallida. Por favor verifica tu código y vuelve a intentarlo.");
     } finally {
       setLoading(false);
     }
@@ -99,7 +98,7 @@ export const useEmailSignUp = () => {
   }) => {
     let userId = 1;
     if (!userId) {
-      throw new Error("No user ID available");
+      throw new Error("No hay un ID de usuario disponible");
     }
 
     try {

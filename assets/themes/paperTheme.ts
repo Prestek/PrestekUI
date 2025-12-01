@@ -10,24 +10,10 @@ import { DarkScheme } from "./DarkScheme";
 import { BankLightScheme } from "./BankLightScheme";
 import { BankDarkScheme } from "./BankDarkScheme";
 
-const fontConfig = {
-  config: {
-    bodyLarge: { fontFamily: "Mulish-Regular" },
-    bodyMedium: { fontFamily: "Mulish-Regular" },
-    bodySmall: { fontFamily: "Mulish-Regular" },
-    labelLarge: { fontFamily: "Mulish-Regular" },
-    labelMedium: { fontFamily: "Mulish-Regular" },
-    titleLarge: { fontFamily: "Mulish-Bold" },
-    titleMedium: { fontFamily: "Mulish-Bold" },
-  },
-};
-
-const fonts = configureFonts(fontConfig);
 
 const createTheme = (base: MD3Theme, colors: MD3Theme["colors"]) => ({
   ...base,
   colors,
-  fonts,
 });
 
 export const getAppTheme = (colorScheme: ColorSchemeName) =>

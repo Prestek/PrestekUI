@@ -16,11 +16,9 @@ export const createStyles = (theme: MD3Theme) =>
     },
     sectionTitle: {
       fontSize: typography.sizes.xl2,
-      fontFamily: typography.fontFamilyBold,
     },
     requestTitle: {
       fontSize: typography.sizes.lg,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.secondary,
     },
     metricsGrid: {
@@ -39,8 +37,8 @@ export const createStyles = (theme: MD3Theme) =>
     },
     chartTitle: {
       fontSize: typography.sizes.md,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.primary,
+      fontWeight: typography.weights.bold,
     },
     chartSubtitle: {
       fontSize: typography.sizes.sm,
@@ -60,12 +58,11 @@ export const createStyles = (theme: MD3Theme) =>
     },
     cardText: {
       fontSize: typography.sizes.md,
-      fontFamily: typography.fontFamilyBold,
+      fontWeight: typography.weights.bold,
       color: theme.colors.secondary,
     },
     cardValue: {
       fontSize: typography.sizes.xl,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.secondary,
     },
     lastRequestValue: {

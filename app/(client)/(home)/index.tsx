@@ -1,12 +1,10 @@
-import { SignedIn, SignedOut, useAuth, useUser } from "@clerk/clerk-expo";
-import { Link } from "expo-router";
+import { useUser } from "@clerk/clerk-expo";
 import { View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { createHomeStyles } from "@/assets/styles/home.styles";
-import { AppText } from "@/components/AppText";
-import { NavigationBottom } from "@/components/BottomNavigation";
 import { LoadingTransition } from "@/components/LoadingTransition";
 import { useCheckUserExists } from "@/hooks/useEmailAuth";
+import { ResumeLayout } from "@/components/Client/home/Resume/ResumeLayout";
 
 export default function HomePage() {
   const { user } = useUser();
@@ -21,29 +19,6 @@ export default function HomePage() {
   }
 
   return (
-    <View style={[styles.homeContainer]}>
-      <SignedIn>
-        <NavigationBottom />
-      </SignedIn>
-      <SignedOut>
-        <AppText style={[styles.title, { color: theme.colors.onBackground }]}>
-          You are signed out
-        </AppText>
-        <View style={styles.linkContainer}>
-          <Link
-            href="/(auth)/sign-in"
-            style={[styles.link, { backgroundColor: theme.colors.primary }]}
-          >
-            <AppText style={styles.linkText}>Sign in</AppText>
-          </Link>
-          <Link
-            href="/(auth)/sign-up"
-            style={[styles.link, { backgroundColor: theme.colors.primary }]}
-          >
-            <AppText style={styles.linkText}>Sign up</AppText>
-          </Link>
-        </View>
-      </SignedOut>
-    </View>
+    <ResumeLayout />
   );
 }

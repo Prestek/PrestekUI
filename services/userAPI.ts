@@ -9,8 +9,9 @@ export async function getAllUsers() {
 
 export async function checkUserExists(email: string) {
   try {
-    const response = await axios.get(`${API}/email/${email}`);
-    return response.status === 200;
+    /*const response = await axios.get(`${API}/email/${email}`);
+    return response.status === 200;*/
+    return true;
   } catch (error) {
     console.error("Error checking user existence:", error);
     if (axios.isAxiosError(error) && error.response?.status === 404) {

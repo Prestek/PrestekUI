@@ -1,97 +1,133 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { View, } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { View } from 'react-native';
 import { BottomNavigation, Icon, useTheme } from 'react-native-paper';
+import { Slot, useRouter, useSegments } from 'expo-router';
 import { createBottomNavigationStyles } from '@/assets/styles/bottom.styles';
-import { ResumeLayout } from './Client/home/Resume/ResumeLayout';
-import { Loan } from './Client/home/Loan/Loan';
-import Profile from './Client/home/profile/Profile';
 import { getItem } from '@/utils/secureStorage';
-import Resume from './Bank/Resume';
-import { Applications } from './Bank/Applications';
-import { History } from './History';
 
+type Role = 'client' | 'bank';
+
+type RouteConfig = {
+  key: string;
+  title: string;
+  icon: string;
+  path: string;
+};
+
+const CLIENT_ROUTES: RouteConfig[] = [
+  { key: 'home', title: 'Home', icon: 'home', path: '/(client)/(home)' },
+  { key: 'applications', title: 'Solicitudes', icon: 'history', path: '/(client)/(home)/applications' },
+  { key: 'loan', title: 'Préstamos', icon: 'credit-card', path: '/(client)/(home)/loan' },
+  { key: 'profile', title: 'Perfil', icon: 'account', path: '/(client)/(home)/profile' }
+];
+
+const BANK_ROUTES: RouteConfig[] = [
+  { key: 'home', title: 'Resumen', icon: 'home', path: '/(bank)/(home)' },
+  { key: 'applications', title: 'Solicitudes', icon: 'history', path: '/(bank)/(home)/applications' },
+  { key: 'profile', title: 'Cuenta', icon: 'account', path: '/(bank)/(home)/profile' }
+];
+
+const normalizePath = (value: string) => {
+  if (!value) {
+    return '';
+  }
+  if (value === '/') {
+    return value;
+  }
+  return value.replace(/\/+$/, '');
+};
+
+const isRouteMatch = (currentPath: string, targetPath: string) => {
+  const normalizedCurrent = normalizePath(currentPath);
+  const normalizedTarget = normalizePath(targetPath);
+
+  if (!normalizedCurrent || !normalizedTarget) {
+    return false;
+  }
+
+  return (
+    normalizedCurrent === normalizedTarget ||
+    normalizedCurrent.startsWith(`${normalizedTarget}/`)
+  );
+};
 
 export const NavigationBottom = () => {
-  const [index, setIndex] = useState(0);
   const theme = useTheme();
   const styles = createBottomNavigationStyles(theme);
-  const [role, setRole] = useState<string | null>(null);
-  const [routes, setRoutes] = useState([
-    { key: 'home', title: 'Home', icon: 'home' },
-    { key: 'applications', title: 'Applications', icon: 'history' },
-    { key: 'loan', title: 'Loan', icon: 'credit-card' },
-    { key: 'profile', title: 'Profile', icon: 'account' }
-  ]);
+  const router = useRouter();
+  const segments = useSegments();
+  const pathname = useMemo(() => {
+    if (!segments || segments.length < 1) {
+      return '/';
+    }
+    return `/${segments.join('/')}`;
+  }, [segments]);
+  const [index, setIndex] = useState(0);
+  const [storedRole, setStoredRole] = useState<Role | null>(null);
+
   useEffect(() => {
-    const getRole = async () => {
+    const fetchRole = async () => {
       const role = await getItem('role');
-      setRole(role);
-      if (role === 'bank') {
-        setRoutes([
-          { key: 'home', title: 'Resumen', icon: 'home' },
-          { key: 'applications', title: 'Solicitudes', icon: 'history' },
-          { key: 'profile', title: 'Cuenta', icon: 'account' }
-        ]);
+      if (role === 'client' || role === 'bank') {
+        setStoredRole(role);
       }
     };
-    getRole();
-  },[]);
 
+    fetchRole();
+  }, []);
 
-  const renderUserRoutes = ({ route }: { route: any }) => {
-    switch (route.key) {
-      case 'home':
-        return <ResumeLayout />;
-      case 'applications':
-        return <History />;
-      case 'loan':
-        return <Loan />;
-      case 'profile':
-        return <Profile />;
-      default:
-        return null;
+  const derivedRoleFromPath: Role = pathname?.includes('/(bank)') ? 'bank' : 'client';
+  const role = storedRole ?? derivedRoleFromPath;
+
+  const routes = useMemo<RouteConfig[]>(() => {
+    return role === 'bank' ? BANK_ROUTES : CLIENT_ROUTES;
+  }, [role]);
+
+  const activeIndex = useMemo(() => {
+    if (!pathname) {
+      return -1;
     }
-  };
+    return routes.findIndex((route) => isRouteMatch(pathname, route.path));
+  }, [pathname, routes]);
 
-  const renderBankRoutes = ({ route }: { route: any }) => {
-    switch (route.key) {
-      case 'home':
-        return <Resume />;
-      case 'applications':
-        return <History />;
-      case 'profile':
-        return <Profile />;
-      default:
-        return null;
+  useEffect(() => {
+    if (activeIndex >= 0) {
+      setIndex(activeIndex);
     }
+  }, [activeIndex]);
+
+  const shouldShowBar = activeIndex >= 0;
+
+  const handleTabPress = (routeKey: string) => {
+    const targetRouteIndex = routes.findIndex((route) => route.key === routeKey);
+    const targetRoute = routes[targetRouteIndex];
+
+    if (!targetRoute || targetRouteIndex === -1) {
+      return;
+    }
+    setIndex(targetRouteIndex);
+    router.push(targetRoute.path as any);
   };
 
   return (
     <View style={{ flex: 1 }}>
-
-      {role === 'bank' ? renderBankRoutes({ route: routes[index] }) : renderUserRoutes({ route: routes[index] })}
-      <BottomNavigation.Bar
-        navigationState={{ index, routes }}
-        onTabPress={({ route }) => {
-          const newIndex = routes.findIndex((r) => r.key === route.key);
-          if (newIndex !== -1) {
-            setIndex(newIndex);
-          }
-        }}
-        renderIcon={({ route, color }) => (
-          <Icon source={route.icon} size={24} color={color} />
-        )}
-        getLabelText={({ route }) => route.title}
-        style={styles.bottomBar}
-        safeAreaInsets={{ bottom: 0 }}
-        compact={true}
-        activeColor={theme.colors.primary}
-        inactiveColor={theme.colors.onSurface}
-        activeIndicatorStyle={{ backgroundColor: 'transparent' }}
-      />
+      <Slot />
+      {shouldShowBar && (
+        <BottomNavigation.Bar
+          navigationState={{ index, routes }}
+          onTabPress={({ route }) => handleTabPress(route.key)}
+          renderIcon={({ route, color }) => (
+            <Icon source={route.icon} size={24} color={color} />
+          )}
+          getLabelText={({ route }) => route.title}
+          style={styles.bottomBar}
+          safeAreaInsets={{ bottom: 0 }}
+          compact={true}
+          activeColor={theme.colors.primary}
+          inactiveColor={theme.colors.onSurface}
+          activeIndicatorStyle={{ backgroundColor: 'transparent' }}
+        />
+      )}
     </View>
   );
-}
-
-
+};

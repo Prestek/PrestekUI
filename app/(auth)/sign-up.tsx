@@ -41,14 +41,14 @@ export default function SignUpScreen() {
   return (
     <PaperProvider theme={theme as MD3Theme}>
       {pendingVerification ? <EmailVerificationStep email={email} code={code} setCode={setCode} loading={loading} handleVerify={handleVerify} /> :
-        <AuthLayout introTitle="Create your account">
+        <AuthLayout introTitle="Crea tu cuenta">
           <EmailPasswordForm
             email={email}
             password={password}
             onEmailChange={setEmail}
             onPasswordChange={setPassword}
             onSubmit={() => handleSignUp(email, password)}
-            submitLabel={loading ? "Creating account..." : "Continue"}
+            submitLabel={loading ? "Creando cuenta..." : "Continuar"}
             loading={loading}
           />
 
@@ -56,7 +56,7 @@ export default function SignUpScreen() {
 
           <OAuthButtons onPress={handleOAuth} disabled={loading} />
 
-          <AuthLink href="/(auth)/sign-in" text="Sign in" disabled={loading} title="Already have an account?" />
+          <AuthLink href={{ pathname: "/(auth)/sign-in", params: { role: params.role as string } }} text="Iniciar sesión" disabled={loading} title="¿Ya tienes una cuenta?" />
 
         </AuthLayout>}
     </PaperProvider>

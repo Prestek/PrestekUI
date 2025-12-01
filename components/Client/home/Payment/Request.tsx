@@ -5,7 +5,7 @@ import { RequestProps } from "@/models/applicationModels";
 import { LoanRequestStatus } from "@/models/enums/Request";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View } from "react-native";
-import { Chip, IconButton, Surface, useTheme } from "react-native-paper";
+import { Chip, IconButton, Surface, TouchableRipple, useTheme } from "react-native-paper";
 
 export const Request: React.FC<RequestProps> = ({ request, showElevation = true, all = true }) => {
     const theme = useTheme();
@@ -39,70 +39,73 @@ export const Request: React.FC<RequestProps> = ({ request, showElevation = true,
     const getBackgroundColorByStatusAll = (status: string) => {
         switch (status) {
             case LoanRequestStatus.APPROVED:
-              return "rgba(0, 146, 54, 0.57)";
+                return "rgba(0, 146, 54, 0.57)";
             case LoanRequestStatus.PENDING:
-              return "rgba(255, 208, 0, 0.46)";
+                return "rgba(255, 208, 0, 0.46)";
             case LoanRequestStatus.REJECTED:
-              return "rgba(194, 0, 0, 0.61)";
+                return "rgba(194, 0, 0, 0.61)";
             default:
-              return theme.colors.onSurface;
-          }
+                return theme.colors.onSurface;
+        }
     }
 
     return (
-        <Surface style={[paymentStyles.paymentItem, !showElevation && !all && paymentStyles.withoutElevantion,all &&{borderLeftWidth: 4, borderLeftColor: getBackgroundColorByStatusAll(request.status)}]} elevation={showElevation ? 3 : 0}>
-            <View style={paymentStyles.horizontalItems}>
+        <TouchableRipple
+            borderless={false}
+            onPress={() => console.log('view request')}
+        >
+            <Surface style={[paymentStyles.paymentItem, !showElevation && !all && paymentStyles.withoutElevantion, all && { borderLeftWidth: 4, borderLeftColor: getBackgroundColorByStatusAll(request.status) }]} elevation={showElevation ? 3 : 0}>
                 <View style={paymentStyles.horizontalItems}>
-                    <View style={[paymentStyles.bankLogo, 
-                        !showElevation && {backgroundColor: theme.colors.tertiary}]}>
-                        <MaterialCommunityIcons name="bank" size={24} color={showElevation ? theme.colors.onPrimary : theme.colors.onPrimary} />
+                    <View style={paymentStyles.horizontalItems}>
+                        <View style={[paymentStyles.bankLogo,
+                        !showElevation && { backgroundColor: theme.colors.tertiary }]}>
+                            <MaterialCommunityIcons name="bank" size={24} color={showElevation ? theme.colors.onPrimary : theme.colors.onPrimary} />
+                        </View>
+                        <AppText style={[paymentStyles.paymentType, !showElevation && { color: theme.colors.onPrimary }]}>
+                            {request.bank}
+                        </AppText>
                     </View>
-                    <AppText style={[paymentStyles.paymentType, !showElevation && { color: theme.colors.onPrimary }]}>
-                        {request.bank}
-                    </AppText>
-                </View>
-                {all ? 
-                <IconButton
-                icon="chevron-right"
-                size={20}
-                onPress={() => console.log('view request')}
-                style={{ margin: 0 }}
-              />
-                : 
-                <Chip
-                    style={{
-                        backgroundColor: getBackgroundColorByStatus(request.status),
-                    }}
-                    textStyle={{
-                        color: getColorByStatus(request.status),
-                        fontSize: 11,
-                        fontFamily: typography.fontFamilyBold,
-                    }}
-                >
-                    {request.status}
-                </Chip>}
-                
-            </View>
+                    {all ?
+                        <IconButton
+                            icon="chevron-right"
+                            size={20}
+                            style={{ margin: 0 }}
+                        />
+                        :
+                        <Chip
+                            style={{
+                                backgroundColor: getBackgroundColorByStatus(request.status),
+                            }}
+                            textStyle={{
+                                color: getColorByStatus(request.status),
+                                fontSize: 11,
+                            }}
+                        >
+                            {request.status}
+                        </Chip>}
 
-            <View style={paymentStyles.horizontalItems}>
-                <View>
-                    <AppText style={[paymentStyles.labelText, !showElevation && { color: theme.colors.onPrimary }]}>
-                        Fecha de solicitud
-                    </AppText>
-                    <AppText style={[paymentStyles.paymentDate, !showElevation && { color: theme.colors.onPrimary }]}>
-                        {request.date}
-                    </AppText>
                 </View>
 
-                <View>
-                    <AppText style={[paymentStyles.labelText, !showElevation && { color: theme.colors.onPrimary }]}>
-                        Monto solicitado
-                    </AppText>
-                    <AppText style={[paymentStyles.paymentAmount, !showElevation && { color: theme.colors.onPrimary },{textAlign: 'right'}]}>
-                        ${request.amount.toLocaleString('es-CO')}
-                    </AppText>
+                <View style={paymentStyles.horizontalItems}>
+                    <View>
+                        <AppText style={[paymentStyles.labelText, !showElevation && { color: theme.colors.onPrimary }]}>
+                            Fecha de solicitud
+                        </AppText>
+                        <AppText style={[paymentStyles.paymentDate, !showElevation && { color: theme.colors.onPrimary }]}>
+                            {request.date}
+                        </AppText>
+                    </View>
+
+                    <View>
+                        <AppText style={[paymentStyles.labelText, !showElevation && { color: theme.colors.onPrimary }]}>
+                            Monto solicitado
+                        </AppText>
+                        <AppText style={[paymentStyles.paymentAmount, !showElevation && { color: theme.colors.onPrimary }, { textAlign: 'right' }]}>
+                            ${request.amount.toLocaleString('es-CO')}
+                        </AppText>
+                    </View>
                 </View>
-            </View>
-        </Surface>
+            </Surface>
+        </TouchableRipple>
     );
 }

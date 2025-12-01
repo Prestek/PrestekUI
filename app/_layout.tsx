@@ -5,7 +5,6 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { PaperProvider } from 'react-native-paper'
 import { StatusBar, useColorScheme } from 'react-native'
 import { getAppTheme } from '@/assets/themes/paperTheme'
-import { useFonts } from 'expo-font'
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
 
@@ -18,15 +17,7 @@ if (!publishableKey) {
 export default function RootLayout() {
   const colorScheme = useColorScheme()
   const theme = getAppTheme(colorScheme)
-  const [fontsLoaded] = useFonts({
-    'Mulish-Regular': require('@/assets/Mulish-VariableFont_wght.ttf'),
-    'Mulish-Bold': require('@/assets/Mulish-Bold.ttf'),
-  });
 
-  if (!fontsLoaded) {
-    // aquí puedes mostrar tu Splash o un loader
-    return null;
-  }
   return (
     <PaperProvider theme={theme}>
       <SafeAreaProvider>

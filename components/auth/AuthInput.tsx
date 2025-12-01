@@ -66,7 +66,7 @@ export const AuthInput: React.FC<AuthInputProps> = ({
     roundness: spacing.lg,
     colors: {
       ...theme.colors,
-      background: theme.colors.surface,
+      background: theme.colors.background,
     },
   };
 
@@ -76,7 +76,6 @@ export const AuthInput: React.FC<AuthInputProps> = ({
         mode="outlined"
         style={[styles.input, style]}
         activeOutlineColor={theme.colors.primary}
-        outlineColor="transparent"
         theme={inputTheme}
         outlineStyle={{ backgroundColor: theme.colors.surfaceVariant }}
         disabled={disabled}

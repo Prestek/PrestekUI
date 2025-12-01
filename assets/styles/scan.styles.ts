@@ -33,7 +33,6 @@ export const createScanStyles = (theme: MD3Theme) =>
             fontSize: typography.sizes.xl,
             fontWeight: 'bold',    
             color: theme.colors.secondary,
-            fontFamily: typography.fontFamilyBold,
           },
           subtitle: {
             fontSize: typography.sizes.md, 

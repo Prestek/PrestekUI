@@ -25,7 +25,6 @@ export const createAuthStyles = (theme: MD3Theme) =>
     introTitle: {
       fontSize: typography.sizes.xl,
       fontWeight: typography.weights.bold,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.secondary,
     },
     logoContainer: {
@@ -34,7 +33,6 @@ export const createAuthStyles = (theme: MD3Theme) =>
     title: {
       fontSize: typography.sizes.xl,
       fontWeight: typography.weights.bold,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.surface,
     },
     subtitle: {
@@ -57,6 +55,8 @@ export const createAuthStyles = (theme: MD3Theme) =>
       backgroundColor: theme.colors.surfaceVariant,
       padding: spacing.md,
       width: '100%',
+      borderWidth: 1,
+      borderColor: theme.colors.outline,
     },
     oauthIcon: {
       marginRight: spacing.sm,
@@ -64,7 +64,6 @@ export const createAuthStyles = (theme: MD3Theme) =>
     oauthButtonText: {
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.semibold,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.onSurfaceVariant,
     },
     oauthButtonTextDisabled: {
@@ -235,6 +234,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
       justifyContent: "space-between",
       backgroundColor: theme.colors.background,
       paddingHorizontal: spacing.md,
+      paddingBottom: spacing.md,
     },
     innerContainer: {
       flex: 1,

@@ -1,5 +1,5 @@
 import { LoanRequest, statusLabels } from "@/hooks/const/data";
-import { Card, Chip, IconButton, Surface, useTheme } from "react-native-paper";
+import { Card, Chip, IconButton, Surface, TouchableRipple, useTheme } from "react-native-paper";
 import { AppText } from "../AppText";
 import { RequestBankProps, RequestProps } from "@/models/applicationModels";
 import { createStyles } from "@/assets/styles/bank.styles";
@@ -31,34 +31,38 @@ export const BankRequest: React.FC<RequestBankProps> = ({
 
   const handleViewRequest = (id: string) => {
     router.push({
-      pathname: "/(bank)/(home)/detail",
+      pathname: "/(bank)/(detail)",
       params: { id },
     });
   };
 
   return (
-    <Surface style={[styles.requestCard, { borderLeftWidth: 4, borderLeftColor: getBackgroundColorByStatus(request.status) }]} elevation={3}>
-      <View style={styles.bankLogo}>
-        <MaterialCommunityIcons name="account" size={30} color={theme.colors.onPrimary} />
-      </View>
-      <View style={{ flex: 1, gap: spacing.sm }}>
-        <View style={styles.lastRequestHeader}>
-          <View>
-            <AppText style={styles.cardText}>{request.applicant}</AppText>
-            <AppText style={styles.cardText}>${request.amount.toLocaleString("es-CO")}</AppText>
+    <TouchableRipple
+      borderless={false}
+      onPress={() => handleViewRequest(request.id)}
+    >
+      <Surface style={[styles.requestCard, { borderLeftWidth: 4, borderLeftColor: getBackgroundColorByStatus(request.status) }]} elevation={3}>
+        <View style={styles.bankLogo}>
+          <MaterialCommunityIcons name="account" size={30} color={theme.colors.onPrimary} />
+        </View>
+        <View style={{ flex: 1, gap: spacing.sm }}>
+          <View style={styles.lastRequestHeader}>
+            <View>
+              <AppText style={styles.cardText}>{request.applicant}</AppText>
+              <AppText style={styles.cardText}>${request.amount.toLocaleString("es-CO")}</AppText>
+            </View>
+            <IconButton
+              icon="chevron-right"
+              size={20}
+              style={{ margin: 0 }}
+            />
           </View>
-          <IconButton
-            icon="chevron-right"
-            size={20}
-            onPress={() => handleViewRequest(request.id)}
-            style={{ margin: 0 }}
-          />
+          <View style={styles.lastRequestHeader}>
+            <AppText style={styles.lastRequestValue}>ID: {request.id}</AppText>
+            <AppText style={styles.lastRequestValue}>{new Date(request.requestedAt).toLocaleDateString("es-CO")}</AppText>
+          </View>
         </View>
-        <View style={styles.lastRequestHeader}>
-          <AppText style={styles.lastRequestValue}>ID: {request.id}</AppText>
-          <AppText style={styles.lastRequestValue}>{new Date(request.requestedAt).toLocaleDateString("es-CO")}</AppText>
-        </View>
-      </View>
-    </Surface>
+      </Surface>
+    </TouchableRipple>
   );
 };

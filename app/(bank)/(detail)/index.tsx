@@ -411,7 +411,6 @@ export const createDetailStyles = (theme: MD3Theme) => StyleSheet.create({
     },
     cardTitle: {
         fontSize: typography.sizes.md,
-        fontFamily: typography.fontFamilyBold,
     },
     cardContent: {
         gap: spacing.sm,

@@ -54,7 +54,6 @@ export const createNavigationStyles = (theme: MD3Theme) =>
             fontSize: typography.sizes.lg,
             color: theme.colors.secondary,
             textAlign: 'center',
-            fontFamily: typography.fontFamilyBold,
           },
           stepsContainer: {
             flexDirection: 'row',

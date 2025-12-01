@@ -124,8 +124,8 @@ const createStyles = (theme: MD3Theme) =>
     },
     title: {
       fontSize: typography.sizes.lg,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.secondary,
+      fontWeight: typography.weights.bold,
     },
     subtitle: {
       fontSize: typography.sizes.sm,
@@ -156,8 +156,8 @@ const createStyles = (theme: MD3Theme) =>
     },
     bankName: {
       fontSize: typography.sizes.md,
-      fontFamily: typography.fontFamilyBold,
-      color: theme.colors.onSurface,
+      color: theme.colors.secondary,
+      fontWeight: typography.weights.bold,
     },
     bankDescription: {
       fontSize: typography.sizes.sm,

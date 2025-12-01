@@ -275,14 +275,14 @@ export const createLoanStyles = (theme: MD3Theme) =>
       flex: 1,
     },
     offerDetailLabel: {
-      fontSize: 12,
-      color: theme.colors.onSurfaceVariant,
+      fontSize: typography.sizes.xs,
+      color: theme.colors.onSecondary,
       marginBottom: 4,
     },
     offerDetailValue: {
       fontSize: 16,
       fontWeight: "600",
-      color: theme.colors.onSurface,
+      color: theme.colors.secondary,
     },
     offerDetailValueHighlight: {
       fontSize: 20,
@@ -392,7 +392,6 @@ export const createLoanStyles = (theme: MD3Theme) =>
       fontSize: 14,
       fontWeight: "600",
       color: theme.colors.onPrimary,
-      fontFamily: typography.fontFamilyBold,
     },
     detailSummaryValue: {
       fontSize: 14,
@@ -403,7 +402,6 @@ export const createLoanStyles = (theme: MD3Theme) =>
       fontSize: 18,
       fontWeight: "bold",
       color: theme.colors.onPrimary,
-      fontFamily: typography.fontFamilyBold,
     },
     detailDivider: {
       height: 1,

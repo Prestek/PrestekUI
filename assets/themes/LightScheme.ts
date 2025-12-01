@@ -4,7 +4,7 @@ export const LightScheme = {
   primaryContainer: "rgba(51, 159, 173, 0.14)",
   onPrimaryContainer: "rgb(0, 13, 95)",
   secondary: "rgba(0, 0, 0, 1)",
-  onSecondary: "rgba(145, 145, 145, 1)",
+  onSecondary: "rgb(124, 124, 124)",
   secondaryContainer: "rgb(111, 193, 204)",
   onSecondaryContainer: "rgb(0, 29, 50)",
   tertiary: "rgba(51, 159, 173, 0.17)",
