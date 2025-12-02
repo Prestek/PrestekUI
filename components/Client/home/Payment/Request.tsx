@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View } from "react-native";
 import { Chip, IconButton, Surface, TouchableRipple, useTheme } from "react-native-paper";
 
-export const Request: React.FC<RequestProps> = ({ request, showElevation = true, all = true }) => {
+export const Request: React.FC<RequestProps> = ({ request, showElevation = true }) => {
     const theme = useTheme();
     const paymentStyles = createPaymentStyles(theme);
 
@@ -54,7 +54,7 @@ export const Request: React.FC<RequestProps> = ({ request, showElevation = true,
             borderless={false}
             onPress={() => console.log('view request')}
         >
-            <Surface style={[paymentStyles.paymentItem, !showElevation && !all && paymentStyles.withoutElevantion, all && { borderLeftWidth: 4, borderLeftColor: getBackgroundColorByStatusAll(request.status) }]} elevation={showElevation ? 3 : 0}>
+            <Surface style={[paymentStyles.paymentItem, !showElevation && paymentStyles.withoutElevantion, showElevation && { borderLeftWidth: 4, borderLeftColor: getBackgroundColorByStatusAll(request.status) }]} elevation={showElevation ? 3 : 0}>
                 <View style={paymentStyles.horizontalItems}>
                     <View style={paymentStyles.horizontalItems}>
                         <View style={[paymentStyles.bankLogo,
@@ -65,7 +65,7 @@ export const Request: React.FC<RequestProps> = ({ request, showElevation = true,
                             {request.bank}
                         </AppText>
                     </View>
-                    {all ?
+                    {showElevation ?
                         <IconButton
                             icon="chevron-right"
                             size={20}

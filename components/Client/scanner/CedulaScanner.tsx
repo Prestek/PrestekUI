@@ -1,57 +1,17 @@
 import { View, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { CameraView } from 'expo-camera';
-import { useScanner } from '@/hooks/useScanner';
-import { useEffect } from 'react';
-import CompleteProfile from './profile/CompleteProfile';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from 'react-native-paper';
 import { createScanStyles } from '@/assets/styles/scan.styles';
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 import { AppText } from '@/components/AppText';
+import { CedulaScannerProps } from '@/models/scannerModels';
 
-export default function CedulaScanner() {
+export const CedulaScanner: React.FC<CedulaScannerProps> = ({ handleBarCodeScanned, setScanned }) => {
   const theme = useTheme();
   const styles = createScanStyles(theme);
-  const router = useRouter();
-  const { 
-    hasPermission, 
-    requestPermission,
-    lastData, 
-    handleBarCodeScanned, 
-    setScanned 
-  } = useScanner();
-
-  useEffect(() => {
-    if (hasPermission === null) {
-      requestPermission();
-    }
-  }, [hasPermission]);
-
-  if (hasPermission === null) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator />
-        <AppText>Pidiendo permiso para usar la cámara...</AppText>
-      </View>
-    );
-  }
-  
-  if (hasPermission === false) {
-    return (
-      <View style={styles.center}>
-        <AppText style={{ marginBottom: 16 }}>
-          No se otorgó permiso a la cámara.
-        </AppText>
-        <TouchableOpacity style={styles.button} onPress={requestPermission}>
-          <AppText style={styles.buttonText}>Solicitar permiso</AppText>
-        </TouchableOpacity>
-      </View>
-    );
-  }
 
   return (
-    lastData ? (<CompleteProfile data={lastData.parsed} />) : 
-    (
     <View style={styles.container}>
 
       {/* Camera Container */}
@@ -85,7 +45,7 @@ export default function CedulaScanner() {
           {/* Document Silhouette Overlay */}
           <View style={[StyleSheet.absoluteFillObject, styles.silhouetteOverlay]}>
             <View style={styles.dashedBorder}>
-              <AppText style={styles.silhouetteText}>Place your ID card here</AppText>
+              <AppText style={styles.silhouetteText}>Coloca tu cédula aquí</AppText>
             </View>
           </View>
 
@@ -95,30 +55,28 @@ export default function CedulaScanner() {
             <View style={styles.loadingContainer}>
                 <ActivityIndicator animating={true} color={theme.colors.primary} />
                   <AppText style={styles.instructionText}>
-                    Scanning document...
+                    Escaneando documento...
                   </AppText>
               </View>
               <View style={styles.instructionSectionCamera}>
                 <View style={styles.instructionItem}>
                   <MaterialIcons name="info" size={20} color={theme.colors.primary} />
                   <AppText style={styles.instructionText}>
-                      Make sure the ID card is fully visible and well lit
+                      Asegura que la cédula de identidad esté completamente visible y bien iluminada.
                   </AppText>
                 </View>
                 <View style={styles.instructionItem}>
                   <MaterialIcons name="check-circle" size={20} color={theme.colors.primary} />
                   <AppText style={styles.instructionText}>
-                    Avoid reflections and shadows on the document
+                    Evita reflejos y sombras en el documento.
                   </AppText>
                 </View>
               </View>
-            
-
             </View>
           </View>
         </View>
       </View>
-    </View>));
+    </View>);
 }
 
 

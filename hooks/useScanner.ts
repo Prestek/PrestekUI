@@ -1,4 +1,4 @@
-import { ParsedCedula, ScanResult, Gender } from "@/models/scannerModels";
+import { ParsedCedula, ScanResult, Gender, BarcodeScannedProps } from "@/models/scannerModels";
 import { useCameraPermissions } from "expo-camera";
 import { useCallback, useState } from "react";
 
@@ -10,7 +10,7 @@ export const useScanner = () => {
   const [lastData, setLastData] = useState<ScanResult | null>(null);
   
   const handleBarCodeScanned = useCallback(
-    ({ type, data }: { type: string; data: string }) => {
+    ({ type, data }: BarcodeScannedProps) => {
       setScanned((prevScanned) => {
         // Prevenir múltiples escaneos si ya se escaneó
         if (prevScanned) return prevScanned;

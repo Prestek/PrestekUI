@@ -1,22 +1,28 @@
-import { createLoanStyles } from "@/assets/styles/loan.styles";
-import { View } from "react-native";
+import { View } from "react-native";import { createLoanStyles } from "@/assets/styles/loan.styles";
+import { useEffect, useState } from "react";
 import { useTheme } from "react-native-paper";
-import { useState } from "react";
-import { LoanRequest } from "./LoanRequest";
-import { LoanSearching } from "./LoanSearching";
-import { LoanOptions, LoanOffer } from "./LoanOptions";
-import { LoanDetail } from "./LoanDetail";
+import { LoanOffer, LoanOptions } from "@/components/Client/home/Loan/LoanOptions";
+import { LoanSearching } from "@/components/Client/home/Loan/LoanSearching";
+import { LoanDetail } from "@/components/Client/home/Loan/LoanDetail";
+import { router, useLocalSearchParams } from "expo-router";
 
-type LoanStep = "request" | "searching" | "options" | "detail";
+type LoanStep = "searching" | "options" | "detail";
 
-export const Loan = () => {
+export default function ClientLoanScreen() {
   const theme = useTheme();
   const styles = createLoanStyles(theme);
-  const [currentStep, setCurrentStep] = useState<LoanStep>("request");
+  const params = useLocalSearchParams();
+  const amount = params.amount as string;
+  const installments = params.installments as string;
+  const [currentStep, setCurrentStep] = useState<LoanStep>("searching");
   const [requestedAmount, setRequestedAmount] = useState("");
   const [requestedInstallments, setRequestedInstallments] = useState("");
   const [loanOffers, setLoanOffers] = useState<LoanOffer[]>([]);
   const [selectedOffer, setSelectedOffer] = useState<LoanOffer | null>(null);
+
+  useEffect(() => {
+    handleLoanRequest(amount, installments);
+  }, [amount, installments]);
 
   const handleLoanRequest = (amount: string, installments: string) => {
     setRequestedAmount(amount);
@@ -36,13 +42,12 @@ export const Loan = () => {
   };
 
   const handleAcceptOffer = (offer: LoanOffer) => {
-    console.log("Oferta aceptada:", offer);
     alert(`¡Oferta de ${offer.bankName} aceptada con éxito!`);
-    setCurrentStep("request");
     setRequestedAmount("");
     setRequestedInstallments("");
     setLoanOffers([]);
     setSelectedOffer(null);
+    router.replace("/(client)/(home)/loan");
   };
 
   const handleBackToOptions = () => {
@@ -51,7 +56,6 @@ export const Loan = () => {
   };
 
   const handleBackToRequest = () => {
-    setCurrentStep("request");
     setLoanOffers([]);
   };
 
@@ -88,7 +92,6 @@ export const Loan = () => {
 
   return (
     <View style={styles.container}>
-      {currentStep === "request" && <LoanRequest onSubmit={handleLoanRequest} />}
       {currentStep === "searching" && <LoanSearching />}
       {currentStep === "options" && (
         <LoanOptions

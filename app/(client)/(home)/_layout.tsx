@@ -1,14 +1,24 @@
-import { SignedIn, SignedOut } from "@clerk/clerk-expo";
+import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
 import { Link } from "expo-router";
 import { View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { NavigationBottom } from "@/components/BottomNavigation";
 import { AppText } from "@/components/AppText";
 import { createHomeStyles } from "@/assets/styles/home.styles";
+import { useCheckUserExists } from "@/hooks/useEmailAuth";
+import { LoadingTransition } from "@/components/LoadingTransition";
 
 export default function ClientHomeLayout() {
   const theme = useTheme();
   const styles = createHomeStyles(theme);
+  const { user } = useUser();
+  const {isChecking} = useCheckUserExists(user?.emailAddresses[0].emailAddress || '');
+
+  if (isChecking) {
+    return (
+      <LoadingTransition />
+    );
+  }
 
   return (
     <View style={[styles.homeContainer]}>

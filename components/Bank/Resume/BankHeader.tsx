@@ -2,7 +2,7 @@ import { createStyles } from "@/assets/styles/bank.styles";
 import { getItem } from "expo-secure-store";
 import { Image, View } from "react-native";
 import { useTheme } from "react-native-paper";
-import { AppText } from "../AppText";
+import { AppText } from "../../AppText";
 import { useEffect, useState } from "react";
 
 export const BankHeader: React.FC = () => {

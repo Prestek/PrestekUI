@@ -8,9 +8,10 @@ import { formatAmount } from "@/utils/masks";
 
 interface LoanRequestProps {
   onSubmit: (amount: string, installments: string) => void;
+  disabled: boolean;
 }
 
-export const LoanRequest = ({ onSubmit }: LoanRequestProps) => {
+export const LoanRequest = ({ onSubmit, disabled }: LoanRequestProps) => {
   const theme = useTheme();
   const styles = createLoanStyles(theme);
   const [amount, setAmount] = useState("");
@@ -39,6 +40,7 @@ export const LoanRequest = ({ onSubmit }: LoanRequestProps) => {
             iconPosition="left"
             label="Monto del préstamo"
             value={amount ? new Intl.NumberFormat("es-CO").format(parseInt(amount)) : ""}
+            disabled={disabled}
           />
           <AuthInput
             value={installments}
@@ -47,6 +49,7 @@ export const LoanRequest = ({ onSubmit }: LoanRequestProps) => {
             icon="calendar-month"
             iconPosition="left"
             label="Número de cuotas"
+            disabled={disabled}
           />
 
 

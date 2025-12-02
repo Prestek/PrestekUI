@@ -1,35 +1,30 @@
 import { createHomeStyles } from "@/assets/styles/home.styles";
-import { View, TouchableOpacity } from "react-native";
-import { Badge, Text, useTheme } from "react-native-paper";
+import { View } from "react-native";
+import { Text, useTheme } from "react-native-paper";
 import { useUser } from '@clerk/clerk-expo';
-import { MaterialIcons } from "@expo/vector-icons";
+import { useUserExists } from "@/hooks/useUserExists";
 
 export const UserHeader: React.FC = () => {
     const theme = useTheme();
     const styles = createHomeStyles(theme);
-    const { user } = useUser();
+    const { user: userClerk } = useUser();
+    const { user, isChecking } = useUserExists();
 
+    if(isChecking){
+        return null;
+    }
 
-    // Obtener el nombre del usuario (primera parte del email si no hay nombre completo)
     const getUserName = () => {
-        if (user?.firstName && user?.lastName) {
-            return `${user.firstName} ${user.lastName}`;
-        } else if (user?.firstName) {
-            return user.firstName;
-        } else if (user?.emailAddresses[0]?.emailAddress) {
-            return user.emailAddresses[0].emailAddress.split('@')[0];
-        }
-        return 'User';
+        let name = user?.firstName ? user.firstName : userClerk?.firstName ? userClerk.firstName : '';
+        const firstName = name.split(' ');
+        const selectedName = firstName.length >= 0 ? firstName[0] : name;
+        return selectedName.toUpperCase();
     };
 
-    // Obtener las iniciales para el avatar
     const getUserInitials = () => {
         const name = getUserName();
-        const words = name.split(' ');
-        if (words.length >= 2) {
-            return `${words[0][0]}${words[1][0]}`.toUpperCase();
-        }
-        return name.substring(0, 2).toUpperCase();
+        const lastName = user?.lastName ? user.lastName : userClerk?.lastName ? userClerk.lastName  : '';
+        return `${name[0]}${lastName[0]}`.toUpperCase();
     };
 
     // Obtener saludo basado en la hora del día
@@ -56,12 +51,10 @@ export const UserHeader: React.FC = () => {
                     <Text style={styles.profileInitials}>{userInitials}</Text>
                 </View>
                 <View style={styles.profileInfo}>
-                    <Text style={[styles.greetingText, { color: theme.colors.onSurface }]}>{greeting}</Text>
-                    <Text style={[styles.userNameText, { color: theme.colors.primary }]}>{userName}</Text>
+                    <Text style={[styles.greetingText, { color: theme.colors.primary}]}>{greeting + ","}</Text>
+                    <Text style={[styles.userNameText, { color: theme.colors.onPrimary }]}>{userName}</Text>
                 </View>
             </View>
-
-
         </View>
     );
 };

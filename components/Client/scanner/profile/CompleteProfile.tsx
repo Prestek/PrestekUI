@@ -70,37 +70,37 @@ export default function CompleteProfile({ data }: { data: ParsedCedula | null })
 
   return (
     <Navigation
-      showExit={true}
+      showExit={false}
       showElevated={true}
       header={true}
       headerChildren={
         <Steps
           currentStep={2}
           totalSteps={2}
-          stepTitle="Profile"
-          stepLabels={["Scan ID", "Profile"]}
-          title="Complete Profile"
+          stepTitle="Completar información"
+          stepLabels={["Cédula", "Perfil"]}
+          title="Completar información"
       />
       }
     >
       <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
           <View style={styles.introContainer}>
             <View style={styles.basicInformation}>
-              <AppText style={styles.basicInformationTitle}>Basic Information</AppText>
+              <AppText style={styles.basicInformationTitle}>Información básica</AppText>
               <View style={styles.basicInformationContent}>
-                <AppText style={styles.basicInformationContentText}>Email</AppText>
+                <AppText style={styles.basicInformationContentText}>Correo</AppText>
                 <AppText style={styles.basicInformationContentText}>{userEmail}</AppText>
               </View>
               <View style={styles.basicInformationContent}>
-                <AppText style={styles.basicInformationContentText}>Name</AppText>
+                <AppText style={styles.basicInformationContentText}>Nombres</AppText>
                 <AppText style={styles.basicInformationContentText}>{firstName}</AppText>
               </View>
               <View style={styles.basicInformationContent}>
-                <AppText style={styles.basicInformationContentText}>Last Name</AppText>
+                <AppText style={styles.basicInformationContentText}>Apellidos</AppText>
                 <AppText style={styles.basicInformationContentText}>{lastName}</AppText>
               </View>
               <View style={styles.basicInformationContent}>
-                <AppText style={styles.basicInformationContentText}>Document Number</AppText>
+                <AppText style={styles.basicInformationContentText}>Número</AppText>
                 <AppText style={styles.basicInformationContentText}>{documentNumber}</AppText>
               </View>
             </View>
@@ -108,24 +108,24 @@ export default function CompleteProfile({ data }: { data: ParsedCedula | null })
           <View style={styles.formContainerWrapper}>
             <View style={styles.formLabel}>
               <MaterialCommunityIcons name="file-document-edit" size={18} color={theme.colors.primary} />
-              <AppText style={{ fontSize: 16, fontWeight: '600', color: theme.colors.primary }}>Additional Information</AppText>
+              <AppText style={{ fontSize: 16, fontWeight: '600', color: theme.colors.primary }}>Información adicional</AppText>
             </View>
             <View style={styles.formContainer}>
-              <AppText style={styles.subtitle}>To offer you the best loans, we need to know you better. Complete the following information to continue.</AppText>
+              <AppText style={styles.subtitle}>Para ofrecerte los mejores préstamos, necesitamos conocerte mejor. Completa la siguiente información para continuar.</AppText>
               <AuthInput
                 value={phone}
                 onChangeText={setPhone}
                 keyboardType="phone-pad"
                 icon="phone"
                 iconPosition="left"
-                label="Phone Number"
+                label="Número de teléfono"
               />
               <AuthInput
                 onChangeText={(text) => formatAmount(text, setMonthlyIncome)}
                 keyboardType="numeric"
                 icon="cash-plus"
                 iconPosition="left"
-                label="Monthly Income"
+                label="Ingreso mensual"
                 value={monthlyIncome ? new Intl.NumberFormat("es-CO").format(parseInt(monthlyIncome)) : ""}
               />
               <AuthInput
@@ -134,21 +134,21 @@ export default function CompleteProfile({ data }: { data: ParsedCedula | null })
                 keyboardType="numeric"
                 icon="cash-minus"
                 iconPosition="left"
-                label="Monthly Expenses"
+                label="Egresos mensuales"
               />
               <View style={styles.selectContainer}>
-                <AppText style={styles.selectLabel}>Employment Status:</AppText>
+                <AppText style={styles.selectLabel}>Estado de empleo:</AppText>
                 <RadioButton.Group onValueChange={value => setEmploymentStatus(value as 'Employed' | 'Unemployed' | 'Self-Employed' | 'Student' | 'Retired')} value={employmentStatus}>
                   <View style={styles.radioContainer}>
                     {(['Employed', 'Unemployed', 'Self-Employed', 'Student', 'Retired'] as const).map((status) => (
                       <View key={status} style={styles.radioItem}>
                         <RadioButton.Android value={status} />
                         <AppText style={styles.radioLabel} onPress={() => setEmploymentStatus(status)}>
-                          {status === 'Employed' ? 'Employed' :
-                            status === 'Unemployed' ? 'Unemployed' :
-                              status === 'Self-Employed' ? 'Self-Employed' :
-                                status === 'Student' ? 'Student' :
-                                  'Retired'}
+                          {status === 'Employed' ? 'Empleado' :
+                            status === 'Unemployed' ? 'Desempleado' :
+                              status === 'Self-Employed' ? 'Autónomo' :
+                                status === 'Student' ? 'Estudiante' :
+                                  'Retirado'}
                         </AppText>
                       </View>
                     ))}
@@ -159,7 +159,7 @@ export default function CompleteProfile({ data }: { data: ParsedCedula | null })
           </View>
           <View style={styles.formButtonContainer}>
             <AuthButton onPress={handleSubmit} disabled={loading}>
-              {loading ? "Saving Profile..." : "Save Profile"}
+              {loading ? "Guardando perfil..." : "Guardar perfil"}
             </AuthButton>
           </View>
       </ScrollView>

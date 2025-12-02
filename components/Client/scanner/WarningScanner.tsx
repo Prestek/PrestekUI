@@ -13,10 +13,8 @@ export default function WarningScanner() {
     const styles = createScanStyles(theme);
     const lottie = require('@/assets/animationID.json');
     const handleContinue = () => {
-        router.push('/(client)/(home)/scan-camera');
+        router.push('/(client)/(scan)/camera');
     };
-
-
     return (
         <View style={styles.container}>
             
@@ -24,34 +22,33 @@ export default function WarningScanner() {
                 <View style={styles.contentContainer}>
                     {/* Header Section */}
                     <View style={styles.headerSection}>
-                        <AppText style={styles.subtitle}>Scan the back side of your ID card</AppText>
+                        <AppText style={styles.subtitle}>Escanea el reverso de tu cédula de identidad</AppText>
                     </View>
                     <View style={styles.center}>
                         <LottieView
                             source={lottie}
                             autoPlay
-                            style={{ width: 280, height: 280 }}
+                            style={{ width: 280, height: 250 }}
                         />
                     </View>
-                    {/* Instructions Section */}
                     <View style={styles.instructionsSection}>
                         <View style={styles.instructionItemContainer}>
                             <View style={styles.instructionItem}>
                                 <MaterialIcons name="lightbulb" size={20} color={theme.colors.inversePrimary} />
                                 <AppText style={styles.instructionText}>
-                                    Find a place with good lighting
+                                    Encuentra un lugar con buena iluminación
                                 </AppText>
                             </View>
                             <View style={styles.instructionItem}>
                                 <MaterialIcons name="check" size={20} color={theme.colors.inversePrimary} />
                                 <AppText style={styles.instructionText}>
-                                    Ensure the ID card is completely visible and well lit.
+                                    Asegura que la cédula esté completamente visible y bien iluminada.
                                 </AppText>
                             </View>
                             <View style={styles.instructionItem}>
                                 <MaterialIcons name="block" size={20} color={theme.colors.inversePrimary} />
                                 <AppText style={styles.instructionText}>
-                                    Avoid reflections and shadows on the document.
+                                    Evita reflejos y sombras en el documento.
                                 </AppText>
                             </View>
                         </View>
@@ -63,7 +60,7 @@ export default function WarningScanner() {
                     style={[styles.buttonWarning, styles.button, styles.fullWidthButton]}
                 >
                     <AppText style={[styles.buttonLabelStyle, { color: theme.colors.primary }]}>
-                        Continue
+                        Continuar
                     </AppText>
                 </TouchableOpacity>
             </View>

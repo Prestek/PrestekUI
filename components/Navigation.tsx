@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, View } from "react-native";
 import { Appbar, IconButton, useTheme } from "react-native-paper";
 import { AppText } from "./AppText";
+import { deleteItem } from "@/utils/secureStorage";
 
 
 export const Navigation: React.FC<NavigationProps> = ({ 
@@ -33,6 +34,8 @@ export const Navigation: React.FC<NavigationProps> = ({
     const handleSignOut = async () => {
         console.log("Sign out button pressed")
         try {
+            await deleteItem("user");
+            await deleteItem("role")
             await signOut()
             router.replace("/(auth)/role")
         } catch (err) {
@@ -45,7 +48,6 @@ export const Navigation: React.FC<NavigationProps> = ({
         setIsScrolled(offsetY > 10);
     };
 
-    // Clonar children e inyectar el handler de scroll si es un ScrollView
     const childrenWithScroll = React.Children.map(children, child => {
         if (React.isValidElement(child) && child.type === ScrollView) {
             return React.cloneElement(child as React.ReactElement<any>, {
@@ -55,9 +57,6 @@ export const Navigation: React.FC<NavigationProps> = ({
         }
         return child;
     });
-
-
-    
 
     return (
         <View style={styles.container}>

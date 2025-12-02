@@ -1,23 +1,22 @@
-
-import { Navigation } from "@/components/Navigation";
 import WarningScanner from "@/components/Client/scanner/WarningScanner";
+import { Navigation } from "@/components/Navigation";
 import { Steps } from "@/components/Steps";
 
 export default function DocumentScanner() {
 
     return (
         <Navigation
-            showExit={true}
+            showExit={false}
             showElevated={true}
-            showBackButton={false}
+            showBackButton={true}
             header={true}
             headerChildren={
                 <Steps
                 currentStep={1}
                 totalSteps={2}
-                stepTitle="Scan ID Card"
-                stepLabels={["Scan ID", "Profile"]}
-                title="ID card capture"
+                stepTitle="Escanear cédula"
+                stepLabels={["Cédula", "Perfil"]}
+                title="Escaneo de cédula"
             />
         }
         >

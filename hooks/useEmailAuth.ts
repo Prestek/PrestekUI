@@ -1,7 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { useSignIn, useSignUp, useAuth, useUser } from "@clerk/clerk-expo";
 import { router, useRouter } from "expo-router";
-import { checkUserExists, createUserProfile } from "../services/userAPI";
+import { createUserProfile, getUserByEmail } from "../services/userAPI";
+import { getItem } from "expo-secure-store";
+import { saveItem } from "@/utils/secureStorage";
 
 export const useEmailSignIn = () => {
   const [loading, setLoading] = useState(false);
@@ -90,11 +92,11 @@ export const useEmailSignUp = () => {
     monthlyIncome: number;
     monthlyExpenses: number;
     employmentStatus:
-      | "Employed"
-      | "Unemployed"
-      | "Self-Employed"
-      | "Student"
-      | "Retired";
+    | "Employed"
+    | "Unemployed"
+    | "Self-Employed"
+    | "Student"
+    | "Retired";
   }) => {
     let userId = 1;
     if (!userId) {
@@ -104,13 +106,14 @@ export const useEmailSignUp = () => {
     try {
       const userEmail = user?.emailAddresses?.[0]?.emailAddress || "";
 
-      await createUserProfile({
+      const userResponse = await createUserProfile({
         id: userId,
         email: userEmail,
         ...profileData,
         creditScore: 600,
       });
       userId = userId + 1;
+      await saveItem("user", JSON.stringify(userResponse));
       // Solo redirigir al home después de completar el perfil
       router.replace("/(client)/(home)");
     } catch (error) {
@@ -141,11 +144,9 @@ export const useCheckUserExists = (userEmail: string) => {
   const router = useRouter();
   const auth = useAuth();
   const [isChecking, setIsChecking] = useState(false);
-  const [hasChecked, setHasChecked] = useState(false);
   const hasExecutedRef = useRef(false);
 
   useEffect(() => {
-    // Solo ejecutar una vez por email
     if (!userEmail || !auth.isSignedIn || hasExecutedRef.current) {
       return;
     }
@@ -153,32 +154,23 @@ export const useCheckUserExists = (userEmail: string) => {
     hasExecutedRef.current = true;
 
     const checkAndRedirect = async () => {
-      console.log("Starting user existence check for:", userEmail);
       setIsChecking(true);
-
       try {
-        const exists = await checkUserExists(userEmail);
-        console.log("User exists result:", exists);
-
-        if (!exists) {
-          console.log("User does not exist, redirecting to complete-profile");
-          const target = "/(client)/(home)/scan";
-          router.replace(target);
-        } else {
-          console.log("User exists, staying on current page");
+        const storedUser = await getItem("user");
+        if (!storedUser) {
+          const user = await getUserByEmail(userEmail);
+          if (user) {
+            await saveItem("user", JSON.stringify(user));
+          }
         }
-
-        setHasChecked(true);
       } catch (error) {
         console.error("Error checking user existence:", error);
-        setHasChecked(true);
       } finally {
         setIsChecking(false);
       }
     };
-
     checkAndRedirect();
   }, [userEmail, auth.isSignedIn, router]);
 
-  return { isChecking, hasChecked };
+  return { isChecking };
 };

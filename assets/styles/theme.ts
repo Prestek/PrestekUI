@@ -13,6 +13,7 @@ export const spacing = {
   "2xl": 64,
   "3xl": 96,
   "4xl": 128,
+  "5xl": 192,
 }
 
 export const borderRadius = {

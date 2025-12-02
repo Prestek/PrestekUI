@@ -13,6 +13,13 @@ export const createLoanStyles = (theme: MD3Theme) =>
       flex: 1,
       paddingTop: spacing.xl,
     },
+    informationContent: {
+      flex: 1,
+      justifyContent: "space-between",
+      backgroundColor: theme.colors.background,
+      paddingHorizontal: spacing.md,
+      paddingBottom: spacing["3xl"],
+    },
     requestTitle: {
       fontSize: spacing.lg,
       fontWeight: "bold",
@@ -482,5 +489,27 @@ export const createLoanStyles = (theme: MD3Theme) =>
       fontSize: 16,
       fontWeight: "bold",
       color: theme.colors.onPrimary,
+    },
+    informationContentText: {
+      justifyContent: "center",
+      paddingTop: spacing.xl,
+    },
+    bottomContent: {
+      marginTop: 'auto',
+    },
+    checkboxContainer: {
+      width: '100%',
+      marginVertical: 20,
+    },
+    checkboxRow: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      width: '100%',
+    },
+    checkboxText: {
+      flex: 1,
+      marginLeft: 8,
+      marginTop: 8,
+      lineHeight: 20,
     },
   });

@@ -1,47 +1,24 @@
 import { createPaymentStyles } from "@/assets/styles/payment.styles";
-import { spacing, typography } from "@/assets/styles/theme";
+import { spacing } from "@/assets/styles/theme";
 import { AppText } from "@/components/AppText";
 import { ApplicationProps } from "@/models/applicationModels";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View } from "react-native";
-import { Chip, Surface, useTheme } from "react-native-paper";
-import { Request } from "./Client/home/Payment/Request";
-import { BankRequest } from "@/components/Bank/Request";
+import { useTheme } from "react-native-paper";
+
 
 export const Applications: React.FC<ApplicationProps> = ({
-  filteredRequests = [],
-  showElevation = true,
-  limit,
-  role,
-  all = true,
+  total,
+  children
 }) => {
   const theme = useTheme();
   const paymentStyles = createPaymentStyles(theme);
-  const requests = Array.isArray(filteredRequests) ? filteredRequests : [];
-  const limitValue = typeof limit === "number" ? limit : requests.length;
 
   return (
     <View style={paymentStyles.historyContent}>
-      {requests
-        .slice(0, limitValue)
-        .map((request: any, index: number) =>
-          role === "bank" ? (
-            <BankRequest
-              request={request}
-              showElevation={showElevation}
-              key={index}
-            />
-          ) : (
-            <Request
-              request={request}
-              showElevation={showElevation}
-              key={index}
-              all={all}
-            />
-          )
-        )}
+      {children}
 
-      {requests.length === 0 && (
+      {total === 0 && (
         <View
           style={{
             alignItems: "center",
@@ -61,7 +38,7 @@ export const Applications: React.FC<ApplicationProps> = ({
               fontSize: 16,
             }}
           >
-            Requests not found
+            Solicitudes no encontradas
           </AppText>
         </View>
       )}

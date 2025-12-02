@@ -170,13 +170,14 @@ export const createAuthStyles = (theme: MD3Theme) =>
       color: theme.colors.onSurfaceDisabled,
       opacity: 0.5,
     },
-
     // Terms
     termsText: {
-      color: theme.colors.onSurfaceVariant,
-      fontSize: typography.sizes.md,
-      
-      width: '100%',
+      color: theme.colors.onSecondary,
+      marginBottom: spacing.md,
+    },
+    termsLink: {
+      fontWeight: 'bold',
+      textDecorationLine: 'underline',
     },
     // Error
     errorContainer: {

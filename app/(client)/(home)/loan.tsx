@@ -1,13 +1,45 @@
-import { View } from "react-native";
-import { useTheme } from "react-native-paper";
-import { createHomeStyles } from "@/assets/styles/home.styles";
-import { Loan } from "@/components/Client/home/Loan/Loan";
+import { View, StyleSheet } from "react-native";
+import { createLoanStyles } from "@/assets/styles/loan.styles";
+import { useState } from "react";
+import { useTheme, Text, Button, Card } from "react-native-paper";
+import { LoanRequest } from "@/components/Client/home/Loan/LoanRequest";
+import { router } from "expo-router";
+import { useUser } from "@clerk/clerk-expo";
+import { useCheckUserExists } from "@/hooks/useEmailAuth";
+import { InformationRequired } from "@/components/Client/home/Loan/InformationRequired";
+import { useUserExists } from "@/hooks/useUserExists";
+
 
 export default function ClientLoanScreen() {
   const theme = useTheme();
-  const styles = createHomeStyles(theme);
+  const styles = createLoanStyles(theme);
+  const {user, isChecking} = useUserExists();
+
+  const handleLoanRequest = (amount: string, installments: string) => {
+    router.push({
+      pathname: "/(client)/(loan)",
+      params: {
+        amount,
+        installments,
+      },
+    });
+  };
+
+  if (isChecking) {
+    return null;
+  }
+
+  if (!user) {
+    return (
+      <InformationRequired />
+    );
+  }
 
   return (
-    <Loan />
+    <View style={styles.container}>
+      <LoanRequest onSubmit={handleLoanRequest} disabled={!user} />
+    </View>
   );
 }
+
+

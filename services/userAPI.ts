@@ -1,21 +1,21 @@
+import { User, UserResponse } from "@/models/userModels";
 import axios from "axios";
 
-const API = "http://people.eci-pigball.online:8080/api/users";
+const API = "http://192.168.20.38:8080/api/users";
 
 export async function getAllUsers() {
   const response = await axios.get(API);
   return response;
 }
 
-export async function checkUserExists(email: string) {
+export async function getUserByEmail(email: string) {
   try {
-    /*const response = await axios.get(`${API}/email/${email}`);
-    return response.status === 200;*/
-    return true;
+    const response = await axios.get<UserResponse>(`${API}/email/${email}`);
+    return response.data;
   } catch (error) {
     console.error("Error checking user existence:", error);
     if (axios.isAxiosError(error) && error.response?.status === 404) {
-      return false;
+      return null;
     }
     throw error;
   }
@@ -38,7 +38,6 @@ export async function createUserProfile(userData: {
     | "Retired";
   creditScore: number;
 }) {
-  console.log(API, userData);
-  const response = await axios.post(API, userData);
-  return response;
+  const response = await axios.post<UserResponse>(API, userData);
+  return response.data;
 }

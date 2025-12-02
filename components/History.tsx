@@ -1,53 +1,14 @@
 import { ScrollView, View, TouchableOpacity } from "react-native";
-import { IconButton, useTheme, Searchbar, Chip } from "react-native-paper";
+import { useTheme, Searchbar, Chip } from "react-native-paper";
 import { AppText } from "@/components/AppText";
 import { createPaymentStyles } from "@/assets/styles/payment.styles";
-import { spacing, typography } from "@/assets/styles/theme";
-import { useEffect, useState } from "react";
+import { spacing } from "@/assets/styles/theme";
 import { Topbar } from "@/components/Topbar";
-import {
-  creditUserRequests,
-  initialRequests,
-  LoanRequest,
-} from "@/hooks/const/data";
-import { getItem } from "expo-secure-store";
-import { Applications } from "./Applications";
+import { BankApplicationsProps } from "@/models/bankApplicationsModels";
 
-export const History = () => {
+export const History: React.FC<BankApplicationsProps> = ({ searchQuery, setSearchQuery,total, selectedTab, setSelectedTab, children }) => {
   const theme = useTheme();
   const paymentStyles = createPaymentStyles(theme);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTab, setSelectedTab] = useState<string>("pending");
-  const [creditRequests, setCreditRequests] = useState<LoanRequest[] | any[]>(
-    creditUserRequests
-  );
-  const [role, setRole] = useState<string>("");
-  useEffect(() => {
-    const loadData = async () => {
-      const role = await getItem("role");
-      setRole(role || "");
-      if (role !== "bank") {
-        setCreditRequests(creditUserRequests);
-      } else {
-        setCreditRequests(initialRequests);
-      }
-    };
-    loadData();
-  }, []);
-
-  const filteredRequests = creditRequests.filter((request) => {
-    const matchesSearch =
-      request.bank?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      request.amount.toString().includes(searchQuery) ||
-      request.status.toLowerCase().includes(searchQuery.toLowerCase());
-
-    const matchesTab =
-      (selectedTab === "pending" && request.status === "Pendiente") ||
-      (selectedTab === "approved" && request.status === "Aprobada") ||
-      (selectedTab === "rejected" && request.status === "Rechazada");
-
-    return matchesSearch && matchesTab;
-  });
 
   return (
     <Topbar
@@ -63,7 +24,7 @@ export const History = () => {
                 icon="file-document-outline"
                 textStyle={{ color: theme.colors.primary, fontSize: 14 }}
               >
-                Total: {filteredRequests.length}
+                Total: {total}
               </Chip>
             </View>
 
@@ -202,11 +163,7 @@ export const History = () => {
         }}
         showsVerticalScrollIndicator={false}
       >
-        <Applications
-          filteredRequests={filteredRequests}
-          showElevation={true}
-          role={role}
-        />
+        {children}
       </ScrollView>
     </Topbar>
   );

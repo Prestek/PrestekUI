@@ -1,17 +1,13 @@
-export interface ApplicationProps {
-  filteredRequests: any[];
-  showElevation?: boolean;
-  limit?: number;
-  role?: string;
-  all?: boolean;
+export interface ApplicationProps extends ChildrenProps {
+  total: number;
 }
 
 import { LoanRequest } from "@/hooks/const/data";
+import { ChildrenProps } from "./childrenModel";
 
 export interface RequestProps {
   request: LoanRequest | any;
   showElevation?: boolean;
-  all?: boolean;
 }
 
 export interface RequestBankProps {

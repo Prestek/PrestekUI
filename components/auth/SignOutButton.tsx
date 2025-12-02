@@ -17,6 +17,7 @@ export const SignOutButton: React.FC<{text?: string}> = ({text = 'Cerrar sesión
     try {
       await signOut()
       await deleteItem("role")
+      await deleteItem("user")
       router.replace("/(auth)/role")
     } catch (err) {
       console.error(JSON.stringify(err, null, 2))

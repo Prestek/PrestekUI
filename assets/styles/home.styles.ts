@@ -422,7 +422,7 @@ export const createHomeStyles = (theme: MD3Theme) =>
     },
     selectContainer: {
       width: "100%",
-      backgroundColor: theme.colors.surface,
+      backgroundColor: theme.colors.surfaceVariant,
       padding: spacing.md,
       borderRadius: borderRadius.lg,
     },

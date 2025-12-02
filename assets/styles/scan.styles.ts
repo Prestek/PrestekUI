@@ -111,6 +111,7 @@ export const createScanStyles = (theme: MD3Theme) =>
           },
           instructionsSection: {
             gap: spacing.md,
+            paddingBottom: spacing.md,
           },
           instructionSectionCamera:{
             gap: spacing.md,
@@ -188,10 +189,58 @@ export const createScanStyles = (theme: MD3Theme) =>
           warningContainer:{
             flex: 1,
             paddingHorizontal: spacing.md,
+            gap: spacing.md,
           },
           loadingContainer: {
             flexDirection: 'row',
             alignItems: 'center',
             gap: spacing.md,
           },
+          permissionDeniedContainer: {
+            flex: 1,
+            paddingHorizontal: spacing.md,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: theme.colors.background,
+          },
+          contentWrapper: {
+            alignItems: 'center',
+            paddingHorizontal: 24,
+            gap: 20,
+        },
+        iconContainer: {
+            width: 120,
+            height: 120,
+            borderRadius: 60,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: 8,
+        },
+        mainTitle: {
+            textAlign: 'center',
+            fontSize: typography.sizes.xl,
+        },
+        description: {
+            textAlign: 'center',
+            lineHeight: 22,
+            opacity: 0.8,
+        },
+        infoBox: {
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            gap: spacing.md,
+            padding: spacing.md,
+            borderRadius: borderRadius.lg,
+            marginTop: 8,
+        },
+        infoText: {
+            flex: 1,
+            fontSize: typography.sizes.sm,
+            lineHeight: 20,
+        },
+        buttonContainer: {
+            width: '100%',
+            paddingHorizontal: spacing.md,
+            marginTop: spacing.md,
+        },
     });

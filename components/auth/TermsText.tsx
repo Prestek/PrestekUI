@@ -9,8 +9,17 @@ export const TermsText: React.FC = () => {
   const styles = createAuthStyles(theme);
 
   return (
-    <AppText style={styles.termsText}>
-    By continuing, you agree to our terms of service and privacy policy
+    <AppText variant="bodySmall" style={styles.termsText}>
+      Al continuar, autorizas el{" "}
+      <AppText variant="bodySmall" style={styles.termsLink}>
+        tratamiento de tus datos personales
+      </AppText>{" "}
+      según nuestra{" "}
+      <AppText variant="bodySmall" style={styles.termsLink}>
+        política de privacidad
+      </AppText>
+      . Consultar tu historial de crédito es un paso indispensable en tu proceso de aprobación.
     </AppText>
+
   );
 };

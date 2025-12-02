@@ -1,11 +1,12 @@
 import { createHomeStyles } from "@/assets/styles/home.styles";
 import { AppText } from "@/components/AppText";
+import { LastApplicationProps } from "@/models/clientResumeModels";
 import { CreditProps } from "@/models/creditModels";
 import { View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 
 
-export const Credit: React.FC<CreditProps> = ({ loan }) => {
+export const Credit: React.FC<LastApplicationProps> = ({ bank, totalAmount, applicationDate }) => {
     const theme = useTheme();
     const styles = createHomeStyles(theme);
     return (
@@ -13,7 +14,7 @@ export const Credit: React.FC<CreditProps> = ({ loan }) => {
                 <View style={[styles.itemsHorizontal]}>
                     <View style={styles.cardHeader}>
                         <AppText style={styles.basicInformationTitle}>Última solicitud</AppText>
-                        <AppText style={[styles.basicInformationContentText, styles.bankColor]}>{loan.bank}</AppText>
+                        <AppText style={[styles.basicInformationContentText, styles.bankColor]}>{bank}</AppText>
                     </View>
                     <View style={styles.bankLogo}>
                         <AppText style={styles.logoText}>B</AppText>
@@ -24,12 +25,12 @@ export const Credit: React.FC<CreditProps> = ({ loan }) => {
                     <View style={styles.amountSection}>
                         <AppText style={[styles.amountLabel, styles.basicInformationContentText]}>Total solicitado</AppText>
                         <AppText style={[styles.amountValue, styles.basicInformationContentText]}>
-                            ${loan.totalAmount.toLocaleString('es-CO', { minimumFractionDigits: 2 })}
+                            ${totalAmount.toLocaleString('es-CO', { minimumFractionDigits: 2 })}
                         </AppText>
                     </View>
                     <View style={styles.amountSection}>
                         <AppText style={styles.basicInformationContentText}>Fecha de solicitud</AppText>
-                        <AppText style={[styles.basicInformationContentText, styles.bankName]}>{loan.startDate}</AppText>
+                        <AppText style={[styles.basicInformationContentText, styles.bankName]}>{applicationDate}</AppText>
                     </View>
                 </View>
                 
