@@ -5,6 +5,7 @@ import { createLoanStyles } from "@/assets/styles/loan.styles";
 import { useState } from "react";
 import { AuthButton, AuthInput } from "@/components/auth";
 import { formatAmount } from "@/utils/masks";
+import { useSimulation } from "@/hooks/useSimulation";
 
 interface LoanRequestProps {
   onSubmit: (amount: string, installments: string) => void;
@@ -19,7 +20,7 @@ export const LoanRequest = ({ onSubmit, disabled }: LoanRequestProps) => {
 
   const handleSubmit = () => {
     if (amount && installments) {
-      onSubmit(amount, installments);
+        onSubmit(amount, installments);
     }
   };
 

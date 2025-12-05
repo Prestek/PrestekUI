@@ -4,13 +4,16 @@ export interface ApplicationProps extends ChildrenProps {
 
 import { LoanRequest } from "@/hooks/const/data";
 import { ChildrenProps } from "./childrenModel";
+import { Application } from "./creditModels";
+import { BankCode } from "./enums/Request";
 
 export interface RequestProps {
-  request: LoanRequest | any;
+  request: Application;
   showElevation?: boolean;
 }
 
 export interface RequestBankProps {
-  request: LoanRequest;
+  request: Application;
   showElevation?: boolean;
+  bankCode: BankCode | null;
 }

@@ -1,16 +1,17 @@
 import { User, UserResponse } from "@/models/userModels";
 import axios from "axios";
+import { createAuthHeaders } from "./token";
 
-const API = "http://192.168.20.38:8080/api/users";
+const API = "https://people.eci-pigball.online/api/users";
 
 export async function getAllUsers() {
   const response = await axios.get(API);
   return response;
 }
 
-export async function getUserByEmail(email: string) {
+export async function getUserByEmail(email: string,token: string) {
   try {
-    const response = await axios.get<UserResponse>(`${API}/email/${email}`);
+    const response = await axios.get(`${API}/email/${email}`, createAuthHeaders(token));
     return response.data;
   } catch (error) {
     console.error("Error checking user existence:", error);
@@ -37,7 +38,18 @@ export async function createUserProfile(userData: {
     | "Student"
     | "Retired";
   creditScore: number;
-}) {
-  const response = await axios.post<UserResponse>(API, userData);
+},token: string) {
+  const response = await axios.post(API, userData, createAuthHeaders(token));
+  return response.data;
+}
+
+
+export async function getUserById(userId: string,token: string) {
+  const response = await axios.get(`${API}/${userId}`, createAuthHeaders(token));
+  return response.data;
+}
+
+export async function updateUserProfile(userId: number, userData: User, token: string) {
+  const response = await axios.put(`${API}/${userId}`, userData, createAuthHeaders(token));
   return response.data;
 }

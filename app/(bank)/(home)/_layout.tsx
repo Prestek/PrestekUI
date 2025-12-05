@@ -5,10 +5,22 @@ import { useTheme } from "react-native-paper";
 import { NavigationBottom } from "@/components/BottomNavigation";
 import { AppText } from "@/components/AppText";
 import { createStyles } from "@/assets/styles/bank.styles";
+import { useBank } from "@/hooks/useBank";
+import { LoadingTransition } from "@/components/LoadingTransition";
+import { useEffect } from "react";
 
 export default function BankHomeLayout() {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const { isLoading, loadApplications} = useBank();
+
+  useEffect(() => {
+    loadApplications();
+  }, []);
+
+  if (isLoading) {
+    return <LoadingTransition />;
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.surfaceVariant }}>

@@ -1,13 +1,11 @@
 import { createPaymentStyles } from "@/assets/styles/payment.styles";
 import { AppText } from "@/components/AppText";
 import { Detail } from "@/components/Detail";
-import { LoadingTransition } from "@/components/LoadingTransition";
 import { useApplication } from "@/hooks/useApplication";
 import { useApplications } from "@/hooks/useApplications";
 import { Application } from "@/models/creditModels";
 import { BankCode, LoanRequestStatus, LoanRequestStatusLabel } from "@/models/enums/Request";
 import { getBackgroundColorByStatus, getColorByStatus } from "@/models/functions/color";
-import { User } from "@/models/userModels";
 import { getUserById } from "@/services/userAPI";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalSearchParams, router } from "expo-router";
@@ -17,13 +15,16 @@ import { Chip, IconButton, Surface, useTheme, Divider, ActivityIndicator } from 
 
 export default function ApplicationDetailScreen() {
     const theme = useTheme();
+    const paymentStyles = createPaymentStyles(theme);
     const { id, bankCode } = useLocalSearchParams<{ id: string, bankCode: BankCode }>();
     const { application, user, loading } = useApplication(id, bankCode);
 
 
     if (loading) {
         return (
-            <LoadingTransition />
+            <View style={[styles.container, styles.centered, { backgroundColor: theme.colors.background }]}>
+                <ActivityIndicator size="large" color={theme.colors.primary} />
+            </View>
         );
     }
 
@@ -39,7 +40,7 @@ export default function ApplicationDetailScreen() {
     }
 
     return (
-        <Detail request={application} role="bank" user={user as User} bankCode={bankCode} />
+        <Detail request={application} role="client" user={user} bankCode={bankCode} />
     );
 
 }

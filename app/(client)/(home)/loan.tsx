@@ -8,13 +8,14 @@ import { useUser } from "@clerk/clerk-expo";
 import { useCheckUserExists } from "@/hooks/useEmailAuth";
 import { InformationRequired } from "@/components/Client/home/Loan/InformationRequired";
 import { useUserExists } from "@/hooks/useUserExists";
+import { useSimulation } from "@/hooks/useSimulation";
+import { LoanSearching } from "@/components/Client/home/Loan/LoanSearching";
 
 
 export default function ClientLoanScreen() {
   const theme = useTheme();
   const styles = createLoanStyles(theme);
   const {user, isChecking} = useUserExists();
-
   const handleLoanRequest = (amount: string, installments: string) => {
     router.push({
       pathname: "/(client)/(loan)",
@@ -24,6 +25,7 @@ export default function ClientLoanScreen() {
       },
     });
   };
+
 
   if (isChecking) {
     return null;

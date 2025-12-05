@@ -16,7 +16,8 @@ export const Navigation: React.FC<NavigationProps> = ({
     showBackButton = true,
     showElevated = false,
     header = false,
-    headerChildren
+    headerChildren,
+    backAction
 }) => {
     const router = useRouter();
     const theme = useTheme();
@@ -26,9 +27,13 @@ export const Navigation: React.FC<NavigationProps> = ({
 
 
     const handleBack = () => {
-        if (router.canGoBack()) {
-            router.back();
-        } 
+        if (backAction) {
+            backAction();
+        } else {
+            if (router.canGoBack()) {
+                router.back();
+            } 
+        }
     };
 
     const handleSignOut = async () => {

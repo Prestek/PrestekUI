@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { BottomNavigation, Icon, useTheme } from 'react-native-paper';
-import { Slot, useRouter, useSegments } from 'expo-router';
+import { Slot, usePathname, useRouter, useSegments } from 'expo-router';
 import { createBottomNavigationStyles } from '@/assets/styles/bottom.styles';
 import { getItem } from '@/utils/secureStorage';
 
@@ -12,19 +12,20 @@ type RouteConfig = {
   title: string;
   icon: string;
   path: string;
+  matchPath: string;
 };
 
 const CLIENT_ROUTES: RouteConfig[] = [
-  { key: 'home', title: 'Home', icon: 'home', path: '/(client)/(home)' },
-  { key: 'applications', title: 'Solicitudes', icon: 'history', path: '/(client)/(home)/applications' },
-  { key: 'loan', title: 'Préstamos', icon: 'credit-card', path: '/(client)/(home)/loan' },
-  { key: 'profile', title: 'Perfil', icon: 'account', path: '/(client)/(home)/profile' }
+  { key: 'home', title: 'Home', icon: 'home', path: '/(client)/(home)', matchPath: '/' },
+  { key: 'applications', title: 'Solicitudes', icon: 'history', path: '/(client)/(home)/applications', matchPath: '/applications' },
+  { key: 'loan', title: 'Préstamos', icon: 'credit-card', path: '/(client)/(home)/loan', matchPath: '/loan' },
+  { key: 'profile', title: 'Perfil', icon: 'account', path: '/(client)/(home)/profile', matchPath: '/profile' }
 ];
 
 const BANK_ROUTES: RouteConfig[] = [
-  { key: 'home', title: 'Resumen', icon: 'home', path: '/(bank)/(home)' },
-  { key: 'applications', title: 'Solicitudes', icon: 'history', path: '/(bank)/(home)/applications' },
-  { key: 'profile', title: 'Cuenta', icon: 'account', path: '/(bank)/(home)/profile' }
+  { key: 'home', title: 'Resumen', icon: 'home', path: '/(bank)/(home)', matchPath: '/' },
+  { key: 'applications', title: 'Solicitudes', icon: 'history', path: '/(bank)/(home)/applications', matchPath: '/applications' },
+  { key: 'profile', title: 'Cuenta', icon: 'account', path: '/(bank)/(home)/profile', matchPath: '/profile' }
 ];
 
 const normalizePath = (value: string) => {
@@ -55,13 +56,8 @@ export const NavigationBottom = () => {
   const theme = useTheme();
   const styles = createBottomNavigationStyles(theme);
   const router = useRouter();
+  const pathname = usePathname();
   const segments = useSegments();
-  const pathname = useMemo(() => {
-    if (!segments || segments.length < 1) {
-      return '/';
-    }
-    return `/${segments.join('/')}`;
-  }, [segments]);
   const [index, setIndex] = useState(0);
   const [storedRole, setStoredRole] = useState<Role | null>(null);
 
@@ -76,7 +72,7 @@ export const NavigationBottom = () => {
     fetchRole();
   }, []);
 
-  const derivedRoleFromPath: Role = pathname?.includes('/(bank)') ? 'bank' : 'client';
+  const derivedRoleFromPath: Role = segments.includes('(bank)') ? 'bank' : 'client';
   const role = storedRole ?? derivedRoleFromPath;
 
   const routes = useMemo<RouteConfig[]>(() => {
@@ -87,7 +83,7 @@ export const NavigationBottom = () => {
     if (!pathname) {
       return -1;
     }
-    return routes.findIndex((route) => isRouteMatch(pathname, route.path));
+    return routes.findIndex((route) => isRouteMatch(pathname, route.matchPath));
   }, [pathname, routes]);
 
   useEffect(() => {

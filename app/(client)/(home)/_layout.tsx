@@ -7,13 +7,13 @@ import { AppText } from "@/components/AppText";
 import { createHomeStyles } from "@/assets/styles/home.styles";
 import { useCheckUserExists } from "@/hooks/useEmailAuth";
 import { LoadingTransition } from "@/components/LoadingTransition";
+import { useApplications } from "@/hooks/useApplications";
 
 export default function ClientHomeLayout() {
   const theme = useTheme();
   const styles = createHomeStyles(theme);
   const { user } = useUser();
   const {isChecking} = useCheckUserExists(user?.emailAddresses[0].emailAddress || '');
-
   if (isChecking) {
     return (
       <LoadingTransition />

@@ -570,6 +570,9 @@ export const createHomeStyles = (theme: MD3Theme) =>
       justifyContent: 'space-between',
       alignItems: 'center',
       marginBottom: spacing.md,
-    }
+    },
+    leftText: {
+      alignSelf: 'flex-end',
+    },
   });
 

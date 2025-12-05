@@ -14,29 +14,30 @@ import {
 } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
 import { getBankTheme } from "@/assets/themes/paperTheme";
+import { BankCode } from "@/models/enums/Request";
 
 const BANKS = [
   {
-    id: "davivienda",
+    id: BankCode.DAVI,
     name: "Davivienda",
     description: "Soluciones digitales y tradicionales para tus clientes.",
     color: "#D91C23",
   },
   {
-    id: "bancolombia",
+    id: BankCode.BCO,
     name: "Bancolombia",
     description: "Innovación financiera para empresas y personas.",
     color: "#0055A4",
   },
   {
-    id: "coltefinanciera",
+    id: BankCode.COLT,
     name: "Coltefinanciera",
     description: "Crédito y ahorro pensados para crecer contigo.",
     color: "#FF8C00",
   },
 ] as const;
 
-type BankId = (typeof BANKS)[number]["id"];
+
 
 export default function SelectBankScreen() {
   const colorScheme = useColorScheme();
@@ -53,7 +54,8 @@ function SelectBankContent() {
   const theme = useTheme();
   const styles = createStyles(theme);
 
-  const handleSelectBank = async (bankId: BankId) => {
+  const handleSelectBank = async (bankId: BankCode) => {
+    console.log(bankId)
     await saveItem("role", "bank");
     await saveItem("selectedBank", bankId);
 

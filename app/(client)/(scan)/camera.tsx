@@ -42,7 +42,7 @@ export default function ScanCamera() {
     }
 
     return (
-        lastData ? (<CompleteProfile data={lastData.parsed} />) :
+        lastData ? (<CompleteProfile data={lastData.parsed} isEditing={false} />) :
             (
                 <CedulaScanner handleBarCodeScanned={handleBarCodeScanned} setScanned={setScanned} />
             ));

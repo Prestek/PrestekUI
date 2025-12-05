@@ -5,16 +5,26 @@ import { useUser } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
-import { RadioButton, useTheme } from "react-native-paper";
+import { Button, RadioButton, useTheme } from "react-native-paper";
 import { Navigation } from "@/components/Navigation";
 import { createHomeStyles } from "@/assets/styles/home.styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Steps } from "@/components/Steps";
 import { AppText } from "@/components/AppText";
 import { formatAmount } from "@/utils/masks";
+import { useUserProfile } from "@/hooks/useUser";
 
-
-export default function CompleteProfile({ data }: { data: ParsedCedula | null }) {
+interface CompleteProfileProps {
+  data: ParsedCedula | null;
+    additionalInformation?: {
+      phone: string;
+      monthlyIncome: string;
+      monthlyExpenses: string;
+      employmentStatus: 'Employed' | 'Unemployed' | 'Self-Employed' | 'Student' | 'Retired';
+    };
+  isEditing: boolean;
+}
+export default function CompleteProfile({ data, additionalInformation, isEditing }: CompleteProfileProps) {
   const router = useRouter();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -25,11 +35,12 @@ export default function CompleteProfile({ data }: { data: ParsedCedula | null })
   const [employmentStatus, setEmploymentStatus] = useState<'Employed' | 'Unemployed' | 'Self-Employed' | 'Student' | 'Retired'>('Employed');
   const [loading, setLoading] = useState(false);
   const { completeUserProfile } = useEmailAuth();
-  const { user } = useUser();
+  const { user: userClerk } = useUser();
   const theme = useTheme();
   const styles = createHomeStyles(theme);
+  const { updateUser } = useUserProfile();
 
-  const userEmail = user?.emailAddresses?.[0]?.emailAddress || "";
+  const userEmail = userClerk?.emailAddresses?.[0]?.emailAddress || "";
 
   useEffect(() => {
     if (data) {
@@ -37,7 +48,13 @@ export default function CompleteProfile({ data }: { data: ParsedCedula | null })
       setLastName(data.lastName || "");
       setDocumentNumber(data.document || "");
     }
-  }, [data]);
+    if (additionalInformation) {
+      setPhone(additionalInformation.phone || "");
+      setMonthlyIncome(additionalInformation.monthlyIncome || "");
+      setMonthlyExpenses(additionalInformation.monthlyExpenses || "");
+      setEmploymentStatus(additionalInformation.employmentStatus || 'Employed');
+    }
+  }, [data, additionalInformation]);
   const handleSubmit = async () => {
     if (!firstName || !lastName || !documentNumber || !phone || !monthlyIncome || !monthlyExpenses) {
       Alert.alert("Error", "Por favor completa todos los campos obligatorios");
@@ -51,6 +68,21 @@ export default function CompleteProfile({ data }: { data: ParsedCedula | null })
 
     setLoading(true);
     try {
+      if (isEditing) {
+        await updateUser({
+          email: userEmail,
+          firstName,
+          lastName,
+          documentNumber,
+          phone,
+          monthlyIncome: parseInt(monthlyIncome) || 0,
+          monthlyExpenses: parseInt(monthlyExpenses) || 0,
+          employmentStatus,
+        });
+        router.back();
+        return;
+      }
+      
       await completeUserProfile({
         firstName,
         lastName,
@@ -60,7 +92,8 @@ export default function CompleteProfile({ data }: { data: ParsedCedula | null })
         monthlyExpenses: parseInt(monthlyExpenses) || 0,
         employmentStatus,
       });
-      router.replace("/(client)/(home)");
+      router.replace("/(client)/(home)/(loan)");
+      return;
     } catch (error) {
       Alert.alert("Error", "No se pudo completar el perfil. Inténtalo de nuevo.");
     } finally {
@@ -86,6 +119,7 @@ export default function CompleteProfile({ data }: { data: ParsedCedula | null })
       <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
           <View style={styles.introContainer}>
             <View style={styles.basicInformation}>
+              
               <AppText style={styles.basicInformationTitle}>Información básica</AppText>
               <View style={styles.basicInformationContent}>
                 <AppText style={styles.basicInformationContentText}>Correo</AppText>
@@ -159,9 +193,10 @@ export default function CompleteProfile({ data }: { data: ParsedCedula | null })
           </View>
           <View style={styles.formButtonContainer}>
             <AuthButton onPress={handleSubmit} disabled={loading}>
-              {loading ? "Guardando perfil..." : "Guardar perfil"}
+              {loading ? "Guardando perfil..." : isEditing ? "Actualizar perfil" : "Guardar perfil"}
             </AuthButton>
           </View>
+          <View style={{ height: 100 }} />
       </ScrollView>
     </Navigation>
   );

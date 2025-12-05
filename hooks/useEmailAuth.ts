@@ -4,6 +4,8 @@ import { router, useRouter } from "expo-router";
 import { createUserProfile, getUserByEmail } from "../services/userAPI";
 import { getItem } from "expo-secure-store";
 import { saveItem } from "@/utils/secureStorage";
+import { useApplications } from "./useApplications";
+import { User } from "@/models/userModels";
 
 export const useEmailSignIn = () => {
   const [loading, setLoading] = useState(false);
@@ -42,6 +44,7 @@ export const useEmailSignUp = () => {
   const [pendingVerification, setPendingVerification] = useState(false);
   const { signUp, setActive } = useSignUp();
   const { user } = useUser();
+  const { getToken } = useAuth();
   const handleSignUp = async (email: string, password: string) => {
     console.log("Handling sign up for:", email);
     if (!email || !password) {
@@ -105,13 +108,16 @@ export const useEmailSignUp = () => {
 
     try {
       const userEmail = user?.emailAddresses?.[0]?.emailAddress || "";
-
+      const token = await getToken({ template: "prestek-api" });
+      if (!token) {
+        throw new Error("No authentication token");
+      }
       const userResponse = await createUserProfile({
         id: userId,
         email: userEmail,
         ...profileData,
         creditScore: 600,
-      });
+      }, token);
       userId = userId + 1;
       await saveItem("user", JSON.stringify(userResponse));
       // Solo redirigir al home después de completar el perfil
@@ -145,6 +151,8 @@ export const useCheckUserExists = (userEmail: string) => {
   const auth = useAuth();
   const [isChecking, setIsChecking] = useState(false);
   const hasExecutedRef = useRef(false);
+  const { loadApplications } = useApplications();
+  const { getToken } = useAuth();
 
   useEffect(() => {
     if (!userEmail || !auth.isSignedIn || hasExecutedRef.current) {
@@ -156,12 +164,21 @@ export const useCheckUserExists = (userEmail: string) => {
     const checkAndRedirect = async () => {
       setIsChecking(true);
       try {
+        const token = await getToken({ template: "prestek-api" });
+        if (!token) {
+          throw new Error("No authentication token");
+        }
         const storedUser = await getItem("user");
         if (!storedUser) {
-          const user = await getUserByEmail(userEmail);
+          const user = await getUserByEmail(userEmail, token);
           if (user) {
             await saveItem("user", JSON.stringify(user));
           }
+        }
+        const user = await getItem("user");
+        if (user) {
+          const userData = JSON.parse(user) as User;
+          await loadApplications(userData.id.toString());
         }
       } catch (error) {
         console.error("Error checking user existence:", error);

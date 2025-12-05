@@ -5,6 +5,8 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { PaperProvider } from 'react-native-paper'
 import { StatusBar, useColorScheme } from 'react-native'
 import { getAppTheme } from '@/assets/themes/paperTheme'
+import { BankProvider } from '@/hooks/context/BankContext'
+import { ApplicationsProvider } from '@/hooks/context/ApplicationsContext'
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
 
@@ -20,14 +22,18 @@ export default function RootLayout() {
 
   return (
     <PaperProvider theme={theme}>
+      <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
+      <ApplicationsProvider>
+      <BankProvider>
       <SafeAreaProvider>
         <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }} edges={['top', 'bottom']}>
           <StatusBar barStyle="dark-content"/>
-          <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
             <Slot />
-          </ClerkProvider>
         </SafeAreaView>
       </SafeAreaProvider>
+      </BankProvider>
+      </ApplicationsProvider>
+      </ClerkProvider>
     </PaperProvider>
   );
 }

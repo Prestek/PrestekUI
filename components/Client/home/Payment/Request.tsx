@@ -3,7 +3,9 @@ import { typography } from "@/assets/styles/theme";
 import { AppText } from "@/components/AppText";
 import { RequestProps } from "@/models/applicationModels";
 import { LoanRequestStatus } from "@/models/enums/Request";
+import { getBackgroundColorByStatus, getColorByStatus } from "@/models/functions/color";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { View } from "react-native";
 import { Chip, IconButton, Surface, TouchableRipple, useTheme } from "react-native-paper";
 
@@ -11,31 +13,6 @@ export const Request: React.FC<RequestProps> = ({ request, showElevation = true 
     const theme = useTheme();
     const paymentStyles = createPaymentStyles(theme);
 
-    const getColorByStatus = (status: string) => {
-        switch (status) {
-            case "Aprobada":
-                return 'rgb(20, 83, 45)';
-            case "Pendiente":
-                return 'rgb(124, 108, 18)';
-            case "Rechazada":
-                return 'rgb(127, 29, 29)';
-            default:
-                return theme.colors.onSurface;
-        }
-    }
-
-    const getBackgroundColorByStatus = (status: string) => {
-        switch (status) {
-            case "Aprobada":
-                return 'rgba(28, 196, 90, 0.18)';
-            case "Pendiente":
-                return 'rgba(249, 207, 22, 0.18)';
-            case "Rechazada":
-                return 'rgba(239, 68, 68, 0.15)';
-            default:
-                return theme.colors.onSurface;
-        }
-    }
     const getBackgroundColorByStatusAll = (status: string) => {
         switch (status) {
             case LoanRequestStatus.APPROVED:
@@ -52,7 +29,10 @@ export const Request: React.FC<RequestProps> = ({ request, showElevation = true 
     return (
         <TouchableRipple
             borderless={false}
-            onPress={() => console.log('view request')}
+                onPress={() => router.push({
+                    pathname: "/(client)/(detail)",
+                    params: { id: request.id, bankCode: request.bankCode },
+                })}
         >
             <Surface style={[paymentStyles.paymentItem, !showElevation && paymentStyles.withoutElevantion, showElevation && { borderLeftWidth: 4, borderLeftColor: getBackgroundColorByStatusAll(request.status) }]} elevation={showElevation ? 3 : 0}>
                 <View style={paymentStyles.horizontalItems}>
@@ -62,7 +42,7 @@ export const Request: React.FC<RequestProps> = ({ request, showElevation = true 
                             <MaterialCommunityIcons name="bank" size={24} color={showElevation ? theme.colors.onPrimary : theme.colors.onPrimary} />
                         </View>
                         <AppText style={[paymentStyles.paymentType, !showElevation && { color: theme.colors.onPrimary }]}>
-                            {request.bank}
+                            {request.bankName}
                         </AppText>
                     </View>
                     {showElevation ?
@@ -92,16 +72,16 @@ export const Request: React.FC<RequestProps> = ({ request, showElevation = true 
                             Fecha de solicitud
                         </AppText>
                         <AppText style={[paymentStyles.paymentDate, !showElevation && { color: theme.colors.onPrimary }]}>
-                            {request.date}
+                            {new Date(request.applicationDate).toLocaleDateString('es-CO')}
                         </AppText>
                     </View>
 
                     <View>
-                        <AppText style={[paymentStyles.labelText, !showElevation && { color: theme.colors.onPrimary }]}>
+                        <AppText style={[paymentStyles.labelText, !showElevation && { color: theme.colors.onPrimary }, { textAlign: 'right' }]}>
                             Monto solicitado
                         </AppText>
                         <AppText style={[paymentStyles.paymentAmount, !showElevation && { color: theme.colors.onPrimary }, { textAlign: 'right' }]}>
-                            ${request.amount.toLocaleString('es-CO')}
+                            ${request.amount.toLocaleString('es-CO', { minimumFractionDigits: 2 })}
                         </AppText>
                     </View>
                 </View>

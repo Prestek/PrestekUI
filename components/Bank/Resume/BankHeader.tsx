@@ -4,31 +4,28 @@ import { Image, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { AppText } from "../../AppText";
 import { useEffect, useState } from "react";
+import { BankCode, BankCodeLabel } from "@/models/enums/Request";
 
-export const BankHeader: React.FC = () => {
+export const BankHeader: React.FC<{ bankCode: BankCode }> = ({ bankCode }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const [bank, setBank] = useState<string>("");
   const [bankInitials, setBankInitials] = useState<string>("");
 
   useEffect(() => {
     getBankInitials();
   }, []);
   const getBankInitials = async () => {
-    const bank = await getItem("selectedBank");
-    setBank(bank || "");
-    switch (bank) {
-      case "davivienda":
+    const bankName = BankCodeLabel[bankCode];
+    switch (bankName) {
+      case BankCodeLabel.DAVI:
         setBankInitials("DV");
         break;
-      case "bancolombia":
+      case BankCodeLabel.BCO:
         setBankInitials("BC");
         break;
-      case "coltefinanciera":
+      case BankCodeLabel.COLT:
         setBankInitials("CTF");
         break;
-      default:
-        setBankInitials("BK");
     }
   };
 

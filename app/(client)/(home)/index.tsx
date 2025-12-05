@@ -6,18 +6,14 @@ import { UserHeader } from "@/components/Client/home/Resume/UserHeader";
 import { Credit } from "@/components/Client/home/Resume/Credit";
 import { spacing } from "@/assets/styles/theme";
 import { LinearGradient } from "expo-linear-gradient";
+import { useApplications } from "@/hooks/useApplications";
 
-
-const loanData = {
-  bank: "Bancolombia",
-  totalAmount: 25000.0,
-  applicationDate: "15 de diciembre de 2025",
-};
 
 export default function HomePage() {
   const theme = useTheme();
   const styles = createHomeStyles(theme);
-
+  const { getLastApplication } = useApplications();
+  const lastApplication = getLastApplication();
   return (
     <ScrollView
       style={{ flex: 1 }}
@@ -32,7 +28,7 @@ export default function HomePage() {
           style={styles.gradient}
         />
         <UserHeader />
-        <Credit bank={loanData.bank} totalAmount={loanData.totalAmount} applicationDate={loanData.applicationDate} />
+        <Credit lastApplication={lastApplication} />
       </View>
       <View style={[styles.gradientContainer, { gap: spacing.lg }]}>
         {/*<RecentRequests filteredRequests={creditUserRequests} role="client" />*/}

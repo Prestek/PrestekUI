@@ -5,7 +5,11 @@ import { createLoanStyles } from "@/assets/styles/loan.styles";
 import { useEffect, useRef } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export const LoanSearching = () => {
+interface LoanSearchingProps {
+  message?: string;
+}
+
+export const LoanSearching = ({ message }: LoanSearchingProps) => {
   const theme = useTheme();
   const styles = createLoanStyles(theme);
   const pulseAnim = useRef(new Animated.Value(1)).current;
@@ -84,9 +88,14 @@ export const LoanSearching = () => {
             />
           </Animated.View>
         </View>
-        <AppText style={styles.searchingTitle}>Evaluando políticas financieras</AppText>
+        <AppText style={styles.searchingTitle}>
+          {message || "Evaluando políticas financieras"}
+        </AppText>
         <AppText style={styles.searchingSubtitle}>
-          Estamos verificando las mejores ofertas de crédito disponibles para ti
+          {message 
+            ? "Estamos procesando tu solicitud de crédito"
+            : "Estamos verificando las mejores ofertas de crédito disponibles para ti"
+          }
         </AppText>
 
         <View style={styles.stepsContainer}>
