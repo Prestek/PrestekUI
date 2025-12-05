@@ -72,7 +72,16 @@ export const Request: React.FC<RequestProps> = ({ request, showElevation = true 
                             Fecha de solicitud
                         </AppText>
                         <AppText style={[paymentStyles.paymentDate, !showElevation && { color: theme.colors.onPrimary }]}>
-                            {new Date(request.applicationDate).toLocaleDateString('es-CO')}
+                        {typeof request.applicationDate === "string" 
+                                        ? new Date(request.applicationDate).toLocaleDateString("es-CO") 
+                                        : Array.isArray(request.applicationDate) 
+                                            ? new Date(
+                                                request.applicationDate[0], 
+                                                request.applicationDate[1] - 1, 
+                                                request.applicationDate[2], 
+                                            ).toLocaleDateString("es-CO")
+                                            : String(request.applicationDate)
+                                    }
                         </AppText>
                     </View>
 

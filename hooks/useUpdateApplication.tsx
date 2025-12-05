@@ -19,13 +19,13 @@ export const useUpdateApplication = () => {
                 throw new Error("No authentication token");
             }
             const response = await updateApplication(applicationId, bankCode, application, token);
-            console.log("Response:", response);
             loadApplications();
             Alert.alert("Solicitud actualizada", "La solicitud ha sido actualizada correctamente");
             router.back();
             return response;
         } catch (error) {
             console.error("Error updating application:", error);
+            router.push("/(error)");
         } finally {
             setLoading(false);
         }

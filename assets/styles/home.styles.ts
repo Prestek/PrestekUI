@@ -466,7 +466,6 @@ export const createHomeStyles = (theme: MD3Theme) =>
       fontSize: typography.sizes.lg,
       fontWeight: typography.weights.bold,
       color: theme.colors.primary,
-      marginBottom: spacing.sm,
     },
     basicInformationContentText: {
       fontSize: typography.sizes.sm,

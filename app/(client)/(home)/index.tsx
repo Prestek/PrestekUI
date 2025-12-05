@@ -31,7 +31,6 @@ export default function HomePage() {
         <Credit lastApplication={lastApplication} />
       </View>
       <View style={[styles.gradientContainer, { gap: spacing.lg }]}>
-        {/*<RecentRequests filteredRequests={creditUserRequests} role="client" />*/}
         <Services />
       </View>
     </ScrollView>

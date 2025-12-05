@@ -1,4 +1,5 @@
 import CompleteProfile from "@/components/Client/scanner/profile/CompleteProfile";
+import { LoadingTransition } from "@/components/LoadingTransition";
 import { User } from "@/models/userModels";
 import { getItem } from "@/utils/secureStorage";
 import { useEffect, useState } from "react";
@@ -29,9 +30,7 @@ export default function EditProfileScreen() {
 
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}>
-        <ActivityIndicator size="large" color={theme.colors.primary} />
-      </View>
+      <LoadingTransition />
     );
   }
 

@@ -2,6 +2,7 @@ import { User } from "@/models/userModels";
 import { updateUserProfile } from "@/services/userAPI";
 import { getItem, saveItem } from "@/utils/secureStorage";
 import { useAuth } from "@clerk/clerk-expo";
+import { router } from "expo-router";
 import { useState } from "react";
 import { Alert } from "react-native";
 
@@ -49,7 +50,7 @@ export const useUserProfile = () => {
 
         } catch (error) {
             console.error("Error updating user:", error);
-            throw error;
+            router.push("/(error)");
         } finally {
             setIsChecking(false);
         }

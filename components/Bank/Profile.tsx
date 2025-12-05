@@ -47,18 +47,8 @@ export default function BankProfile() {
 
 
   return (
-    <ScrollView 
-      style={styles.container}
-      contentContainerStyle={styles.scrollContent}
-      showsVerticalScrollIndicator={false}
-      refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-          colors={[theme.colors.primary]}
-          tintColor={theme.colors.primary}
-        />
-      }
+    <View
+      style={[styles.container, { paddingHorizontal: spacing.md, justifyContent: 'center' }]}
     >
       {/* Header del banco */}
       <View style={styles.profileHeader}>
@@ -115,7 +105,7 @@ export default function BankProfile() {
       </View>
 
       <View style={styles.bottomSpacing} />
-    </ScrollView>
+    </View>
   );
 }
 

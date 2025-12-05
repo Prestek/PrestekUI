@@ -140,39 +140,6 @@ export default function Profile() {
         </AppText>
       </View>
 
-      {/* Score crediticio */}
-      <View style={[localStyles.scoreCard, { backgroundColor: theme.colors.surfaceVariant, borderColor: theme.colors.outline }]}>
-        <View style={localStyles.scoreHeader}>
-          <MaterialCommunityIcons name="chart-arc" size={24} color={theme.colors.primary} />
-          <AppText style={[localStyles.scoreTitle, { color: theme.colors.primary }]}>Score Crediticio</AppText>
-        </View>
-        <View style={localStyles.scoreContent}>
-          <View style={localStyles.scoreValueContainer}>
-            <AppText style={[localStyles.scoreValue, { color: getCreditScoreColor(user.creditScore) }]}>
-              {user.creditScore}
-            </AppText>
-            <AppText style={[localStyles.scoreLabel, { color: getCreditScoreColor(user.creditScore) }]}>
-              {getCreditScoreLabel(user.creditScore)}
-            </AppText>
-          </View>
-          <View style={localStyles.scoreBar}>
-            <View 
-              style={[
-                localStyles.scoreBarFill, 
-                { 
-                  width: `${Math.min((user.creditScore / 850) * 100, 100)}%`,
-                  backgroundColor: getCreditScoreColor(user.creditScore)
-                }
-              ]} 
-            />
-          </View>
-          <View style={localStyles.scoreRange}>
-            <AppText style={localStyles.scoreRangeText}>300</AppText>
-            <AppText style={localStyles.scoreRangeText}>850</AppText>
-          </View>
-        </View>
-      </View>
-
       {/* Información financiera */}
       <View style={[localStyles.infoCard, { backgroundColor: theme.colors.surfaceVariant }]}>
         <View style={localStyles.cardHeader}>

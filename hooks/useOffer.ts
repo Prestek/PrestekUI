@@ -6,6 +6,7 @@ import { useAuth } from "@clerk/clerk-expo";
 import { getItem } from "expo-secure-store";
 import { useState } from "react";
 import { useApplications } from "./useApplications";
+import { router } from "expo-router";
 
 export const useOffer = () => {
     const [loading, setLoading] = useState(false);
@@ -50,8 +51,7 @@ export const useOffer = () => {
             return response.data;
         } catch (error) {
             console.error(error);
-            setError("Error al procesar la solicitud. Intenta de nuevo.");
-            return null;
+            router.push("/(error)");
         } finally {
             setLoading(false);
         }

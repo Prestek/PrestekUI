@@ -5,7 +5,7 @@ import { getApplication } from "@/services/financialAPI";
 import { getUserById } from "@/services/userAPI";
 import { useAuth } from "@clerk/clerk-expo";
 import { useEffect, useState } from "react";
-
+import { router } from "expo-router";
 export const useApplication = (id: string, bankCode: BankCode) => {
     const [application, setApplication] = useState<Application | null>(null);
     const [loading, setLoading] = useState(true);
@@ -29,6 +29,7 @@ export const useApplication = (id: string, bankCode: BankCode) => {
             }
         } catch (error) {
             console.error("Error fetching user:", error);
+            router.push("/(error)");
         } finally {
             setLoading(false);
         }

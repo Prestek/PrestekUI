@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useSignIn, useSignUp, useAuth, useUser } from "@clerk/clerk-expo";
 import { router, useRouter } from "expo-router";
-import { createUserProfile, getUserByEmail } from "../services/userAPI";
+import { createUserProfile, getAllUsers, getUserByEmail } from "../services/userAPI";
 import { getItem } from "expo-secure-store";
 import { saveItem } from "@/utils/secureStorage";
 import { useApplications } from "./useApplications";
@@ -101,24 +101,28 @@ export const useEmailSignUp = () => {
     | "Student"
     | "Retired";
   }) => {
-    let userId = 1;
-    if (!userId) {
-      throw new Error("No hay un ID de usuario disponible");
-    }
-
+    let userId = 0;
     try {
-      const userEmail = user?.emailAddresses?.[0]?.emailAddress || "";
       const token = await getToken({ template: "prestek-api" });
       if (!token) {
         throw new Error("No authentication token");
       }
+      const users = await getAllUsers(token);
+      console.log(users);
+      if (users.data.length > 0) {
+        userId = users.data.length + 1;
+      }
+      console.log(users.data.length);
+      if(userId === 0) {
+        userId = 1;
+      }
+      const userEmail = user?.emailAddresses?.[0]?.emailAddress || "";
       const userResponse = await createUserProfile({
         id: userId,
         email: userEmail,
         ...profileData,
         creditScore: 600,
       }, token);
-      userId = userId + 1;
       await saveItem("user", JSON.stringify(userResponse));
       // Solo redirigir al home después de completar el perfil
       router.replace("/(client)/(home)");

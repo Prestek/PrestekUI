@@ -1,11 +1,12 @@
 import { User, UserResponse } from "@/models/userModels";
 import axios from "axios";
 import { createAuthHeaders } from "./token";
+import { useRouter } from "expo-router";
 
 const API = "https://people.eci-pigball.online/api/users";
 
-export async function getAllUsers() {
-  const response = await axios.get(API);
+export async function getAllUsers(token: string): Promise<any> {
+  const response = await axios.get<User[]>(API, createAuthHeaders(token));
   return response;
 }
 
@@ -39,6 +40,7 @@ export async function createUserProfile(userData: {
     | "Retired";
   creditScore: number;
 },token: string) {
+  console.log(userData);
   const response = await axios.post(API, userData, createAuthHeaders(token));
   return response.data;
 }
@@ -53,3 +55,4 @@ export async function updateUserProfile(userId: number, userData: User, token: s
   const response = await axios.put(`${API}/${userId}`, userData, createAuthHeaders(token));
   return response.data;
 }
+

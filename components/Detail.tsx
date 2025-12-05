@@ -115,6 +115,24 @@ export const Detail: React.FC<DetailProps> = ({ request, role, user, bankCode })
                                             {user?.documentNumber}
                                         </AppText>
                                     </View>
+                                    <Divider style={styles.divider} />
+                                        <View style={styles.infoRow}>
+                                            <Text style={[styles.label, { color: theme.colors.onPrimary }]}>
+                                                Ingresos mensuales
+                                            </Text>
+                                            <AppText style={[styles.value, { color: theme.colors.secondary }]}>
+                                                {user?.monthlyIncome.toLocaleString("es-CO")}
+                                            </AppText>
+                                        </View>
+                                        <Divider style={styles.divider} />
+                                        <View style={styles.infoRow}>
+                                            <Text style={[styles.label, { color: theme.colors.onPrimary }]}>
+                                                Egresos mensuales
+                                            </Text>
+                                            <AppText style={[styles.value, { color: theme.colors.secondary }]}>
+                                                {user?.monthlyExpenses.toLocaleString("es-CO")}
+                                            </AppText>
+                                        </View>
                                 </>
                             ) : (
                                 <View style={styles.bankContainer}>

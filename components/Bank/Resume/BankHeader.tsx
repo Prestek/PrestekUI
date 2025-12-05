@@ -1,10 +1,11 @@
 import { createStyles } from "@/assets/styles/bank.styles";
 import { getItem } from "expo-secure-store";
 import { Image, View } from "react-native";
-import { useTheme } from "react-native-paper";
+import { TouchableRipple, useTheme } from "react-native-paper";
 import { AppText } from "../../AppText";
 import { useEffect, useState } from "react";
 import { BankCode, BankCodeLabel } from "@/models/enums/Request";
+import { router } from "expo-router";
 
 export const BankHeader: React.FC<{ bankCode: BankCode }> = ({ bankCode }) => {
   const theme = useTheme();
@@ -37,6 +38,10 @@ export const BankHeader: React.FC<{ bankCode: BankCode }> = ({ bankCode }) => {
           style={styles.appLogo}
         />
       </View>
+      <TouchableRipple
+        borderless={false}
+        onPress={() => router.push("/(bank)/(home)/profile")}
+      >
       <View
         style={[
           styles.profileAvatar,
@@ -45,7 +50,7 @@ export const BankHeader: React.FC<{ bankCode: BankCode }> = ({ bankCode }) => {
       >
         <AppText style={styles.profileInitials}>{bankInitials}</AppText>
       </View>
-
+      </TouchableRipple>
     </View>
   );
 };

@@ -3,6 +3,7 @@ import { User } from "@/models/userModels";
 import { simulateLoan } from "@/services/financialAPI";
 import { getItem } from "@/utils/secureStorage";
 import { useAuth } from "@clerk/clerk-expo";
+import { router } from "expo-router";
 import { useState } from "react";
 
 export type LoanStep = "confirmation" | "searching" | "options" | "detail" | "no_offers" | "processing" | "success";
@@ -43,7 +44,6 @@ export const useSimulation = () => {
             
             console.log("Simulation response:", response.data);
             
-            // Verificar si hay ofertas disponibles
             const hasOffers = response.data && 
                 response.data.analysis && 
                 Object.keys(response.data.analysis).length > 0;
@@ -57,8 +57,7 @@ export const useSimulation = () => {
             }
         } catch (error) {
             console.error(error);
-            setError("Error al buscar ofertas. Intenta de nuevo.");
-            setCurrentStep("confirmation");
+            router.push("/(error)");
         } finally {
             setLoading(false);
         }
