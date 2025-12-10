@@ -1,19 +1,40 @@
 import { Redirect, Stack, usePathname } from 'expo-router'
 import { useAuth } from '@clerk/clerk-expo'
+import { getItem } from '@/utils/secureStorage';
+import { useState, useEffect } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 
 export default function AuthRoutesLayout() {
   const { isSignedIn } = useAuth()
-  const pathname = usePathname()
+  const [role, setRole] = useState<string | null>(null);
+  const [roleLoaded, setRoleLoaded] = useState(false);
 
-  console.log("AuthLayout - isSignedIn:", isSignedIn, "pathname:", pathname);
+  useEffect(() => {
+    const loadRole = async () => {
+      const storedRole = await getItem("role");
+      setRole(storedRole);
+      setRoleLoaded(true);
+    };
+    loadRole();
+  }, []);
 
-  // Permitir acceso a complete-profile y scan incluso si el usuario está autenticado
-  const allowedRoutesForAuthenticated = ['complete-profile', 'scan'];
-  const isAllowedRoute = allowedRoutesForAuthenticated.some(route => pathname.includes(route));
-  
-  if (isSignedIn && !isAllowedRoute) {
+  if (!roleLoaded) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (isSignedIn) {
     console.log("Redirecting authenticated user away from auth routes");
-    return <Redirect href={'/'} />
+    if (role === "client") {
+      return <Redirect href="/(client)/(home)" />
+    } else if (role === "bank") {
+      return <Redirect href="/(bank)/(home)" />
+    } else {
+      return <Redirect href="/" />
+    }
   }
 
   return (

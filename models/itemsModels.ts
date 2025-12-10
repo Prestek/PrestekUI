@@ -3,6 +3,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 export interface ItemsProps {
     icon: keyof typeof MaterialIcons.glyphMap;
     title: string;
-    onPress?: () => void;
+    onPress: () => void;
     description?: string;
 }

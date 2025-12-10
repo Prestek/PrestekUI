@@ -1,17 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSSO,useAuth } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
-import { Alert } from "react-native";
+import { getItem } from "@/utils/secureStorage";
 
 type OAuthProvider = "google" | "facebook" | "microsoft";
 type OAuthStrategy = "oauth_google" | "oauth_facebook" | "oauth_microsoft";
 
 export const useAuthFlow = () => {
   const [loading, setLoading] = useState(false);
+  const [role, setRole] = useState<string | null>(null);
   const { startSSOFlow } = useSSO();
   const { getToken } = useAuth();
   const router = useRouter();
 
+  useEffect(() => {
+    const loadRole = async () => {
+      const storedRole = await getItem("role");
+      setRole(storedRole);
+    };
+    loadRole();
+  }, []);
   const handleOAuth = async (provider: OAuthProvider) => {
     setLoading(true);
     try {
@@ -23,7 +31,7 @@ export const useAuthFlow = () => {
 
       const strategy = strategyMap[provider];
       const { createdSessionId, setActive } = await startSSOFlow({ 
-        strategy,
+        strategy
       });
 
       if (createdSessionId) {
@@ -33,7 +41,13 @@ export const useAuthFlow = () => {
 
         // Pequeño delay para asegurar que la sesión esté lista
         setTimeout(() => {
-          router.replace("/");
+          if (role === "client") {
+            router.replace("/(client)/(home)");
+          } else if (role === "bank") {
+            router.replace("/(bank)/(home)");
+          } else {
+            router.replace("/");
+          }
         }, 100);
       }
     } catch (err) {

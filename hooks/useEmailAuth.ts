@@ -1,13 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import { useSignIn, useSignUp, useAuth, useUser } from "@clerk/clerk-expo";
 import { router, useRouter } from "expo-router";
-import { checkUserExists, createUserProfile } from "../services/userAPI";
+import { createUserProfile, getAllUsers, getUserByEmail } from "../services/userAPI";
+import { getItem } from "expo-secure-store";
+import { saveItem } from "@/utils/secureStorage";
+import { useApplications } from "./useApplications";
+import { User } from "@/models/userModels";
 
 export const useEmailSignIn = () => {
   const [loading, setLoading] = useState(false);
   const { signIn, setActive } = useSignIn();
-  const { getToken } = useAuth();
-  const router = useRouter();
 
   const handleSignIn = async (email: string, password: string) => {
     if (!email || !password) {
@@ -42,7 +44,7 @@ export const useEmailSignUp = () => {
   const [pendingVerification, setPendingVerification] = useState(false);
   const { signUp, setActive } = useSignUp();
   const { user } = useUser();
-
+  const { getToken } = useAuth();
   const handleSignUp = async (email: string, password: string) => {
     console.log("Handling sign up for:", email);
     if (!email || !password) {
@@ -66,10 +68,9 @@ export const useEmailSignUp = () => {
 
   const handleVerify = async (code: string) => {
     if (!code) {
-      alert("Please enter the verification code");
+      alert("Por favor ingresa el código de verificación");
       return;
     }
-
     setLoading(true);
     try {
       const result = await signUp?.attemptEmailAddressVerification({ code });
@@ -80,7 +81,7 @@ export const useEmailSignUp = () => {
       }
     } catch (err) {
       console.error("Verification error:", err);
-      alert("Verification failed. Please check your code and try again.");
+      alert("Verificación fallida. Por favor verifica tu código y vuelve a intentarlo.");
     } finally {
       setLoading(false);
     }
@@ -94,29 +95,37 @@ export const useEmailSignUp = () => {
     monthlyIncome: number;
     monthlyExpenses: number;
     employmentStatus:
-      | "Employed"
-      | "Unemployed"
-      | "Self-Employed"
-      | "Student"
-      | "Retired";
+    | "Employed"
+    | "Unemployed"
+    | "Self-Employed"
+    | "Student"
+    | "Retired";
   }) => {
-    let userId = 1;
-    if (!userId) {
-      throw new Error("No user ID available");
-    }
-
+    let userId = 0;
     try {
+      const token = await getToken({ template: "prestek-api" });
+      if (!token) {
+        throw new Error("No authentication token");
+      }
+      const users = await getAllUsers(token);
+      console.log(users);
+      if (users.data.length > 0) {
+        userId = users.data.length + 1;
+      }
+      console.log(users.data.length);
+      if(userId === 0) {
+        userId = 1;
+      }
       const userEmail = user?.emailAddresses?.[0]?.emailAddress || "";
-
-      await createUserProfile({
+      const userResponse = await createUserProfile({
         id: userId,
         email: userEmail,
         ...profileData,
         creditScore: 600,
-      });
-      userId = userId + 1;
+      }, token);
+      await saveItem("user", JSON.stringify(userResponse));
       // Solo redirigir al home después de completar el perfil
-      router.replace("/(home)");
+      router.replace("/(client)/(home)");
     } catch (error) {
       console.error("Error creating user profile:", error);
       throw error;
@@ -145,11 +154,11 @@ export const useCheckUserExists = (userEmail: string) => {
   const router = useRouter();
   const auth = useAuth();
   const [isChecking, setIsChecking] = useState(false);
-  const [hasChecked, setHasChecked] = useState(false);
   const hasExecutedRef = useRef(false);
+  const { loadApplications } = useApplications();
+  const { getToken } = useAuth();
 
   useEffect(() => {
-    // Solo ejecutar una vez por email
     if (!userEmail || !auth.isSignedIn || hasExecutedRef.current) {
       return;
     }
@@ -157,32 +166,32 @@ export const useCheckUserExists = (userEmail: string) => {
     hasExecutedRef.current = true;
 
     const checkAndRedirect = async () => {
-      console.log("Starting user existence check for:", userEmail);
       setIsChecking(true);
-
       try {
-        const exists = await checkUserExists(userEmail);
-        console.log("User exists result:", exists);
-
-        if (!exists) {
-          console.log("User does not exist, redirecting to complete-profile");
-          const target = "/(home)/scan";
-          router.replace(target);
-        } else {
-          console.log("User exists, staying on current page");
+        const token = await getToken({ template: "prestek-api" });
+        if (!token) {
+          throw new Error("No authentication token");
         }
-
-        setHasChecked(true);
+        const storedUser = await getItem("user");
+        if (!storedUser) {
+          const user = await getUserByEmail(userEmail, token);
+          if (user) {
+            await saveItem("user", JSON.stringify(user));
+          }
+        }
+        const user = await getItem("user");
+        if (user) {
+          const userData = JSON.parse(user) as User;
+          await loadApplications(userData.id.toString());
+        }
       } catch (error) {
         console.error("Error checking user existence:", error);
-        setHasChecked(true);
       } finally {
         setIsChecking(false);
       }
     };
-
     checkAndRedirect();
   }, [userEmail, auth.isSignedIn, router]);
 
-  return { isChecking, hasChecked };
+  return { isChecking };
 };

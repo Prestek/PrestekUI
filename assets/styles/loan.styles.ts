@@ -13,6 +13,13 @@ export const createLoanStyles = (theme: MD3Theme) =>
       flex: 1,
       paddingTop: spacing.xl,
     },
+    informationContent: {
+      flex: 1,
+      justifyContent: "space-between",
+      backgroundColor: theme.colors.background,
+      paddingHorizontal: spacing.md,
+      paddingBottom: spacing["3xl"],
+    },
     requestTitle: {
       fontSize: spacing.lg,
       fontWeight: "bold",
@@ -275,14 +282,14 @@ export const createLoanStyles = (theme: MD3Theme) =>
       flex: 1,
     },
     offerDetailLabel: {
-      fontSize: 12,
-      color: theme.colors.onSurfaceVariant,
+      fontSize: typography.sizes.xs,
+      color: theme.colors.onSecondary,
       marginBottom: 4,
     },
     offerDetailValue: {
       fontSize: 16,
       fontWeight: "600",
-      color: theme.colors.onSurface,
+      color: theme.colors.secondary,
     },
     offerDetailValueHighlight: {
       fontSize: 20,
@@ -326,7 +333,7 @@ export const createLoanStyles = (theme: MD3Theme) =>
       paddingTop: spacing.md,
     },
     detailBankCard: {
-      backgroundColor: theme.colors.tertiary,
+      backgroundColor: theme.colors.surfaceVariant,
       borderRadius: 16,
       padding: 24,
       alignItems: "center",
@@ -392,7 +399,6 @@ export const createLoanStyles = (theme: MD3Theme) =>
       fontSize: 14,
       fontWeight: "600",
       color: theme.colors.onPrimary,
-      fontFamily: typography.fontFamilyBold,
     },
     detailSummaryValue: {
       fontSize: 14,
@@ -403,11 +409,10 @@ export const createLoanStyles = (theme: MD3Theme) =>
       fontSize: 18,
       fontWeight: "bold",
       color: theme.colors.onPrimary,
-      fontFamily: typography.fontFamilyBold,
     },
     detailDivider: {
       height: 1,
-      backgroundColor: theme.colors.outlineVariant,
+      backgroundColor: theme.colors.outline,
       marginVertical: 12,
     },
     detailBreakdownCard: {
@@ -484,5 +489,488 @@ export const createLoanStyles = (theme: MD3Theme) =>
       fontSize: 16,
       fontWeight: "bold",
       color: theme.colors.onPrimary,
+    },
+    informationContentText: {
+      justifyContent: "center",
+      paddingTop: spacing.xl,
+    },
+    bottomContent: {
+      marginTop: 'auto',
+    },
+    checkboxContainer: {
+      width: '100%',
+      marginVertical: 20,
+    },
+    checkboxRow: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      width: '100%',
+    },
+    checkboxText: {
+      flex: 1,
+      marginLeft: 8,
+      marginTop: 8,
+      lineHeight: 20,
+    },
+
+    // LoanConfirmation styles
+    confirmationIconContainer: {
+      alignItems: "center",
+      marginBottom: spacing.lg,
+      marginTop: spacing.md,
+    },
+    confirmationTitle: {
+      fontSize: typography.sizes.xl,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.secondary,
+      textAlign: "center",
+      marginBottom: spacing.xs,
+    },
+    confirmationSubtitle: {
+      fontSize: typography.sizes.sm,
+      color: theme.colors.onSurfaceVariant,
+      textAlign: "center",
+      marginBottom: spacing.lg,
+    },
+    confirmationItemRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.md,
+    },
+    confirmationItemContent: {
+      flex: 1,
+    },
+    infoCard: {
+      flexDirection: "row",
+      alignItems: "flex-start",
+      gap: spacing.sm,
+    },
+    infoText: {
+      flex: 1,
+      fontSize: typography.sizes.sm,
+      color: theme.colors.onPrimaryContainer,
+      lineHeight: 20,
+    },
+
+    // Recommendation card styles
+    recommendationCard: {
+      backgroundColor: theme.colors.primaryContainer,
+      borderRadius: borderRadius.xl,
+      padding: spacing.md,
+      marginBottom: spacing.lg,
+      borderWidth: 2,
+      borderColor: theme.colors.primary,
+    },
+    recommendationHeader: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.sm,
+      marginBottom: spacing.sm,
+    },
+    recommendationTitle: {
+      fontSize: typography.sizes.md,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.primary,
+    },
+    recommendationBank: {
+      fontSize: typography.sizes.xl,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.secondary,
+      marginBottom: spacing.xs,
+    },
+    recommendationReason: {
+      fontSize: typography.sizes.sm,
+      color: theme.colors.onPrimaryContainer,
+      marginBottom: spacing.sm,
+      lineHeight: 20,
+    },
+    riskBadge: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.xs,
+      backgroundColor: theme.colors.surface,
+      paddingHorizontal: spacing.sm,
+      paddingVertical: spacing.xs,
+      borderRadius: borderRadius.full,
+      alignSelf: "flex-start",
+    },
+    riskText: {
+      fontSize: typography.sizes.sm,
+      fontWeight: typography.weights.semibold,
+    },
+
+    // Offer card recommended styles
+    offerCardRecommended: {
+      borderWidth: 2,
+      borderColor: theme.colors.primary,
+    },
+    recommendedBadge: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.xs,
+      backgroundColor: theme.colors.primaryContainer,
+      paddingHorizontal: spacing.sm,
+      paddingVertical: spacing.xs,
+      borderRadius: borderRadius.full,
+      alignSelf: "flex-start",
+      marginBottom: spacing.sm,
+    },
+    recommendedBadgeText: {
+      fontSize: typography.sizes.xs,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.primary,
+    },
+    bankLogoContainerRecommended: {
+      backgroundColor: theme.colors.primary,
+    },
+    detailButtonRecommended: {
+      backgroundColor: theme.colors.primary,
+    },
+
+    // Summary card styles
+    summaryCard: {
+      backgroundColor: theme.colors.surfaceVariant,
+      borderRadius: borderRadius.xl,
+      padding: spacing.md,
+      marginTop: spacing.lg,
+      marginBottom: spacing.md,
+    },
+    summaryHeader: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.sm,
+      marginBottom: spacing.sm,
+    },
+    summaryTitle: {
+      fontSize: typography.sizes.md,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.secondary,
+    },
+    summaryText: {
+      fontSize: typography.sizes.sm,
+      color: theme.colors.onSurfaceVariant,
+      lineHeight: 22,
+    },
+
+    // Detail recommended styles
+    detailRecommendedBadge: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: spacing.xs,
+      backgroundColor: theme.colors.primaryContainer,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.xs,
+      borderRadius: borderRadius.full,
+      marginBottom: spacing.md,
+    },
+    detailRecommendedText: {
+      fontSize: typography.sizes.sm,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.primary,
+    },
+    detailBankLogoRecommended: {
+      borderWidth: 3,
+      borderColor: "#FFD700",
+    },
+
+    // Pros and Cons styles
+    prosConsHeader: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.sm,
+      marginBottom: spacing.md,
+    },
+    prosConsItem: {
+      flexDirection: "row",
+      alignItems: "flex-start",
+      gap: spacing.sm,
+      marginBottom: spacing.sm,
+      paddingRight: spacing.sm,
+    },
+    prosConsText: {
+      flex: 1,
+      fontSize: typography.sizes.sm,
+      color: theme.colors.secondary,
+      lineHeight: 20,
+    },
+
+    // LoanNoOffers styles
+    noOffersContentContainer: {
+      paddingHorizontal: spacing.md,
+      paddingBottom: spacing["4xl"],
+      paddingTop: spacing.xl,
+      alignItems: "center",
+    },
+    noOffersIconContainer: {
+      alignItems: "center",
+      marginBottom: spacing.xl,
+    },
+    noOffersIcon: {
+      backgroundColor: theme.colors.primaryContainer,
+    },
+    noOffersTitle: {
+      fontSize: typography.sizes.xl,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.secondary,
+      textAlign: "center",
+      marginBottom: spacing.sm,
+    },
+    noOffersSubtitle: {
+      fontSize: typography.sizes.md,
+      color: theme.colors.onSurfaceVariant,
+      textAlign: "center",
+      marginBottom: spacing.xl,
+      paddingHorizontal: spacing.md,
+      lineHeight: 24,
+    },
+    noOffersSummaryCard: {
+      width: "100%",
+      backgroundColor: theme.colors.surfaceVariant,
+      borderRadius: borderRadius.xl,
+      padding: spacing.lg,
+      marginBottom: spacing.lg,
+    },
+    noOffersSummaryTitle: {
+      fontSize: typography.sizes.md,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.secondary,
+      marginBottom: spacing.md,
+    },
+    noOffersSummaryRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.sm,
+      marginBottom: spacing.sm,
+    },
+    noOffersSummaryLabel: {
+      fontSize: typography.sizes.sm,
+      color: theme.colors.onSurfaceVariant,
+      flex: 1,
+    },
+    noOffersSummaryValue: {
+      fontSize: typography.sizes.md,
+      fontWeight: typography.weights.semibold,
+      color: theme.colors.secondary,
+    },
+    noOffersTipsCard: {
+      width: "100%",
+      backgroundColor: theme.colors.primaryContainer,
+      borderRadius: borderRadius.xl,
+      padding: spacing.lg,
+      marginBottom: spacing.xl,
+    },
+    noOffersTipsHeader: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.sm,
+      marginBottom: spacing.md,
+    },
+    noOffersTipsTitle: {
+      fontSize: typography.sizes.md,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.primary,
+    },
+    noOffersTipItem: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.sm,
+      marginBottom: spacing.sm,
+    },
+    noOffersTipText: {
+      fontSize: typography.sizes.sm,
+      color: theme.colors.onPrimaryContainer,
+      flex: 1,
+    },
+    noOffersButtonsContainer: {
+      width: "100%",
+      gap: spacing.md,
+    },
+    riskContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+
+    // Modal de análisis de IA - Dialog de React Native Paper
+    dialogContainer: {
+      maxHeight: "65%",
+      marginHorizontal: spacing.md,
+    },
+    dialogTitle: {
+      paddingBottom: 0,
+    },
+    dialogScrollArea: {
+      maxHeight: 300,
+      paddingHorizontal: spacing.md,
+    },
+    modalHeaderRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.sm,
+    },
+    modalTitle: {
+      fontSize: typography.sizes.lg,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.secondary,
+    },
+    modalSection: {
+      marginBottom: spacing.lg,
+    },
+    modalSectionHeader: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.sm,
+      marginBottom: spacing.sm,
+      paddingTop: spacing.sm,
+    },
+    modalSectionTitle: {
+      fontSize: typography.sizes.md,
+      fontWeight: typography.weights.semibold,
+      color: theme.colors.secondary,
+    },
+    modalBestOption: {
+      fontSize: typography.sizes.xl,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.primary,
+      marginBottom: spacing.xs,
+    },
+    modalReason: {
+      fontSize: typography.sizes.sm,
+      color: theme.colors.onSurfaceVariant,
+      lineHeight: 22,
+    },
+    modalRiskBadge: {
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.sm,
+      borderRadius: borderRadius.md,
+      alignSelf: "flex-start",
+    },
+    modalRiskText: {
+      fontSize: typography.sizes.md,
+      fontWeight: typography.weights.bold,
+    },
+    modalSummaryText: {
+      fontSize: typography.sizes.sm,
+      color: theme.colors.onSurface,
+      lineHeight: 24,
+    },
+    modalFooter: {
+      padding: spacing.lg,
+      borderTopWidth: 1,
+      borderTopColor: theme.colors.outlineVariant,
+    },
+    detailAspectsCard: {
+      borderRadius: 16,
+      padding: 20,
+      marginBottom: 16,
+    },
+
+    // LoanSuccess styles
+    successIconContainer: {
+      alignItems: "center",
+      marginBottom: spacing.lg,
+      marginTop: spacing.md,
+    },
+    successIconCircle: {
+      width: 120,
+      height: 120,
+      borderRadius: 60,
+      backgroundColor: "rgba(76, 175, 80, 0.15)",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    successTitle: {
+      fontSize: typography.sizes.xl,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.secondary,
+      textAlign: "center",
+      marginBottom: spacing.sm,
+    },
+    successSubtitle: {
+      fontSize: typography.sizes.md,
+      color: theme.colors.onSurfaceVariant,
+      textAlign: "center",
+      marginBottom: spacing.lg,
+    },
+    statusBadge: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: spacing.sm,
+      paddingHorizontal: spacing.lg,
+      paddingVertical: spacing.sm,
+      borderRadius: borderRadius.full,
+      alignSelf: "center",
+      marginBottom: spacing.xl,
+    },
+    statusText: {
+      fontSize: typography.sizes.md,
+      fontWeight: typography.weights.semibold,
+    },
+    creditScoreCard: {
+      backgroundColor: theme.colors.primaryContainer,
+      borderRadius: borderRadius.xl,
+      padding: spacing.lg,
+      marginBottom: spacing.md,
+      alignItems: "center",
+    },
+    creditScoreHeader: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.sm,
+      marginBottom: spacing.sm,
+    },
+    creditScoreTitle: {
+      fontSize: typography.sizes.md,
+      fontWeight: typography.weights.semibold,
+      color: theme.colors.primary,
+    },
+    creditScoreValue: {
+      fontSize: 48,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.primary,
+      marginBottom: spacing.xs,
+    },
+    creditScoreDescription: {
+      fontSize: typography.sizes.sm,
+      color: theme.colors.onPrimaryContainer,
+      textAlign: "center",
+    },
+    nextStepsCard: {
+      backgroundColor: theme.colors.surfaceVariant,
+      borderRadius: borderRadius.xl,
+      padding: spacing.lg,
+      marginBottom: spacing.md,
+    },
+    nextStepsTitle: {
+      fontSize: typography.sizes.md,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.secondary,
+      marginBottom: spacing.md,
+    },
+    nextStepItem: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.md,
+      marginBottom: spacing.md,
+    },
+    nextStepNumber: {
+      width: 28,
+      height: 28,
+      borderRadius: 14,
+      backgroundColor: theme.colors.primary,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    nextStepNumberText: {
+      fontSize: typography.sizes.sm,
+      fontWeight: typography.weights.bold,
+      color: theme.colors.inversePrimary,
+    },
+    nextStepText: {
+      flex: 1,
+      fontSize: typography.sizes.sm,
+      color: theme.colors.onSurface,
     },
   });

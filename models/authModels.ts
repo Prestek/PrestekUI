@@ -1,6 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { TextInputProps } from "react-native-paper";
 import { Mask } from "react-native-mask-input";
+import { Href } from "expo-router";
 
 export interface AuthButtonProps {
     onPress: () => void;
@@ -30,7 +31,7 @@ export interface AuthLayoutProps {
 }
 
 export interface AuthLinkProps {
-    href: string;
+    href: Href;
     text: string;
     disabled?: boolean;
     title?: string;

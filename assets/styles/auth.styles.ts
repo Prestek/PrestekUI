@@ -25,25 +25,19 @@ export const createAuthStyles = (theme: MD3Theme) =>
     introTitle: {
       fontSize: typography.sizes.xl,
       fontWeight: typography.weights.bold,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.secondary,
     },
     logoContainer: {
-      flexDirection: "row",
-      gap: spacing.md,
-      alignItems: "center",
     },
     // Typography
     title: {
       fontSize: typography.sizes.xl,
       fontWeight: typography.weights.bold,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.surface,
     },
     subtitle: {
       fontSize: typography.sizes.sm,
-      color: theme.colors.surface,
-      marginTop: spacing.xs,
+      color: theme.colors.inversePrimary,
       opacity: 0.9,
     },
 
@@ -61,6 +55,8 @@ export const createAuthStyles = (theme: MD3Theme) =>
       backgroundColor: theme.colors.surfaceVariant,
       padding: spacing.md,
       width: '100%',
+      borderWidth: 1,
+      borderColor: theme.colors.outline,
     },
     oauthIcon: {
       marginRight: spacing.sm,
@@ -68,7 +64,6 @@ export const createAuthStyles = (theme: MD3Theme) =>
     oauthButtonText: {
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.semibold,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.onSurfaceVariant,
     },
     oauthButtonTextDisabled: {
@@ -146,7 +141,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
       opacity: 0.6,
     },
     buttonText: {
-      color: theme.colors.surface,
+      color: theme.colors.inversePrimary,
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.bold,
       
@@ -175,13 +170,14 @@ export const createAuthStyles = (theme: MD3Theme) =>
       color: theme.colors.onSurfaceDisabled,
       opacity: 0.5,
     },
-
     // Terms
     termsText: {
-      color: theme.colors.onSurfaceVariant,
-      fontSize: typography.sizes.md,
-      
-      width: '100%',
+      color: theme.colors.onSecondary,
+      marginBottom: spacing.md,
+    },
+    termsLink: {
+      fontWeight: 'bold',
+      textDecorationLine: 'underline',
     },
     // Error
     errorContainer: {
@@ -239,6 +235,7 @@ export const createAuthStyles = (theme: MD3Theme) =>
       justifyContent: "space-between",
       backgroundColor: theme.colors.background,
       paddingHorizontal: spacing.md,
+      paddingBottom: spacing.md,
     },
     innerContainer: {
       flex: 1,
@@ -261,8 +258,13 @@ export const createAuthStyles = (theme: MD3Theme) =>
       elevation: 5,
     },
     introContainer: {
-      gap: spacing.md,
       paddingHorizontal: spacing.md,
+    },
+    introBranding: {
+
+    },
+    introBrandingLogo: {
+      width: 150, height: 60, resizeMode: 'contain', margin: 0, padding: 0, marginBottom: -spacing.sm, marginLeft: -15, 
     },
     otpContent: {
       gap: spacing.md,

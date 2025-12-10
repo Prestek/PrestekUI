@@ -10,8 +10,7 @@ export const createPaymentStyles = (theme: MD3Theme) =>
       historyTitle: {
         fontSize: typography.sizes.lg,
         fontWeight: typography.weights.bold,
-        fontFamily: typography.fontFamilyBold,
-        color: theme.colors.primary,
+        color: theme.colors.secondary,
       },
       paymentItem: {
         gap: spacing.md,
@@ -22,7 +21,6 @@ export const createPaymentStyles = (theme: MD3Theme) =>
         borderWidth: 1,
         borderColor: theme.colors.outline,
         borderRadius: borderRadius.lg,
-        backgroundColor: theme.colors.onBackground,
       },
       paymentIndicator: {
         width: 4,
@@ -36,9 +34,8 @@ export const createPaymentStyles = (theme: MD3Theme) =>
       },
       paymentType: {
         fontSize: typography.sizes.md,
-        fontWeight: typography.weights.semibold,
+        fontWeight: typography.weights.bold,
         marginLeft: spacing.sm,
-        fontFamily: typography.fontFamilyBold,
         color: theme.colors.secondary,
       },
       paymentDate: {
@@ -53,7 +50,6 @@ export const createPaymentStyles = (theme: MD3Theme) =>
       paymentAmount: {
         fontSize: typography.sizes.lg,
         fontWeight: typography.weights.bold,
-        fontFamily: typography.fontFamilyBold,
         color: theme.colors.secondary
       },
       historyHeader: {
@@ -85,7 +81,7 @@ export const createPaymentStyles = (theme: MD3Theme) =>
         justifyContent: 'space-between'
       },
       labelText: {
-        color: theme.colors.onSurfaceVariant,
-        fontSize: 12,
+        color: theme.colors.onSecondary,
+        fontSize: typography.sizes.xs,
       },
     });

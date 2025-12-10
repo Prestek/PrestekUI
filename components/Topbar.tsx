@@ -58,7 +58,7 @@ const topbarStyles = StyleSheet.create({
         flex: 1,
     },
     header: {
-        paddingVertical: spacing.md,
+        paddingTop: spacing.md,
     },
     headerContent: {
         width: '100%',

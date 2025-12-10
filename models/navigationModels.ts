@@ -12,4 +12,5 @@ export interface NavigationProps extends ChildrenProps {
     header?: boolean;
     headerChildren?: React.ReactNode;
     title?: string;
+    backAction?: () => void;
 }

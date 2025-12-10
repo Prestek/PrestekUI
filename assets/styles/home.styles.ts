@@ -47,7 +47,6 @@ export const createHomeStyles = (theme: MD3Theme) =>
     introTitle: {
       fontSize: typography.sizes.xl2,
       fontWeight: typography.weights.bold,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.secondary,
     },
     seeAllLink:{
@@ -156,7 +155,6 @@ export const createHomeStyles = (theme: MD3Theme) =>
     },
     bankName: {
       fontWeight: typography.weights.bold,
-      fontFamily: typography.fontFamilyBold,
     },
     amountSection: {
       marginVertical: 3,
@@ -424,7 +422,7 @@ export const createHomeStyles = (theme: MD3Theme) =>
     },
     selectContainer: {
       width: "100%",
-      backgroundColor: theme.colors.surface,
+      backgroundColor: theme.colors.surfaceVariant,
       padding: spacing.md,
       borderRadius: borderRadius.lg,
     },
@@ -467,9 +465,7 @@ export const createHomeStyles = (theme: MD3Theme) =>
     basicInformationTitle: {
       fontSize: typography.sizes.lg,
       fontWeight: typography.weights.bold,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.primary,
-      marginBottom: spacing.sm,
     },
     basicInformationContentText: {
       fontSize: typography.sizes.sm,
@@ -562,7 +558,6 @@ export const createHomeStyles = (theme: MD3Theme) =>
     itemTitle: {
       fontSize: typography.sizes.md,
       fontWeight: typography.weights.semibold,
-      fontFamily: typography.fontFamilyBold,
       color: theme.colors.primary,
     },
     itemContent: {
@@ -574,6 +569,9 @@ export const createHomeStyles = (theme: MD3Theme) =>
       justifyContent: 'space-between',
       alignItems: 'center',
       marginBottom: spacing.md,
-    }
+    },
+    leftText: {
+      alignSelf: 'flex-end',
+    },
   });
 

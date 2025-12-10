@@ -52,7 +52,7 @@ export const OAuthButton: React.FC<OAuthButtonProps> = ({
         style={styles.oauthIcon}
       />
      <AppText style={styles.oauthButtonText}>
-        Continue with {config.label}
+        Continuar con {config.label}
       </AppText>
     </TouchableOpacity>
   );

@@ -29,9 +29,9 @@ export const EmailVerificationStep: React.FC<OtpProps> = ({ email, code, setCode
         <View style={styles.otpContent}>
           <View style={styles.logoContainer}>
             <MaterialIcons name="email" size={30} color={theme.colors.primary} />
-            <AppText style={styles.introTitle}>Verify your email</AppText>
+            <AppText style={styles.introTitle}>Verificar tu email</AppText>
           </View>
-          <AppText style={styles.termsText}>We sent a verification code to {email}</AppText>
+          <AppText style={styles.termsText}>Te hemos enviado un código de verificación a {email}</AppText>
           <View style={styles.otpContainer}>
             <CodeField
               ref={ref}
@@ -56,7 +56,7 @@ export const EmailVerificationStep: React.FC<OtpProps> = ({ email, code, setCode
           </View>
         </View>
         <AuthButton onPress={() => handleVerify(code)} disabled={loading}>
-          {loading ? "Verifying..." : "Verify"}
+          {loading ? "Verificando..." : "Verificar"}
         </AuthButton>
       </View>
     </Navigation>
