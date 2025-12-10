@@ -7,7 +7,7 @@ on:
       - dev
 jobs:
   sonarcloud:
-    uses: Prestek/central-pipelines/.github/workflows/react-sonarcloud-analysis.yml@V0.1.4
+    uses: Prestek/central-pipelines/.github/workflows/react-sonarcloud-analysis.yml@V0.1.5
     with:
       node-version: '18'
       branch-name: 'main'
