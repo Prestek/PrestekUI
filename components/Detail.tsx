@@ -28,6 +28,7 @@ import {
   getColorByStatus,
 } from "@/models/functions/color";
 import { useUpdateApplication } from "@/hooks/useUpdateApplication";
+import { formatDateTime } from "@/models/functions/date";
 
 export const Detail: React.FC<DetailProps> = ({
   request,
@@ -236,32 +237,7 @@ export const Detail: React.FC<DetailProps> = ({
                 <AppText
                   style={[styles.value, { color: theme.colors.secondary }]}
                 >
-                  {typeof request.applicationDate === "string"
-                    ? new Date(request.applicationDate).toLocaleDateString(
-                        "es-CO",
-                        {
-                          day: "2-digit",
-                          month: "long",
-                          year: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        }
-                      )
-                    : Array.isArray(request.applicationDate)
-                    ? new Date(
-                        request.applicationDate[0],
-                        request.applicationDate[1] - 1,
-                        request.applicationDate[2],
-                        request.applicationDate[3] || 0,
-                        request.applicationDate[4] || 0
-                      ).toLocaleDateString("es-CO", {
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })
-                    : String(request.applicationDate)}
+                  {formatDateTime(request.applicationDate)}
                 </AppText>
               </View>
               <Divider style={styles.divider} />

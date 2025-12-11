@@ -48,6 +48,7 @@ export const ApplicationsProvider: React.FC<ChildrenProps> = ({ children }) => {
       if (!token) {
         throw new Error("No authentication token");
       }
+      console.log("Auth Token:", token);
       const response = await getApplicationsByUser(userId, token);
       const orderedApplications = response.data.sort(
         (a: Application, b: Application) => {

@@ -12,6 +12,7 @@ import { View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { BankCode, LoanRequestStatus } from "@/models/enums/Request";
+import { formatDate } from "@/models/functions/date";
 
 export const BankRequest: React.FC<RequestBankProps> = ({
   request,
@@ -77,15 +78,7 @@ export const BankRequest: React.FC<RequestBankProps> = ({
           <View style={styles.lastRequestHeader}>
             <AppText style={styles.lastRequestValue}>ID: {request.id}</AppText>
             <AppText style={styles.lastRequestValue}>
-              {typeof request.applicationDate === "string"
-                ? new Date(request.applicationDate).toLocaleDateString("es-CO")
-                : Array.isArray(request.applicationDate)
-                ? new Date(
-                    request.applicationDate[0],
-                    request.applicationDate[1] - 1,
-                    request.applicationDate[2]
-                  ).toLocaleDateString("es-CO")
-                : String(request.applicationDate)}
+              {formatDate(request.applicationDate)}
             </AppText>
           </View>
         </View>

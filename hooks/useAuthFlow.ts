@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSSO, useAuth } from "@clerk/clerk-expo";
+import { useSSO } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { getItem } from "@/utils/secureStorage";
 
@@ -10,7 +10,6 @@ export const useAuthFlow = () => {
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState<string | null>(null);
   const { startSSOFlow } = useSSO();
-  const { getToken } = useAuth();
   const router = useRouter();
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import {
   getBackgroundColorByStatus,
   getColorByStatus,
 } from "@/models/functions/color";
+import { formatDate } from "@/models/functions/date";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { View } from "react-native";
@@ -114,15 +115,7 @@ export const Request: React.FC<RequestProps> = ({
                 !showElevation && { color: theme.colors.onPrimary },
               ]}
             >
-              {typeof request.applicationDate === "string"
-                ? new Date(request.applicationDate).toLocaleDateString("es-CO")
-                : Array.isArray(request.applicationDate)
-                ? new Date(
-                    request.applicationDate[0],
-                    request.applicationDate[1] - 1,
-                    request.applicationDate[2]
-                  ).toLocaleDateString("es-CO")
-                : String(request.applicationDate)}
+              {formatDate(request.applicationDate)}
             </AppText>
           </View>
 

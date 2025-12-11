@@ -1,4 +1,3 @@
-import { createPaymentStyles } from "@/assets/styles/payment.styles";
 import { AppText } from "@/components/AppText";
 import { Detail } from "@/components/Detail";
 import { useApplication } from "@/hooks/useApplication";

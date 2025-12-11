@@ -3,7 +3,7 @@ import { AppText } from "@/components/AppText";
 import { useBank } from "@/hooks/useBank";
 import { BankCode, BankCodeLabel } from "@/models/enums/Request";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { useTheme } from "react-native-paper";
 import { spacing, borderRadius, typography } from "@/assets/styles/theme";

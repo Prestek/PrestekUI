@@ -5,7 +5,7 @@ import { useApplication } from "@/hooks/useApplication";
 import { BankCode } from "@/models/enums/Request";
 import { User } from "@/models/userModels";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useLocalSearchParams, router } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { View, StyleSheet } from "react-native";
 import { useTheme } from "react-native-paper";
 

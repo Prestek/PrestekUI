@@ -18,7 +18,7 @@ export const LoanConfirmation = ({
   const styles = createLoanStyles(theme);
 
   const formattedAmount = new Intl.NumberFormat("es-CO").format(
-    parseInt(amount)
+    Number.parseInt(amount)
   );
 
   return (
