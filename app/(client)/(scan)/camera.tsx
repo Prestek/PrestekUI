@@ -2,7 +2,7 @@ import { createScanStyles } from "@/assets/styles/scan.styles";
 import { AppText } from "@/components/AppText";
 import { CedulaScanner } from "@/components/Client/scanner/CedulaScanner";
 import { PermissionDenied } from "@/components/Client/scanner/PermissionDenied";
-import CompleteProfile from "@/components/Client/scanner/profile/CompleteProfile";
+import { CompleteProfile } from "@/components/Client/scanner/profile/CompleteProfile";
 import { useScanner } from "@/hooks/useScanner";
 import { useEffect } from "react";
 import { View } from "react-native";

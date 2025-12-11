@@ -68,7 +68,7 @@ export const LoanOptions = ({
   );
 
   // Ordenar para que la recomendada esté primero
-  const sortedOffers = bankOffers.toSorted((a, b) => {
+  const sortedOffers = bankOffers.sort((a, b) => {
     if (a.isRecommended) return -1;
     if (b.isRecommended) return 1;
     return a.analysis.totalCost - b.analysis.totalCost;
