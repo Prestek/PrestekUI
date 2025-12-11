@@ -44,9 +44,7 @@ export const useSimulation = () => {
             
             console.log("Simulation response:", response.data);
             
-            const hasOffers = response.data && 
-                response.data.analysis && 
-                Object.keys(response.data.analysis).length > 0;
+            const hasOffers =  Object.keys(response.data?.analysis)?.length > 0;
             
             if (hasOffers) {
                 setSimulationResult(response.data);

@@ -29,6 +29,7 @@ import {
 } from "@/models/functions/color";
 import { useUpdateApplication } from "@/hooks/useUpdateApplication";
 import { formatDateTime } from "@/models/functions/date";
+import { useIconButton } from "@/hooks/useCardIcons";
 
 export const Detail: React.FC<DetailProps> = ({
   request,
@@ -38,7 +39,23 @@ export const Detail: React.FC<DetailProps> = ({
 }) => {
   const theme = useTheme();
   const styles = createDetailStyles(theme);
+  const renderLeftIcon = useIconButton(role === "bank" ? "account" : "bank", {
+    size: 30,
+    iconColor: theme.colors.primary,
+  });
 
+  const renderDocumentIcon = useIconButton("file-document", {
+    size: 30,
+    iconColor: theme.colors.primary,
+  });
+  const renderAlertCircleIcon = useIconButton("alert-circle", {
+    size: 30,
+    iconColor: theme.colors.error,
+  });
+  const renderNoteTextIcon = useIconButton("note-text", {
+    size: 30,
+    iconColor: theme.colors.primary,
+  });
   const [observations, setObservations] = useState("");
   const [dialogVisible, setDialogVisible] = useState(false);
   const [pendingStatus, setPendingStatus] = useState<LoanRequestStatus | null>(
@@ -114,14 +131,7 @@ export const Detail: React.FC<DetailProps> = ({
                   : "Información del banco"
               }
               titleStyle={[styles.cardTitle, { color: theme.colors.primary }]}
-              left={(props) => (
-                <IconButton
-                  {...props}
-                  icon={role === "bank" ? "account" : "bank"}
-                  iconColor={theme.colors.primary}
-                  size={30}
-                />
-              )}
+              left={renderLeftIcon}
             />
             <Card.Content style={styles.cardContent}>
               {role === "bank" ? (
@@ -199,14 +209,7 @@ export const Detail: React.FC<DetailProps> = ({
             <Card.Title
               title="Detalles de la solicitud"
               titleStyle={[styles.cardTitle, { color: theme.colors.primary }]}
-              left={(props) => (
-                <IconButton
-                  {...props}
-                  icon="file-document"
-                  iconColor={theme.colors.primary}
-                  size={30}
-                />
-              )}
+              left={renderDocumentIcon}
             />
             <Card.Content style={styles.cardContent}>
               <View style={styles.infoRow}>
@@ -295,14 +298,7 @@ export const Detail: React.FC<DetailProps> = ({
               <Card.Title
                 title="Motivo de rechazo"
                 titleStyle={[styles.cardTitle, { color: theme.colors.error }]}
-                left={(props) => (
-                  <IconButton
-                    {...props}
-                    icon="alert-circle"
-                    iconColor={theme.colors.error}
-                    size={30}
-                  />
-                )}
+                left={renderAlertCircleIcon}
               />
               <Card.Content>
                 <AppText
@@ -320,14 +316,7 @@ export const Detail: React.FC<DetailProps> = ({
               <Card.Title
                 title="Observaciones"
                 titleStyle={[styles.cardTitle, { color: theme.colors.primary }]}
-                left={(props) => (
-                  <IconButton
-                    {...props}
-                    icon="note-text"
-                    iconColor={theme.colors.primary}
-                    size={30}
-                  />
-                )}
+                left={renderNoteTextIcon}
               />
               <Card.Content>
                 <AppText

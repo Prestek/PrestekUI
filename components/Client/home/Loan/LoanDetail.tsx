@@ -154,8 +154,8 @@ export const LoanDetail = ({
               </AppText>
             </View>
 
-            {analysis.positives.map((positive, index) => (
-              <View key={index} style={styles.prosConsItem}>
+            {analysis.positives.map((positive) => (
+              <View key={positive} style={styles.prosConsItem}>
                 <MaterialCommunityIcons
                   name="check-circle"
                   size={20}
@@ -189,8 +189,8 @@ export const LoanDetail = ({
               </AppText>
             </View>
 
-            {analysis.negatives.map((negative, index) => (
-              <View key={index} style={styles.prosConsItem}>
+            {analysis.negatives.map((negative) => (
+              <View key={negative} style={styles.prosConsItem}>
                 <MaterialCommunityIcons
                   name="alert"
                   size={20}

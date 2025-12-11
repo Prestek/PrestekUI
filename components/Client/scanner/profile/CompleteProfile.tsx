@@ -114,6 +114,12 @@ export const CompleteProfile: React.FC<CompleteProfileProps> = ({
     }
   };
 
+  const getButtonText = () => {
+    if (loading) return "Guardando perfil...";
+    if (isEditing) return "Actualizar perfil";
+    return "Guardar perfil";
+  };
+
   return (
     <Navigation
       showExit={false}
@@ -265,11 +271,7 @@ export const CompleteProfile: React.FC<CompleteProfileProps> = ({
         </View>
         <View style={styles.formButtonContainer}>
           <AuthButton onPress={handleSubmit} disabled={loading}>
-            {loading
-              ? "Guardando perfil..."
-              : isEditing
-              ? "Actualizar perfil"
-              : "Guardar perfil"}
+            {getButtonText()}
           </AuthButton>
         </View>
         <View style={{ height: 100 }} />

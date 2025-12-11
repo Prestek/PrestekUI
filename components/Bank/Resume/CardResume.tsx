@@ -1,8 +1,9 @@
-import { Avatar, Card, useTheme } from "react-native-paper";
+import { Card, useTheme } from "react-native-paper";
 import { createStyles } from "@/assets/styles/bank.styles";
 import { AppText } from "@/components/AppText";
 import { typography } from "@/assets/styles/theme";
 import { CardResumeProps } from "@/models/bankResumeModels";
+import { useAvatarIcon } from "@/hooks/useCardIcons";
 
 export const CardResume: React.FC<CardResumeProps> = ({
   title,
@@ -11,12 +12,13 @@ export const CardResume: React.FC<CardResumeProps> = ({
 }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const renderLeftIcon = useAvatarIcon(icon, 30);
 
   return (
     <Card style={styles.metricCard} mode="outlined">
       <Card.Title
         title={title}
-        left={(props) => <Avatar.Icon {...props} icon={icon} size={30} />}
+        left={renderLeftIcon}
         leftStyle={{ marginRight: -2 }}
         titleStyle={{
           color: theme.colors.primary,

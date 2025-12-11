@@ -6,7 +6,7 @@ export const formatAmount = (
   text: string,
   setAmount: (amount: string) => void
 ) => {
-  const cleanText = text.replaceAll(/[^0-9]/g, "");
+  const cleanText = text.replaceAll(/\D/g, "");
   if (cleanText) {
     const formatted = new Intl.NumberFormat("es-CO").format(
       Number.parseInt(cleanText)
