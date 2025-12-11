@@ -1,11 +1,12 @@
 import { AppText } from "@/components/AppText";
 import { Detail } from "@/components/Detail";
+import { LoadingTransition } from "@/components/LoadingTransition";
 import { useApplication } from "@/hooks/useApplication";
 import { BankCode } from "@/models/enums/Request";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalSearchParams } from "expo-router";
 import { View, StyleSheet } from "react-native";
-import { useTheme, ActivityIndicator } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 
 export default function ApplicationDetailScreen() {
   const theme = useTheme();
@@ -17,15 +18,7 @@ export default function ApplicationDetailScreen() {
 
   if (loading) {
     return (
-      <View
-        style={[
-          styles.container,
-          styles.centered,
-          { backgroundColor: theme.colors.background },
-        ]}
-      >
-        <ActivityIndicator size="large" color={theme.colors.primary} />
-      </View>
+      <LoadingTransition />
     );
   }
 

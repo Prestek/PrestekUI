@@ -2,7 +2,7 @@ import { Redirect, Stack } from "expo-router";
 import { useAuth } from "@clerk/clerk-expo";
 import { getItem } from "@/utils/secureStorage";
 import { useState, useEffect } from "react";
-import { View, ActivityIndicator } from "react-native";
+import { LoadingTransition } from "@/components/LoadingTransition";
 
 export default function AuthRoutesLayout() {
   const { isSignedIn } = useAuth();
@@ -20,9 +20,8 @@ export default function AuthRoutesLayout() {
 
   if (!roleLoaded) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" />
-      </View>
+        <LoadingTransition
+      />
     );
   }
 

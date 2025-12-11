@@ -12,10 +12,11 @@ import {
   TouchableOpacity,
   RefreshControl,
 } from "react-native";
-import { useTheme, Divider, ActivityIndicator } from "react-native-paper";
+import { useTheme, Divider } from "react-native-paper";
 import { createHomeStyles } from "@/assets/styles/home.styles";
 import { spacing, borderRadius, typography } from "@/assets/styles/theme";
 import { useRouter } from "expo-router";
+import { LoadingTransition } from "@/components/LoadingTransition";
 
 export default function Profile() {
   const theme = useTheme();
@@ -87,10 +88,7 @@ export default function Profile() {
 
   if (isChecking) {
     return (
-      <View style={[styles.container, localStyles.loadingContainer]}>
-        <ActivityIndicator size="large" color={theme.colors.primary} />
-        <AppText style={localStyles.loadingText}>Cargando perfil...</AppText>
-      </View>
+      <LoadingTransition />
     );
   }
 
