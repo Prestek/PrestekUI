@@ -1,4 +1,3 @@
-
 import { History } from "@/components/History";
 import { initialRequests } from "@/hooks/const/data";
 import { useState } from "react";
@@ -10,7 +9,7 @@ import { useBank } from "@/hooks/useBank";
 export default function BankApplicationsScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTab, setSelectedTab] = useState<string>("pending");
-  const {applications,bankCode} = useBank();
+  const { applications, bankCode } = useBank();
   const filteredRequests = applications.filter((request) => {
     const matchesSearch =
       request.userId.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -18,9 +17,12 @@ export default function BankApplicationsScreen() {
       request.status.toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesTab =
-      (selectedTab === "pending" && request.status === LoanRequestStatus.PENDING) ||
-      (selectedTab === "approved" && request.status === LoanRequestStatus.APPROVED) ||
-      (selectedTab === "rejected" && request.status === LoanRequestStatus.REJECTED);
+      (selectedTab === "pending" &&
+        request.status === LoanRequestStatus.PENDING) ||
+      (selectedTab === "approved" &&
+        request.status === LoanRequestStatus.APPROVED) ||
+      (selectedTab === "rejected" &&
+        request.status === LoanRequestStatus.REJECTED);
 
     return matchesSearch && matchesTab;
   });
@@ -28,20 +30,23 @@ export default function BankApplicationsScreen() {
   const total = initialRequests.length;
 
   return (
-    <History searchQuery={searchQuery} setSearchQuery={setSearchQuery} total={total} selectedTab={selectedTab} setSelectedTab={setSelectedTab}>
-      <Applications
-        total={filteredRequests.length}
-      >
-        {filteredRequests
-        .map((request: any, index: number) =>
+    <History
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
+      total={total}
+      selectedTab={selectedTab}
+      setSelectedTab={setSelectedTab}
+    >
+      <Applications total={filteredRequests.length}>
+        {filteredRequests.map((request: any) => (
           <BankRequest
-              request={request}
-              showElevation={true}
-              key={index}
-              bankCode={bankCode}
-            />
-        )}
-        </Applications>
+            request={request}
+            showElevation={true}
+            key={request.id}
+            bankCode={bankCode}
+          />
+        ))}
+      </Applications>
     </History>
   );
 }

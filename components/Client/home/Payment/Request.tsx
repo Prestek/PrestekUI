@@ -1,100 +1,156 @@
 import { createPaymentStyles } from "@/assets/styles/payment.styles";
-import { typography } from "@/assets/styles/theme";
 import { AppText } from "@/components/AppText";
 import { RequestProps } from "@/models/applicationModels";
 import { LoanRequestStatus } from "@/models/enums/Request";
-import { getBackgroundColorByStatus, getColorByStatus } from "@/models/functions/color";
+import {
+  getBackgroundColorByStatus,
+  getColorByStatus,
+} from "@/models/functions/color";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { View } from "react-native";
-import { Chip, IconButton, Surface, TouchableRipple, useTheme } from "react-native-paper";
+import {
+  Chip,
+  IconButton,
+  Surface,
+  TouchableRipple,
+  useTheme,
+} from "react-native-paper";
 
-export const Request: React.FC<RequestProps> = ({ request, showElevation = true }) => {
-    const theme = useTheme();
-    const paymentStyles = createPaymentStyles(theme);
+export const Request: React.FC<RequestProps> = ({
+  request,
+  showElevation = true,
+}) => {
+  const theme = useTheme();
+  const paymentStyles = createPaymentStyles(theme);
 
-    const getBackgroundColorByStatusAll = (status: string) => {
-        switch (status) {
-            case LoanRequestStatus.APPROVED:
-                return "rgba(0, 146, 54, 0.57)";
-            case LoanRequestStatus.PENDING:
-                return "rgba(255, 208, 0, 0.46)";
-            case LoanRequestStatus.REJECTED:
-                return "rgba(194, 0, 0, 0.61)";
-            default:
-                return theme.colors.onSurface;
-        }
+  const getBackgroundColorByStatusAll = (status: string) => {
+    switch (status) {
+      case LoanRequestStatus.APPROVED:
+        return "rgba(0, 146, 54, 0.57)";
+      case LoanRequestStatus.PENDING:
+        return "rgba(255, 208, 0, 0.46)";
+      case LoanRequestStatus.REJECTED:
+        return "rgba(194, 0, 0, 0.61)";
+      default:
+        return theme.colors.onSurface;
     }
+  };
 
-    return (
-        <TouchableRipple
-            borderless={false}
-                onPress={() => router.push({
-                    pathname: "/(client)/(detail)",
-                    params: { id: request.id, bankCode: request.bankCode },
-                })}
-        >
-            <Surface style={[paymentStyles.paymentItem, !showElevation && paymentStyles.withoutElevantion, showElevation && { borderLeftWidth: 4, borderLeftColor: getBackgroundColorByStatusAll(request.status) }]} elevation={showElevation ? 3 : 0}>
-                <View style={paymentStyles.horizontalItems}>
-                    <View style={paymentStyles.horizontalItems}>
-                        <View style={[paymentStyles.bankLogo,
-                        !showElevation && { backgroundColor: theme.colors.tertiary }]}>
-                            <MaterialCommunityIcons name="bank" size={24} color={showElevation ? theme.colors.onPrimary : theme.colors.onPrimary} />
-                        </View>
-                        <AppText style={[paymentStyles.paymentType, !showElevation && { color: theme.colors.onPrimary }]}>
-                            {request.bankName}
-                        </AppText>
-                    </View>
-                    {showElevation ?
-                        <IconButton
-                            icon="chevron-right"
-                            size={20}
-                            style={{ margin: 0 }}
-                        />
-                        :
-                        <Chip
-                            style={{
-                                backgroundColor: getBackgroundColorByStatus(request.status),
-                            }}
-                            textStyle={{
-                                color: getColorByStatus(request.status),
-                                fontSize: 11,
-                            }}
-                        >
-                            {request.status}
-                        </Chip>}
+  return (
+    <TouchableRipple
+      borderless={false}
+      onPress={() =>
+        router.push({
+          pathname: "/(client)/(detail)",
+          params: { id: request.id, bankCode: request.bankCode },
+        })
+      }
+    >
+      <Surface
+        style={[
+          paymentStyles.paymentItem,
+          !showElevation && paymentStyles.withoutElevantion,
+          showElevation && {
+            borderLeftWidth: 4,
+            borderLeftColor: getBackgroundColorByStatusAll(request.status),
+          },
+        ]}
+        elevation={showElevation ? 3 : 0}
+      >
+        <View style={paymentStyles.horizontalItems}>
+          <View style={paymentStyles.horizontalItems}>
+            <View
+              style={[
+                paymentStyles.bankLogo,
+                !showElevation && { backgroundColor: theme.colors.tertiary },
+              ]}
+            >
+              <MaterialCommunityIcons
+                name="bank"
+                size={24}
+                color={theme.colors.onPrimary}
+              />
+            </View>
+            <AppText
+              style={[
+                paymentStyles.paymentType,
+                !showElevation && { color: theme.colors.onPrimary },
+              ]}
+            >
+              {request.bankName}
+            </AppText>
+          </View>
+          {showElevation ? (
+            <IconButton icon="chevron-right" size={20} style={{ margin: 0 }} />
+          ) : (
+            <Chip
+              style={{
+                backgroundColor: getBackgroundColorByStatus(request.status),
+              }}
+              textStyle={{
+                color: getColorByStatus(request.status),
+                fontSize: 11,
+              }}
+            >
+              {request.status}
+            </Chip>
+          )}
+        </View>
 
-                </View>
+        <View style={paymentStyles.horizontalItems}>
+          <View>
+            <AppText
+              style={[
+                paymentStyles.labelText,
+                !showElevation && { color: theme.colors.onPrimary },
+              ]}
+            >
+              Fecha de solicitud
+            </AppText>
+            <AppText
+              style={[
+                paymentStyles.paymentDate,
+                !showElevation && { color: theme.colors.onPrimary },
+              ]}
+            >
+              {typeof request.applicationDate === "string"
+                ? new Date(request.applicationDate).toLocaleDateString("es-CO")
+                : Array.isArray(request.applicationDate)
+                ? new Date(
+                    request.applicationDate[0],
+                    request.applicationDate[1] - 1,
+                    request.applicationDate[2]
+                  ).toLocaleDateString("es-CO")
+                : String(request.applicationDate)}
+            </AppText>
+          </View>
 
-                <View style={paymentStyles.horizontalItems}>
-                    <View>
-                        <AppText style={[paymentStyles.labelText, !showElevation && { color: theme.colors.onPrimary }]}>
-                            Fecha de solicitud
-                        </AppText>
-                        <AppText style={[paymentStyles.paymentDate, !showElevation && { color: theme.colors.onPrimary }]}>
-                        {typeof request.applicationDate === "string" 
-                                        ? new Date(request.applicationDate).toLocaleDateString("es-CO") 
-                                        : Array.isArray(request.applicationDate) 
-                                            ? new Date(
-                                                request.applicationDate[0], 
-                                                request.applicationDate[1] - 1, 
-                                                request.applicationDate[2], 
-                                            ).toLocaleDateString("es-CO")
-                                            : String(request.applicationDate)
-                                    }
-                        </AppText>
-                    </View>
-
-                    <View>
-                        <AppText style={[paymentStyles.labelText, !showElevation && { color: theme.colors.onPrimary }, { textAlign: 'right' }]}>
-                            Monto solicitado
-                        </AppText>
-                        <AppText style={[paymentStyles.paymentAmount, !showElevation && { color: theme.colors.onPrimary }, { textAlign: 'right' }]}>
-                            ${request.amount.toLocaleString('es-CO', { minimumFractionDigits: 2 })}
-                        </AppText>
-                    </View>
-                </View>
-            </Surface>
-        </TouchableRipple>
-    );
-}
+          <View>
+            <AppText
+              style={[
+                paymentStyles.labelText,
+                !showElevation && { color: theme.colors.onPrimary },
+                { textAlign: "right" },
+              ]}
+            >
+              Monto solicitado
+            </AppText>
+            <AppText
+              style={[
+                paymentStyles.paymentAmount,
+                !showElevation && { color: theme.colors.onPrimary },
+                { textAlign: "right" },
+              ]}
+            >
+              $
+              {request.amount.toLocaleString("es-CO", {
+                minimumFractionDigits: 2,
+              })}
+            </AppText>
+          </View>
+        </View>
+      </Surface>
+    </TouchableRipple>
+  );
+};

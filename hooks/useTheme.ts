@@ -3,20 +3,20 @@ import { useEffect, useMemo, useState } from "react";
 import { useColorScheme } from "react-native";
 
 export const useTheme = (userRole: string) => {
-    const [role, setRole] = useState<string | null>(null);
-    const colorScheme = useColorScheme();
-    useEffect(() => {
-        const paramRole = typeof userRole === "string" ? userRole : null;
-        if (paramRole) {
-          setRole(paramRole);
-          return;
-        }
-      }, [userRole]);
-    
-      const theme = useMemo(
-        () => (role === "bank" ? getBankTheme(colorScheme) : getAppTheme(colorScheme)),
-        [role, colorScheme]
-      );
+  const [role, setRole] = useState<string | null>(null);
+  const colorScheme = useColorScheme();
+  useEffect(() => {
+    const paramRole = typeof userRole === "string" ? userRole : null;
+    if (paramRole) {
+      setRole(paramRole);
+    }
+  }, [userRole]);
 
-    return theme;
-}
+  const theme = useMemo(
+    () =>
+      role === "bank" ? getBankTheme(colorScheme) : getAppTheme(colorScheme),
+    [role, colorScheme]
+  );
+
+  return theme;
+};

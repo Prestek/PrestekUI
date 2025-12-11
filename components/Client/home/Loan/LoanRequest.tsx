@@ -24,15 +24,18 @@ export const LoanRequest = ({ onSubmit, disabled }: LoanRequestProps) => {
   const [installments, setInstallments] = useState(6);
 
   const handleSubmit = () => {
-    if(parseInt(amount) < 1000000 || parseInt(amount) > 50000000) {
+    if (
+      Number.parseInt(amount) < 1000000 ||
+      Number.parseInt(amount) > 50000000
+    ) {
       Alert.alert(
-        "Monto inválido", 
+        "Monto inválido",
         "El monto del préstamo debe estar entre $1,000,000 y $50,000,000"
       );
       return;
     }
     if (amount && installments) {
-        onSubmit(amount, installments.toString());
+      onSubmit(amount, installments.toString());
     }
   };
 
@@ -51,27 +54,52 @@ export const LoanRequest = ({ onSubmit, disabled }: LoanRequestProps) => {
             icon="cash-plus"
             iconPosition="left"
             label="Monto del préstamo"
-            value={amount ? new Intl.NumberFormat("es-CO").format(parseInt(amount)) : ""}
+            value={
+              amount
+                ? new Intl.NumberFormat("es-CO").format(Number.parseInt(amount))
+                : ""
+            }
             disabled={disabled}
           />
 
           <View style={sliderStyles.sliderContainer}>
             <View style={sliderStyles.labelRow}>
-              <MaterialCommunityIcons 
-                name="calendar-month" 
-                size={20} 
-                color={theme.colors.primary} 
+              <MaterialCommunityIcons
+                name="calendar-month"
+                size={20}
+                color={theme.colors.primary}
               />
-              <AppText style={[sliderStyles.label, { color: theme.colors.primary }]}>
+              <AppText
+                style={[sliderStyles.label, { color: theme.colors.primary }]}
+              >
                 Número de cuotas
               </AppText>
             </View>
-            
-            <View style={[sliderStyles.valueContainer, { backgroundColor: theme.colors.surfaceVariant, borderWidth: 1, borderColor: theme.colors.outline }]}>
-              <AppText style={[sliderStyles.valueText, { color: theme.colors.primary }]}>
+
+            <View
+              style={[
+                sliderStyles.valueContainer,
+                {
+                  backgroundColor: theme.colors.surfaceVariant,
+                  borderWidth: 1,
+                  borderColor: theme.colors.outline,
+                },
+              ]}
+            >
+              <AppText
+                style={[
+                  sliderStyles.valueText,
+                  { color: theme.colors.primary },
+                ]}
+              >
                 {installments}
               </AppText>
-              <AppText style={[sliderStyles.valueLabel, { color: theme.colors.onPrimaryContainer }]}>
+              <AppText
+                style={[
+                  sliderStyles.valueLabel,
+                  { color: theme.colors.onPrimaryContainer },
+                ]}
+              >
                 meses
               </AppText>
             </View>
@@ -90,10 +118,20 @@ export const LoanRequest = ({ onSubmit, disabled }: LoanRequestProps) => {
             />
 
             <View style={sliderStyles.rangeLabels}>
-              <AppText style={[sliderStyles.rangeText, { color: theme.colors.onSurfaceVariant }]}>
+              <AppText
+                style={[
+                  sliderStyles.rangeText,
+                  { color: theme.colors.onSurfaceVariant },
+                ]}
+              >
                 {MIN_INSTALLMENTS} meses
               </AppText>
-              <AppText style={[sliderStyles.rangeText, { color: theme.colors.onSurfaceVariant }]}>
+              <AppText
+                style={[
+                  sliderStyles.rangeText,
+                  { color: theme.colors.onSurfaceVariant },
+                ]}
+              >
                 {MAX_INSTALLMENTS} meses
               </AppText>
             </View>
@@ -101,10 +139,7 @@ export const LoanRequest = ({ onSubmit, disabled }: LoanRequestProps) => {
         </View>
       </View>
 
-      <AuthButton
-        onPress={handleSubmit}
-        disabled={!amount || !installments}
-      >
+      <AuthButton onPress={handleSubmit} disabled={!amount || !installments}>
         Buscar ofertas
       </AuthButton>
     </View>
@@ -154,4 +189,3 @@ const sliderStyles = StyleSheet.create({
     fontSize: 12,
   },
 });
-

@@ -1,4 +1,3 @@
-
 import { Applications } from "@/components/Applications";
 import { Request } from "@/components/Client/home/Payment/Request";
 import { History } from "@/components/History";
@@ -17,9 +16,12 @@ export default function ClientApplicationsScreen() {
       request.status.toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesTab =
-      (selectedTab === "pending" && request.status === LoanRequestStatus.PENDING) ||
-      (selectedTab === "approved" && request.status === LoanRequestStatus.APPROVED) ||
-      (selectedTab === "rejected" && request.status === LoanRequestStatus.REJECTED);
+      (selectedTab === "pending" &&
+        request.status === LoanRequestStatus.PENDING) ||
+      (selectedTab === "approved" &&
+        request.status === LoanRequestStatus.APPROVED) ||
+      (selectedTab === "rejected" &&
+        request.status === LoanRequestStatus.REJECTED);
 
     return matchesSearch && matchesTab;
   });
@@ -27,19 +29,18 @@ export default function ClientApplicationsScreen() {
   const total = applications.length;
 
   return (
-    <History searchQuery={searchQuery} setSearchQuery={setSearchQuery} total={total} selectedTab={selectedTab} setSelectedTab={setSelectedTab}>
-      <Applications
-        total={filteredRequests.length}
-      >
-        {filteredRequests
-        .map((request: any, index: number) =>
-          <Request
-              request={request}
-              showElevation={true}
-              key={index}
-            />
-        )}
-        </Applications>
+    <History
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
+      total={total}
+      selectedTab={selectedTab}
+      setSelectedTab={setSelectedTab}
+    >
+      <Applications total={filteredRequests.length}>
+        {filteredRequests.map((request: any) => (
+          <Request request={request} showElevation={true} key={request.id} />
+        ))}
+      </Applications>
     </History>
   );
 }

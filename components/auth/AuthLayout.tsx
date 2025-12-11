@@ -3,7 +3,6 @@ import { Image, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
 import { AuthLayoutProps } from "@/models/authModels";
-import Logo from "../Logo";
 import { AppText } from "../AppText";
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({
@@ -21,7 +20,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
       {/* Logo Section */}
       <View style={styles.introContainer}>
         <Image
-          source={require('@/assets/logo/blanco.png')}
+          source={require("@/assets/logo/blanco.png")}
           style={styles.introBrandingLogo}
         />
         <AppText style={styles.subtitle}>{subtitle}</AppText>

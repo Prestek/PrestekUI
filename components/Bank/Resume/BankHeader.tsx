@@ -1,5 +1,4 @@
 import { createStyles } from "@/assets/styles/bank.styles";
-import { getItem } from "expo-secure-store";
 import { Image, View } from "react-native";
 import { TouchableRipple, useTheme } from "react-native-paper";
 import { AppText } from "../../AppText";
@@ -42,14 +41,14 @@ export const BankHeader: React.FC<{ bankCode: BankCode }> = ({ bankCode }) => {
         borderless={false}
         onPress={() => router.push("/(bank)/(home)/profile")}
       >
-      <View
-        style={[
-          styles.profileAvatar,
-          { backgroundColor: theme.colors.primary },
-        ]}
-      >
-        <AppText style={styles.profileInitials}>{bankInitials}</AppText>
-      </View>
+        <View
+          style={[
+            styles.profileAvatar,
+            { backgroundColor: theme.colors.primary },
+          ]}
+        >
+          <AppText style={styles.profileInitials}>{bankInitials}</AppText>
+        </View>
       </TouchableRipple>
     </View>
   );

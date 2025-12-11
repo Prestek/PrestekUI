@@ -1,9 +1,8 @@
 import { spacing, borderRadius, typography } from "@/assets/styles/theme";
-import Logo from "@/components/Logo";
 import { AppText } from "@/components/AppText";
 import { saveItem } from "@/utils/secureStorage";
 import { router } from "expo-router";
-import { Image, SafeAreaView, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { Button, MD3Theme, Surface, useTheme } from "react-native-paper";
 
 type RoleOption = "client" | "bank";
@@ -29,7 +28,16 @@ export default function RoleScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.heroContainer}>
-        <Image source={require('@/assets/logo/blanco.png')} style={{ width: 200, height: 60, resizeMode: 'contain', margin: 0, padding: 0 }} />
+        <Image
+          source={require("@/assets/logo/blanco.png")}
+          style={{
+            width: 200,
+            height: 60,
+            resizeMode: "contain",
+            margin: 0,
+            padding: 0,
+          }}
+        />
         <AppText style={styles.welcomeLabel}>Bienvenido</AppText>
         <AppText style={styles.description}>
           Conecta tus finanzas y gestiona tus productos desde un único lugar.
@@ -41,11 +49,22 @@ export default function RoleScreen() {
         <AppText style={styles.actionSubtitle}>
           Elige tu rol para personalizar tu experiencia.
         </AppText>
-        <Button icon="account" mode="contained" onPress={() => handleRoleSelection("client")} textColor={theme.colors.inversePrimary}>
-            Soy cliente
+        <Button
+          icon="account"
+          mode="contained"
+          onPress={() => handleRoleSelection("client")}
+          textColor={theme.colors.inversePrimary}
+        >
+          Soy cliente
         </Button>
-        <Button icon="bank" mode="outlined" onPress={() => handleRoleSelection("bank")} textColor={theme.colors.primary} style={styles.secondaryButton}>
-            Represento un banco
+        <Button
+          icon="bank"
+          mode="outlined"
+          onPress={() => handleRoleSelection("bank")}
+          textColor={theme.colors.primary}
+          style={styles.secondaryButton}
+        >
+          Represento un banco
         </Button>
       </Surface>
     </View>

@@ -1,6 +1,6 @@
 import { AppText } from "@/components/AppText";
 import { View, ScrollView } from "react-native";
-import { Divider, Surface, useTheme } from "react-native-paper";
+import { Divider, useTheme } from "react-native-paper";
 import { createLoanStyles } from "@/assets/styles/loan.styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BankOffer } from "@/models/creditModels";
@@ -87,7 +87,10 @@ export const LoanDetail = ({
                 Monto solicitado
               </AppText>
               <AppText style={styles.detailSummaryValue}>
-                ${new Intl.NumberFormat("es-CO").format(parseInt(requestedAmount))}
+                $
+                {new Intl.NumberFormat("es-CO").format(
+                  Number.parseInt(requestedAmount)
+                )}
               </AppText>
             </View>
 
@@ -105,7 +108,10 @@ export const LoanDetail = ({
                 Cuota mensual
               </AppText>
               <AppText style={styles.detailSummaryValueHighlight}>
-                ${new Intl.NumberFormat("es-CO").format(analysis.monthlyPaymentAvg)}
+                $
+                {new Intl.NumberFormat("es-CO").format(
+                  analysis.monthlyPaymentAvg
+                )}
               </AppText>
             </View>
 
@@ -129,14 +135,21 @@ export const LoanDetail = ({
           </View>
 
           {/* Aspectos positivos */}
-          <View style={[styles.detailAspectsCard, { backgroundColor: 'rgba(28, 196, 90, 0.05)' }]}>
+          <View
+            style={[
+              styles.detailAspectsCard,
+              { backgroundColor: "rgba(28, 196, 90, 0.05)" },
+            ]}
+          >
             <View style={styles.prosConsHeader}>
               <MaterialCommunityIcons
                 name="thumb-up"
                 size={24}
                 color="#4CAF50"
               />
-              <AppText style={[styles.detailSectionTitle, { color: "#4CAF50" }]}>
+              <AppText
+                style={[styles.detailSectionTitle, { color: "#4CAF50" }]}
+              >
                 Aspectos positivos
               </AppText>
             </View>
@@ -154,14 +167,24 @@ export const LoanDetail = ({
           </View>
 
           {/* Aspectos a considerar */}
-          <View style={[styles.detailAspectsCard, { backgroundColor: 'rgba(245, 39, 39, 0.07)' }]}>
+          <View
+            style={[
+              styles.detailAspectsCard,
+              { backgroundColor: "rgba(245, 39, 39, 0.07)" },
+            ]}
+          >
             <View style={styles.prosConsHeader}>
               <MaterialCommunityIcons
                 name="alert-circle"
                 size={24}
                 color="rgb(192, 27, 27)"
               />
-              <AppText style={[styles.detailSectionTitle, { color: "rgb(192, 27, 27)" }]}>
+              <AppText
+                style={[
+                  styles.detailSectionTitle,
+                  { color: "rgb(192, 27, 27)" },
+                ]}
+              >
                 Aspectos a considerar
               </AppText>
             </View>
@@ -188,4 +211,3 @@ export const LoanDetail = ({
     </Navigation>
   );
 };
-

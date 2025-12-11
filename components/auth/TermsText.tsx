@@ -1,5 +1,4 @@
 import React from "react";
-import { Text } from "react-native";
 import { useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
 import { AppText } from "../AppText";
@@ -18,8 +17,8 @@ export const TermsText: React.FC = () => {
       <AppText variant="bodySmall" style={styles.termsLink}>
         política de privacidad
       </AppText>
-      . Consultar tu historial de crédito es un paso indispensable en tu proceso de aprobación.
+      . Consultar tu historial de crédito es un paso indispensable en tu proceso
+      de aprobación.
     </AppText>
-
   );
 };

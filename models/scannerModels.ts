@@ -4,7 +4,6 @@ export interface ParsedCedula {
   document: string | null;
   name: string | null;
   lastName: string | null;
-  date: string | null;
 }
 
 export interface ScanResult {
@@ -25,3 +24,29 @@ export interface BarcodeScannedProps {
   type: string;
   data: string;
 }
+
+export interface CompleteProfileProps {
+  data: ParsedCedula | null;
+  additionalInformation?: {
+    phone: string;
+    monthlyIncome: string;
+    monthlyExpenses: string;
+    employmentStatus: EmploymentStatus;
+  };
+  isEditing: boolean;
+}
+
+export type EmploymentStatus =
+  | "Employed"
+  | "Unemployed"
+  | "Self-Employed"
+  | "Student"
+  | "Retired";
+
+export const EmploymentStatusLabel: Record<EmploymentStatus, string> = {
+  Employed: "Empleado",
+  Unemployed: "Desempleado",
+  "Self-Employed": "Independiente",
+  Student: "Estudiante",
+  Retired: "Jubilado",
+};

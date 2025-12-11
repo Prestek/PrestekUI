@@ -1,11 +1,10 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import { useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
 import { AuthLinkProps } from "@/models/authModels";
 import { AppText } from "../AppText";
-
 
 export const AuthLink: React.FC<AuthLinkProps> = ({
   title = "¿No tienes una cuenta?",

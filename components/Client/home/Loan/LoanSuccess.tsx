@@ -6,8 +6,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Navigation } from "@/components/Navigation";
 import { AuthButton } from "@/components/auth";
 import { OfferResponse } from "@/models/creditModels";
-import { getBackgroundColorByStatus, getColorByStatus } from "@/models/functions/color";
-import { LoanRequestStatus, LoanRequestStatusLabel } from "@/models/enums/Request";
+import {
+  getBackgroundColorByStatus,
+  getColorByStatus,
+} from "@/models/functions/color";
+import { LoanRequestStatusLabel } from "@/models/enums/Request";
 
 interface LoanSuccessProps {
   offerResult: OfferResponse;
@@ -22,7 +25,6 @@ const formatDate = (dateArray: number[]): string => {
   return `${day}/${month}/${year}`;
 };
 
-
 export const LoanSuccess = ({
   offerResult,
   requestedAmount,
@@ -32,7 +34,7 @@ export const LoanSuccess = ({
   const theme = useTheme();
   const styles = createLoanStyles(theme);
 
-  const { application, creditScore, message } = offerResult;
+  const { application, creditScore } = offerResult;
 
   return (
     <Navigation
@@ -51,11 +53,7 @@ export const LoanSuccess = ({
           {/* Icono de éxito */}
           <View style={styles.successIconContainer}>
             <View style={styles.successIconCircle}>
-              <MaterialCommunityIcons
-                name="check"
-                size={60}
-                color="#4CAF50"
-              />
+              <MaterialCommunityIcons name="check" size={60} color="#4CAF50" />
             </View>
           </View>
 
@@ -64,19 +62,26 @@ export const LoanSuccess = ({
           </AppText>
 
           {/* Estado de la solicitud */}
-          <View style={[
-            styles.statusBadge,
-            { backgroundColor: getBackgroundColorByStatus(application.status) + "20" }
-          ]}>
+          <View
+            style={[
+              styles.statusBadge,
+              {
+                backgroundColor:
+                  getBackgroundColorByStatus(application.status) + "20",
+              },
+            ]}
+          >
             <MaterialCommunityIcons
               name="clock-outline"
               size={20}
               color={getColorByStatus(application.status)}
             />
-            <AppText style={[
-              styles.statusText,
-              { color: getColorByStatus(application.status) }
-            ]}>
+            <AppText
+              style={[
+                styles.statusText,
+                { color: getColorByStatus(application.status) },
+              ]}
+            >
               {LoanRequestStatusLabel[application.status] || application.status}
             </AppText>
           </View>
@@ -117,9 +122,7 @@ export const LoanSuccess = ({
             </View>
 
             <View style={styles.detailSummaryRow}>
-              <AppText style={styles.detailSummaryLabel}>
-                Plazo
-              </AppText>
+              <AppText style={styles.detailSummaryLabel}>Plazo</AppText>
               <AppText style={styles.detailSummaryValue}>
                 {requestedInstallments} meses
               </AppText>
@@ -157,10 +160,8 @@ export const LoanSuccess = ({
 
           {/* Próximos pasos */}
           <View style={styles.nextStepsCard}>
-            <AppText style={styles.nextStepsTitle}>
-              ¿Qué sigue?
-            </AppText>
-            
+            <AppText style={styles.nextStepsTitle}>¿Qué sigue?</AppText>
+
             <View style={styles.nextStepItem}>
               <View style={styles.nextStepNumber}>
                 <AppText style={styles.nextStepNumberText}>1</AppText>

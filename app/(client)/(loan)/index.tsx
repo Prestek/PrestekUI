@@ -19,9 +19,9 @@ export default function ClientLoanScreen() {
   const params = useLocalSearchParams();
   const amount = params.amount as string;
   const installments = params.installments as string;
-  
+
   const [selectedOffer, setSelectedOffer] = useState<BankOffer | null>(null);
-  
+
   const {
     simulationResult,
     loading,
@@ -34,7 +34,7 @@ export default function ClientLoanScreen() {
 
   // Ejecutar la simulación cuando el usuario confirme
   const handleConfirmLoanRequest = () => {
-    handleSimulation(parseInt(amount), parseInt(installments));
+    handleSimulation(Number.parseInt(amount), Number.parseInt(installments));
   };
 
   const handleSelectOffer = (offer: BankOffer) => {
@@ -45,8 +45,8 @@ export default function ClientLoanScreen() {
   const handleAcceptOffer = async (offer: BankOffer) => {
     setCurrentStep("processing");
     const result = await handleOffer(
-      parseInt(amount), 
-      parseInt(installments), 
+      Number.parseInt(amount),
+      Number.parseInt(installments),
       offer.bankName
     );
     if (result) {
@@ -76,20 +76,19 @@ export default function ClientLoanScreen() {
           loading={loading}
         />
       )}
-      
+
       {(currentStep === "searching" || currentStep === "processing") && (
-        <LoanSearching 
-          message={currentStep === "processing" ? "Procesando tu solicitud..." : undefined}
+        <LoanSearching
+          message={
+            currentStep === "processing"
+              ? "Procesando tu solicitud..."
+              : undefined
+          }
         />
       )}
-      
-      {currentStep === "no_offers" && (
-        <LoanNoOffers
-          amount={amount}
-          installments={installments}
-        />
-      )}
-      
+
+      {currentStep === "no_offers" && <LoanNoOffers />}
+
       {currentStep === "options" && simulationResult && (
         <LoanOptions
           simulationResult={simulationResult}
@@ -98,7 +97,7 @@ export default function ClientLoanScreen() {
           onSelectOffer={handleSelectOffer}
         />
       )}
-      
+
       {currentStep === "detail" && selectedOffer && (
         <LoanDetail
           offer={selectedOffer}

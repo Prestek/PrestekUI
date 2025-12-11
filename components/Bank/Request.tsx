@@ -1,9 +1,13 @@
-import { LoanRequest, statusLabels } from "@/hooks/const/data";
-import { Card, Chip, IconButton, Surface, TouchableRipple, useTheme } from "react-native-paper";
+import {
+  IconButton,
+  Surface,
+  TouchableRipple,
+  useTheme,
+} from "react-native-paper";
 import { AppText } from "../AppText";
-import { RequestBankProps, RequestProps } from "@/models/applicationModels";
+import { RequestBankProps } from "@/models/applicationModels";
 import { createStyles } from "@/assets/styles/bank.styles";
-import { spacing, typography } from "@/assets/styles/auth.styles";
+import { spacing } from "@/assets/styles/auth.styles";
 import { View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
@@ -29,7 +33,7 @@ export const BankRequest: React.FC<RequestBankProps> = ({
     }
   };
   const handleViewRequest = (id: string) => {
-    console.log("bankCode",bankCode);
+    console.log("bankCode", bankCode);
     router.push({
       pathname: "/(bank)/(detail)",
       params: { id: id, bankCode: bankCode as BankCode },
@@ -41,35 +45,47 @@ export const BankRequest: React.FC<RequestBankProps> = ({
       borderless={false}
       onPress={() => handleViewRequest(request.id.toString())}
     >
-      <Surface style={[styles.requestCard, { borderLeftWidth: 4, borderLeftColor: getBackgroundColorByStatus(request.status) }]} elevation={3}>
+      <Surface
+        style={[
+          styles.requestCard,
+          {
+            borderLeftWidth: 4,
+            borderLeftColor: getBackgroundColorByStatus(request.status),
+          },
+        ]}
+        elevation={3}
+      >
         <View style={styles.bankLogo}>
-          <MaterialCommunityIcons name="account" size={30} color={theme.colors.onPrimary} />
+          <MaterialCommunityIcons
+            name="account"
+            size={30}
+            color={theme.colors.onPrimary}
+          />
         </View>
         <View style={{ flex: 1, gap: spacing.sm }}>
           <View style={styles.lastRequestHeader}>
             <View>
-              <AppText style={styles.cardText}>{"USR - " + request.userId}</AppText>
-              <AppText style={styles.cardText}>${request.amount.toLocaleString("es-CO")}</AppText>
+              <AppText style={styles.cardText}>
+                {"USR - " + request.userId}
+              </AppText>
+              <AppText style={styles.cardText}>
+                ${request.amount.toLocaleString("es-CO")}
+              </AppText>
             </View>
-            <IconButton
-              icon="chevron-right"
-              size={20}
-              style={{ margin: 0 }}
-            />
+            <IconButton icon="chevron-right" size={20} style={{ margin: 0 }} />
           </View>
           <View style={styles.lastRequestHeader}>
             <AppText style={styles.lastRequestValue}>ID: {request.id}</AppText>
             <AppText style={styles.lastRequestValue}>
-            {typeof request.applicationDate === "string" 
-                                        ? new Date(request.applicationDate).toLocaleDateString("es-CO") 
-                                        : Array.isArray(request.applicationDate) 
-                                            ? new Date(
-                                                request.applicationDate[0], 
-                                                request.applicationDate[1] - 1, 
-                                                request.applicationDate[2], 
-                                            ).toLocaleDateString("es-CO")
-                                            : String(request.applicationDate)
-                                    }
+              {typeof request.applicationDate === "string"
+                ? new Date(request.applicationDate).toLocaleDateString("es-CO")
+                : Array.isArray(request.applicationDate)
+                ? new Date(
+                    request.applicationDate[0],
+                    request.applicationDate[1] - 1,
+                    request.applicationDate[2]
+                  ).toLocaleDateString("es-CO")
+                : String(request.applicationDate)}
             </AppText>
           </View>
         </View>

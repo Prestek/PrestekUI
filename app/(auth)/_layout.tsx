@@ -1,11 +1,11 @@
-import { Redirect, Stack, usePathname } from 'expo-router'
-import { useAuth } from '@clerk/clerk-expo'
-import { getItem } from '@/utils/secureStorage';
-import { useState, useEffect } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { Redirect, Stack } from "expo-router";
+import { useAuth } from "@clerk/clerk-expo";
+import { getItem } from "@/utils/secureStorage";
+import { useState, useEffect } from "react";
+import { View, ActivityIndicator } from "react-native";
 
 export default function AuthRoutesLayout() {
-  const { isSignedIn } = useAuth()
+  const { isSignedIn } = useAuth();
   const [role, setRole] = useState<string | null>(null);
   const [roleLoaded, setRoleLoaded] = useState(false);
 
@@ -20,7 +20,7 @@ export default function AuthRoutesLayout() {
 
   if (!roleLoaded) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" />
       </View>
     );
@@ -29,11 +29,11 @@ export default function AuthRoutesLayout() {
   if (isSignedIn) {
     console.log("Redirecting authenticated user away from auth routes");
     if (role === "client") {
-      return <Redirect href="/(client)/(home)" />
+      return <Redirect href="/(client)/(home)" />;
     } else if (role === "bank") {
-      return <Redirect href="/(bank)/(home)" />
+      return <Redirect href="/(bank)/(home)" />;
     } else {
-      return <Redirect href="/" />
+      return <Redirect href="/" />;
     }
   }
 
@@ -43,5 +43,5 @@ export default function AuthRoutesLayout() {
         headerShown: false,
       }}
     />
-  )
+  );
 }
