@@ -46,8 +46,8 @@ export const useScanner = () => {
 function sanitizeRaw(raw: string): string {
   // Quitar caracteres de control (excepto espacio) y reemplazar U+FFFD, etc.
   const cleaned = raw
-    .replace(/[^\x20-\x7EÁÉÍÓÚÑáéíóúÜü]/g, " ")
-    .replace(/\s+/g, " ")
+    .replaceAll(/[^\x20-\x7EÁÉÍÓÚÑáéíóúÜü]/g, " ")
+    .replaceAll(/\s+/g, " ")
     .trim();
 
   return cleaned.normalize("NFC");
@@ -68,7 +68,7 @@ export function parseCedulaPdf417(
 
   // Buscar números largos (15-20 dígitos) que están seguidos inmediatamente por letras mayúsculas (apellidos)
   // Esto identifica el número correcto en la posición adecuada
-  const longNumberBeforeNames = s.match(/(\d{15,20})(?=\s*[A-ZÁÉÍÓÚÑ]{3,})/);
+  const longNumberBeforeNames = /(\d{15,20})(?=\s*[A-ZÁÉÍÓÚÑ]{3,})/.exec(s);
 
   if (longNumberBeforeNames) {
     const longNum = longNumberBeforeNames[1];
@@ -77,7 +77,7 @@ export function parseCedulaPdf417(
     document = longNum.slice(-10);
   } else {
     // Fallback: buscar cualquier número largo de 15-20 dígitos
-    const longNumberMatch = s.match(/\b(\d{15,20})\b/);
+    const longNumberMatch = /\b(\d{15,20})\b/.exec(s);
     if (longNumberMatch) {
       const longNum = longNumberMatch[1];
       document = longNum.slice(-10);
@@ -112,7 +112,7 @@ export function parseCedulaPdf417(
   //    Los nombres están entre el número largo y el bloque de fecha
   const pattern =
     /\d{15,20}\s*([A-ZÁÉÍÓÚÑ]+)\s+([A-ZÁÉÍÓÚÑ]+)\s+([A-ZÁÉÍÓÚÑ]+)\s+([A-ZÁÉÍÓÚÑ]+)\s+[01][MF]\d{8}/;
-  const nameMatch = s.match(pattern);
+  const nameMatch = pattern.exec(s);
 
   let lastName: string | null = null;
   let name: string | null = null;
