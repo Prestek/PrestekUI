@@ -1,14 +1,20 @@
 import { createStyles } from "@/assets/styles/bank.styles";
 import { AppText } from "@/components/AppText";
 import { Dimensions, View } from "react-native";
-import { Card, IconButton, useTheme } from "react-native-paper";
+import { Card, useTheme } from "react-native-paper";
 import { BarChart } from "react-native-chart-kit";
 import { spacing } from "@/assets/styles/theme";
 import { GraphicProps } from "@/models/bankResumeModels";
+import { useIconButton } from "@/hooks/useCardIcons";
 
 export const Graphic: React.FC<GraphicProps> = ({ lastMonthData, currentMonthName, onPress }) => {
     const theme = useTheme();
     const styles = createStyles(theme);
+    const renderRightIcon = useIconButton("arrow-right", {
+      size: 20,
+      iconColor: theme.colors.primary,
+      onPress
+    });
 
     return (
         <Card style={styles.chartCard} mode="outlined">
@@ -19,15 +25,7 @@ export const Graphic: React.FC<GraphicProps> = ({ lastMonthData, currentMonthNam
                 <AppText style={styles.chartSubtitle}>{currentMonthName}</AppText>
               </View>
             }
-            right={(props) => (
-              <IconButton
-                {...props}
-                icon="arrow-right"
-                size={20}
-                iconColor={theme.colors.primary}
-                onPress={onPress}
-              />
-            )}
+            right={renderRightIcon}
           />
           <Card.Content>
             <BarChart

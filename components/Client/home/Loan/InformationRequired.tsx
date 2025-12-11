@@ -15,12 +15,17 @@ export const InformationRequired = () => {
   return (
     <View style={styles.informationContent}>
       <View style={styles.informationContentText}>
-      <MaterialIcons name="warning-amber" size={30} color={theme.colors.error} />
+        <MaterialIcons
+          name="warning-amber"
+          size={30}
+          color={theme.colors.error}
+        />
         <AppText variant="headlineMedium" style={styles.requestTitle}>
           Información Requerida
         </AppText>
         <AppText variant="bodyLarge" style={styles.requestSubtitle}>
-          Para solicitar un préstamo, primero necesitas completar tu información personal y escanear tu cédula de identidad.
+          Para solicitar un préstamo, primero necesitas completar tu información
+          personal y escanear tu cédula de identidad.
         </AppText>
       </View>
 
@@ -32,7 +37,7 @@ export const InformationRequired = () => {
             activeOpacity={0.7}
           >
             <Checkbox
-              status={checked ? 'checked' : 'unchecked'}
+              status={checked ? "checked" : "unchecked"}
               onPress={() => setChecked(!checked)}
               color={theme.colors.primary}
             />
@@ -45,9 +50,10 @@ export const InformationRequired = () => {
         <TermsText />
         <AuthButton
           disabled={!checked}
-          children="Completar información"
           onPress={() => router.push("/(client)/(scan)")}
-        />
+        >
+          Completar información
+        </AuthButton>
       </View>
     </View>
   );

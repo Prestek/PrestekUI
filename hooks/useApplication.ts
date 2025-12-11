@@ -7,46 +7,49 @@ import { useAuth } from "@clerk/clerk-expo";
 import { useEffect, useState } from "react";
 import { router } from "expo-router";
 export const useApplication = (id: string, bankCode: BankCode) => {
-    const [application, setApplication] = useState<Application | null>(null);
-    const [loading, setLoading] = useState(true);
-    const { getToken } = useAuth();
-    const [user, setUser] = useState<User | null>(null);
-    useEffect(() => {
-        getApplicationById(id, bankCode);
-    }, [id, bankCode]);
+  const [application, setApplication] = useState<Application | null>(null);
+  const [loading, setLoading] = useState(true);
+  const { getToken } = useAuth();
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    getApplicationById(id, bankCode);
+  }, [id, bankCode]);
 
-    const fetchUserName = async (userId: string) => {
-        try {
-            const token = await getToken({ template: "prestek-api" });
-            if (!token) {
-                throw new Error("No authentication token");
-            }
-            setLoading(true);
-            const user = await getUserById(userId, token);
-            console.log("User:", user);
-            if (user) {
-                setUser(user);
-            }
-        } catch (error) {
-            console.error("Error fetching user:", error);
-            router.push("/(error)");
-        } finally {
-            setLoading(false);
-        }
-    };
-    const getApplicationById = async (applicationId: string, bankCode: BankCode) => {
-        const token = await getToken({ template: "prestek-api" });
-        if (!token) {
-            throw new Error("No authentication token");
-        }
-        setLoading(true);
-        try {
-            const response = await getApplication(applicationId, bankCode as BankCode, token);
-            fetchUserName(response.data.userId);
-            setApplication(response.data);
-        } catch (error) {
-            console.error("Error getting application:", error);
-        } 
+  const fetchUserName = async (userId: string) => {
+    try {
+      const token = await getToken({ template: "prestek-api" });
+      if (!token) {
+        throw new Error("No authentication token");
+      }
+      setLoading(true);
+      const user = await getUserById(userId, token);
+      console.log("User:", user);
+      if (user) {
+        setUser(user);
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      router.push("/(error)");
+    } finally {
+      setLoading(false);
     }
-    return { application, getApplicationById, user, loading };
-}
+  };
+  const getApplicationById = async (
+    applicationId: string,
+    bankCode: BankCode
+  ) => {
+    const token = await getToken({ template: "prestek-api" });
+    if (!token) {
+      throw new Error("No authentication token");
+    }
+    setLoading(true);
+    try {
+      const response = await getApplication(applicationId, bankCode, token);
+      fetchUserName(response.data.userId);
+      setApplication(response.data);
+    } catch (error) {
+      console.error("Error getting application:", error);
+    }
+  };
+  return { application, getApplicationById, user, loading };
+};

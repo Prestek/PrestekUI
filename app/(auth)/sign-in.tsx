@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import * as WebBrowser from "expo-web-browser";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { OAuthButtons } from "@/components/auth/OAuthButtons";
 import { AuthDivider } from "@/components/auth/AuthDivider";
 import { EmailPasswordForm } from "@/components/auth/EmailPasswordForm";
-import { TermsText } from "@/components/auth/TermsText";
 import { AuthLink } from "@/components/auth/AuthLink";
 import { useAuthFlow } from "@/hooks/useAuthFlow";
 import { useEmailSignIn } from "@/hooks/useEmailAuth";
@@ -37,10 +36,14 @@ export default function SignInScreen() {
         />
         <AuthDivider />
         <OAuthButtons onPress={handleOAuth} disabled={loading} />
-        <AuthLink href={{
-          pathname: "/(auth)/sign-up",
-          params: { role: params.role as string },
-        }} text="Registrarme" disabled={loading} />
+        <AuthLink
+          href={{
+            pathname: "/(auth)/sign-up",
+            params: { role: params.role as string },
+          }}
+          text="Registrarme"
+          disabled={loading}
+        />
       </AuthLayout>
     </PaperProvider>
   );

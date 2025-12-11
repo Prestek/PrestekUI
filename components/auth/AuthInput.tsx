@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { View } from "react-native";
-import { TextInput, TextInputProps, useTheme } from "react-native-paper";
+import { TextInput, useTheme } from "react-native-paper";
 import { createAuthStyles } from "@/assets/styles/auth.styles";
 import { AuthInputProps } from "@/models/authModels";
 import { spacing } from "@/assets/styles/theme";
-
 
 export const AuthInput: React.FC<AuthInputProps> = ({
   disabled = false,
@@ -36,25 +35,22 @@ export const AuthInput: React.FC<AuthInputProps> = ({
         size: 24,
       };
       return {
-        left: <TextInput.Icon 
-          icon="lock"
-          {...iconProps}
-        />,
-        right: <TextInput.Icon 
-          icon={isPasswordVisible ? "eye-off" : "eye"}
-          onPress={handlePasswordVisibility}
-          {...iconPropsEye}
-        />
+        left: <TextInput.Icon icon="lock" {...iconProps} />,
+        right: (
+          <TextInput.Icon
+            icon={isPasswordVisible ? "eye-off" : "eye"}
+            onPress={handlePasswordVisibility}
+            {...iconPropsEye}
+          />
+        ),
       };
     }
-    
+
     if (icon) {
       return {
-        [iconPosition]: <TextInput.Icon 
-          icon={icon} 
-          onPress={onIconPress}
-          {...iconProps}
-        />
+        [iconPosition]: (
+          <TextInput.Icon icon={icon} onPress={onIconPress} {...iconProps} />
+        ),
       };
     }
 

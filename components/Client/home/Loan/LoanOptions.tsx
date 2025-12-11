@@ -4,8 +4,7 @@ import { Button, Dialog, Portal, Surface, useTheme } from "react-native-paper";
 import { createLoanStyles } from "@/assets/styles/loan.styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Navigation } from "@/components/Navigation";
-import { SimulationResponse, BankOffer } from "@/models/creditModels";
-import { AuthButton } from "@/components/auth";
+import { BankOffer, LoanOptionsProps } from "@/models/creditModels";
 import { spacing } from "@/assets/styles/theme";
 import { useState } from "react";
 
@@ -14,13 +13,6 @@ const BANK_NAMES: Record<string, string> = {
   davivienda: "Davivienda",
   coltefinanciera: "Coltefinanciera",
 };
-
-interface LoanOptionsProps {
-  simulationResult: SimulationResponse;
-  requestedAmount: string;
-  requestedInstallments: string;
-  onSelectOffer: (offer: BankOffer) => void;
-}
 
 const getRiskColor = (risk: string, theme: any) => {
   switch (risk.toLowerCase()) {
@@ -35,7 +27,9 @@ const getRiskColor = (risk: string, theme: any) => {
   }
 };
 
-const getRiskIcon = (risk: string): "shield-check" | "shield-alert" | "shield-remove" => {
+const getRiskIcon = (
+  risk: string
+): "shield-check" | "shield-alert" | "shield-remove" => {
   switch (risk.toLowerCase()) {
     case "bajo":
       return "shield-check";
@@ -61,15 +55,20 @@ export const LoanOptions = ({
   const { recommendation, analysis } = simulationResult;
 
   // Convertir el análisis a un array de ofertas ordenadas
-  const bankOffers: BankOffer[] = Object.entries(analysis).map(([bankKey, bankAnalysis]) => ({
-    bankKey,
-    bankName: BANK_NAMES[bankKey] || bankKey.charAt(0).toUpperCase() + bankKey.slice(1),
-    analysis: bankAnalysis,
-    isRecommended: bankKey.toLowerCase() === recommendation.bestOption.toLowerCase(),
-  }));
+  const bankOffers: BankOffer[] = Object.entries(analysis).map(
+    ([bankKey, bankAnalysis]) => ({
+      bankKey,
+      bankName:
+        BANK_NAMES[bankKey] ||
+        bankKey.charAt(0).toUpperCase() + bankKey.slice(1),
+      analysis: bankAnalysis,
+      isRecommended:
+        bankKey.toLowerCase() === recommendation.bestOption.toLowerCase(),
+    })
+  );
 
   // Ordenar para que la recomendada esté primero
-  const sortedOffers = bankOffers.sort((a, b) => {
+  const sortedOffers = [...bankOffers].sort((a, b) => {
     if (a.isRecommended) return -1;
     if (b.isRecommended) return 1;
     return a.analysis.totalCost - b.analysis.totalCost;
@@ -82,8 +81,11 @@ export const LoanOptions = ({
         <View style={styles.optionsHeader}>
           <AppText style={styles.optionsTitle}>Ofertas disponibles</AppText>
           <AppText style={styles.optionsSubtitle}>
-            ${new Intl.NumberFormat("es-CO").format(parseInt(requestedAmount))} •{" "}
-            {requestedInstallments} meses
+            $
+            {new Intl.NumberFormat("es-CO").format(
+              Number.parseInt(requestedAmount)
+            )}{" "}
+            • {requestedInstallments} meses
           </AppText>
         </View>
       }
@@ -98,11 +100,7 @@ export const LoanOptions = ({
           {/* Tarjeta de recomendación */}
           <View style={styles.recommendationCard}>
             <View style={styles.recommendationHeader}>
-              <MaterialCommunityIcons
-                name="star"
-                size={24}
-                color="#FFD700"
-              />
+              <MaterialCommunityIcons name="star" size={24} color="#FFD700" />
               <AppText style={styles.recommendationTitle}>
                 Nuestra recomendación
               </AppText>
@@ -128,14 +126,21 @@ export const LoanOptions = ({
                 Riesgo {recommendation.riskAssessment}
               </AppText>
             </View>
-            <Button icon="robot" mode="outlined" onPress={() => setShowAnalysisModal(true)} style={{marginTop: spacing.md}}>
+            <Button
+              icon="robot"
+              mode="outlined"
+              onPress={() => setShowAnalysisModal(true)}
+              style={{ marginTop: spacing.md }}
+            >
               Ver análisis de IA
             </Button>
           </View>
 
           <AppText style={styles.resultsCount}>
             {sortedOffers.length}{" "}
-            {sortedOffers.length === 1 ? "oferta encontrada" : "ofertas encontradas"}
+            {sortedOffers.length === 1
+              ? "oferta encontrada"
+              : "ofertas encontradas"}
           </AppText>
 
           {sortedOffers.map((offer) => (
@@ -144,23 +149,28 @@ export const LoanOptions = ({
               elevation={2}
               style={[
                 styles.offerCard,
-                offer.isRecommended && { borderColor: "#FFD700", borderWidth: 1 },
+                offer.isRecommended && {
+                  borderColor: "#FFD700",
+                  borderWidth: 1,
+                },
               ]}
             >
               {offer.isRecommended && (
                 <View style={styles.recommendedBadge}>
-                  <MaterialCommunityIcons name="star" size={14} color="#FFD700" />
-                  <AppText style={styles.recommendedBadgeText}>Mejor opción</AppText>
+                  <MaterialCommunityIcons
+                    name="star"
+                    size={14}
+                    color="#FFD700"
+                  />
+                  <AppText style={styles.recommendedBadgeText}>
+                    Mejor opción
+                  </AppText>
                 </View>
               )}
 
               <View style={styles.offerHeader}>
                 <View style={styles.bankInfo}>
-                  <View
-                    style={[
-                      styles.bankLogoContainer,
-                    ]}
-                  >
+                  <View style={[styles.bankLogoContainer]}>
                     <AppText style={styles.bankLogoText}>
                       {offer.bankName.substring(0, 2).toUpperCase()}
                     </AppText>
@@ -174,7 +184,8 @@ export const LoanOptions = ({
                         color={theme.colors.primary}
                       />
                       <AppText style={styles.approvalText}>
-                        {(offer.analysis.paymentToIncomeRatio * 100).toFixed(1)}% de tus ingresos
+                        {(offer.analysis.paymentToIncomeRatio * 100).toFixed(1)}
+                        % de tus ingresos
                       </AppText>
                     </View>
                   </View>
@@ -184,33 +195,46 @@ export const LoanOptions = ({
               <View style={styles.offerDetails}>
                 <View style={styles.offerDetailRow}>
                   <View style={styles.offerDetailItem}>
-                    <AppText style={styles.offerDetailLabel}>Cuota mensual</AppText>
+                    <AppText style={styles.offerDetailLabel}>
+                      Cuota mensual
+                    </AppText>
                     <AppText style={styles.offerDetailValueHighlight}>
-                      ${new Intl.NumberFormat("es-CO").format(offer.analysis.monthlyPaymentAvg)}
+                      $
+                      {new Intl.NumberFormat("es-CO").format(
+                        offer.analysis.monthlyPaymentAvg
+                      )}
                     </AppText>
                   </View>
                   <View style={styles.offerDetailItem}>
-                    <AppText style={styles.offerDetailLabel}>Costo total</AppText>
+                    <AppText style={styles.offerDetailLabel}>
+                      Costo total
+                    </AppText>
                     <AppText style={styles.offerDetailValue}>
-                      ${new Intl.NumberFormat("es-CO").format(offer.analysis.totalCost)}
+                      $
+                      {new Intl.NumberFormat("es-CO").format(
+                        offer.analysis.totalCost
+                      )}
                     </AppText>
                   </View>
                 </View>
 
                 <View style={styles.offerDetailRow}>
                   <View style={styles.offerDetailItem}>
-                    <AppText style={styles.offerDetailLabel}>Total intereses</AppText>
+                    <AppText style={styles.offerDetailLabel}>
+                      Total intereses
+                    </AppText>
                     <AppText style={styles.offerDetailValue}>
-                      ${new Intl.NumberFormat("es-CO").format(offer.analysis.totalInterest)}
+                      $
+                      {new Intl.NumberFormat("es-CO").format(
+                        offer.analysis.totalInterest
+                      )}
                     </AppText>
                   </View>
                 </View>
               </View>
 
               <TouchableOpacity
-                style={[
-                  styles.detailButton,
-                ]}
+                style={[styles.detailButton]}
                 onPress={() => onSelectOffer(offer)}
               >
                 <AppText style={styles.detailButtonText}>Ver detalles</AppText>
@@ -242,7 +266,7 @@ export const LoanOptions = ({
               <AppText style={styles.modalTitle}>Análisis de IA</AppText>
             </View>
           </Dialog.Title>
-          
+
           <Dialog.ScrollArea style={styles.dialogScrollArea}>
             <ScrollView showsVerticalScrollIndicator={false}>
               {/* Mejor opción */}
@@ -253,10 +277,16 @@ export const LoanOptions = ({
                     size={20}
                     color="#FFD700"
                   />
-                  <AppText style={styles.modalSectionTitle}>Mejor opción</AppText>
+                  <AppText style={styles.modalSectionTitle}>
+                    Mejor opción
+                  </AppText>
                 </View>
-                <AppText style={styles.modalBestOption}>{recommendation.bestOption}</AppText>
-                <AppText style={styles.modalReason}>{recommendation.reason}</AppText>
+                <AppText style={styles.modalBestOption}>
+                  {recommendation.bestOption}
+                </AppText>
+                <AppText style={styles.modalReason}>
+                  {recommendation.reason}
+                </AppText>
               </View>
 
               {/* Evaluación de riesgo */}
@@ -267,16 +297,31 @@ export const LoanOptions = ({
                     size={20}
                     color={getRiskColor(recommendation.riskAssessment, theme)}
                   />
-                  <AppText style={styles.modalSectionTitle}>Evaluación de riesgo</AppText>
+                  <AppText style={styles.modalSectionTitle}>
+                    Evaluación de riesgo
+                  </AppText>
                 </View>
-                <View style={[
-                  styles.modalRiskBadge,
-                  { backgroundColor: getRiskColor(recommendation.riskAssessment, theme) + "20" }
-                ]}>
-                  <AppText style={[
-                    styles.modalRiskText,
-                    { color: getRiskColor(recommendation.riskAssessment, theme) }
-                  ]}>
+                <View
+                  style={[
+                    styles.modalRiskBadge,
+                    {
+                      backgroundColor:
+                        getRiskColor(recommendation.riskAssessment, theme) +
+                        "20",
+                    },
+                  ]}
+                >
+                  <AppText
+                    style={[
+                      styles.modalRiskText,
+                      {
+                        color: getRiskColor(
+                          recommendation.riskAssessment,
+                          theme
+                        ),
+                      },
+                    ]}
+                  >
                     Riesgo {recommendation.riskAssessment.toUpperCase()}
                   </AppText>
                 </View>
@@ -290,19 +335,24 @@ export const LoanOptions = ({
                     size={20}
                     color={theme.colors.primary}
                   />
-                  <AppText style={styles.modalSectionTitle}>Resumen detallado</AppText>
+                  <AppText style={styles.modalSectionTitle}>
+                    Resumen detallado
+                  </AppText>
                 </View>
-                <AppText style={styles.modalSummaryText}>{recommendation.summary}</AppText>
+                <AppText style={styles.modalSummaryText}>
+                  {recommendation.summary}
+                </AppText>
               </View>
             </ScrollView>
           </Dialog.ScrollArea>
 
           <Dialog.Actions>
-            <Button onPress={() => setShowAnalysisModal(false)}>Entendido</Button>
+            <Button onPress={() => setShowAnalysisModal(false)}>
+              Entendido
+            </Button>
           </Dialog.Actions>
         </Dialog>
       </Portal>
     </Navigation>
   );
 };
-

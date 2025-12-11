@@ -1,8 +1,8 @@
 import { getItem } from '@/utils/secureStorage';
 import { useAuth } from '@clerk/clerk-expo'
 import { Redirect } from 'expo-router'
-import { View, ActivityIndicator } from 'react-native'
 import { useState, useEffect } from 'react'
+import { LoadingTransition } from '@/components/LoadingTransition';
 
 export default function Index() {
   const { isSignedIn, isLoaded } = useAuth()
@@ -21,9 +21,8 @@ export default function Index() {
   // Mostrar loading mientras Clerk carga o el role carga
   if (!isLoaded || !roleLoaded) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" />
-      </View>
+      <LoadingTransition
+      />
     )
   }
 

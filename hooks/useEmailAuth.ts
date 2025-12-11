@@ -1,11 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import { useSignIn, useSignUp, useAuth, useUser } from "@clerk/clerk-expo";
 import { router, useRouter } from "expo-router";
-import { createUserProfile, getAllUsers, getUserByEmail } from "../services/userAPI";
-import { getItem } from "expo-secure-store";
-import { saveItem } from "@/utils/secureStorage";
+import {
+  createUserProfile,
+  getAllUsers,
+  getUserByEmail,
+} from "../services/userAPI";
+import { getItem, saveItem } from "@/utils/secureStorage";
 import { useApplications } from "./useApplications";
 import { User } from "@/models/userModels";
+import { EmploymentStatus } from "@/models/scannerModels";
 
 export const useEmailSignIn = () => {
   const [loading, setLoading] = useState(false);
@@ -81,7 +85,9 @@ export const useEmailSignUp = () => {
       }
     } catch (err) {
       console.error("Verification error:", err);
-      alert("Verificación fallida. Por favor verifica tu código y vuelve a intentarlo.");
+      alert(
+        "Verificación fallida. Por favor verifica tu código y vuelve a intentarlo."
+      );
     } finally {
       setLoading(false);
     }
@@ -94,12 +100,7 @@ export const useEmailSignUp = () => {
     phone: string;
     monthlyIncome: number;
     monthlyExpenses: number;
-    employmentStatus:
-    | "Employed"
-    | "Unemployed"
-    | "Self-Employed"
-    | "Student"
-    | "Retired";
+    employmentStatus: EmploymentStatus;
   }) => {
     let userId = 0;
     try {
@@ -113,16 +114,19 @@ export const useEmailSignUp = () => {
         userId = users.data.length + 1;
       }
       console.log(users.data.length);
-      if(userId === 0) {
+      if (userId === 0) {
         userId = 1;
       }
       const userEmail = user?.emailAddresses?.[0]?.emailAddress || "";
-      const userResponse = await createUserProfile({
-        id: userId,
-        email: userEmail,
-        ...profileData,
-        creditScore: 600,
-      }, token);
+      const userResponse = await createUserProfile(
+        {
+          id: userId,
+          email: userEmail,
+          ...profileData,
+          creditScore: 600,
+        },
+        token
+      );
       await saveItem("user", JSON.stringify(userResponse));
       // Solo redirigir al home después de completar el perfil
       router.replace("/(client)/(home)");
