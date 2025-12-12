@@ -22,6 +22,7 @@ export const CompleteProfile: React.FC<CompleteProfileProps> = ({
   data,
   additionalInformation,
   isEditing,
+  withScanner = false,
 }) => {
   const router = useRouter();
   const [firstName, setFirstName] = useState("");
@@ -42,7 +43,13 @@ export const CompleteProfile: React.FC<CompleteProfileProps> = ({
   const userEmail = userClerk?.emailAddresses?.[0]?.emailAddress || "";
 
   useEffect(() => {
-    if (data) {
+    if ((data && !data.name && !data.lastName) || !data) {
+      const userClerkName = userClerk?.firstName || "";
+      const userClerkLastName = userClerk?.lastName || "";
+      setFirstName(userClerkName || "");
+      setLastName(userClerkLastName || "");
+    }
+    else if (data) {
       setFirstName(data.name || "");
       setLastName(data.lastName || "");
       setDocumentNumber(data.document || "");
@@ -139,49 +146,62 @@ export const CompleteProfile: React.FC<CompleteProfileProps> = ({
         contentContainerStyle={styles.scrollViewContent}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.introContainer}>
-          <View style={styles.basicInformation}>
-            <AppText style={styles.basicInformationTitle}>
+        <View style={styles.formContainerWrapper}>
+          <View style={styles.formLabel}>
+            <MaterialCommunityIcons
+              name="account-edit-outline"
+              size={18}
+              color={theme.colors.primary}
+            />
+            <AppText
+              style={{
+                fontSize: 16,
+                fontWeight: "600",
+                color: theme.colors.primary,
+              }}
+            >
               Información básica
             </AppText>
-            <View style={styles.basicInformationContent}>
-              <AppText style={styles.basicInformationContentText}>
-                Correo
-              </AppText>
-              <AppText style={styles.basicInformationContentText}>
-                {userEmail}
-              </AppText>
-            </View>
-            <View style={styles.basicInformationContent}>
-              <AppText style={styles.basicInformationContentText}>
-                Nombres
-              </AppText>
-              <AppText style={styles.basicInformationContentText}>
-                {firstName}
-              </AppText>
-            </View>
-            <View style={styles.basicInformationContent}>
-              <AppText style={styles.basicInformationContentText}>
-                Apellidos
-              </AppText>
-              <AppText style={styles.basicInformationContentText}>
-                {lastName}
-              </AppText>
-            </View>
-            <View style={styles.basicInformationContent}>
-              <AppText style={styles.basicInformationContentText}>
-                Número
-              </AppText>
-              <AppText style={styles.basicInformationContentText}>
-                {documentNumber}
-              </AppText>
-            </View>
+          </View>
+          <View style={styles.formContainer}>
+            <AppText style={styles.subtitle}>
+              {withScanner ? "Revisa la información de tu cédula, si está errónea, por favor corrígela en el siguiente formulario." : "Completa la siguiente información para continuar."}
+            </AppText>
+            <AuthInput
+              value={userEmail}
+              disabled={true}
+              keyboardType="email-address"
+              icon="email"
+              iconPosition="left"
+              label="Correo electrónico"
+            />
+            <AuthInput
+              value={firstName}
+              icon="account-cog"
+              iconPosition="left"
+              label="Nombre"
+              onChangeText={setFirstName}
+            />
+            <AuthInput
+              value={lastName}
+              icon="account-cog"
+              iconPosition="left"
+              label="Apellido"
+              onChangeText={setLastName}
+            />
+            <AuthInput
+              value={documentNumber}
+              icon="card-account-details"
+              iconPosition="left"
+              label="Cédula"
+              onChangeText={setDocumentNumber}
+            />
           </View>
         </View>
         <View style={styles.formContainerWrapper}>
           <View style={styles.formLabel}>
             <MaterialCommunityIcons
-              name="file-document-edit"
+              name="file-document-edit-outline"
               size={18}
               color={theme.colors.primary}
             />

@@ -130,7 +130,10 @@ export const createScanStyles = (theme: MD3Theme) =>
           },
           actionsSection: {
             gap: spacing.md,
-            paddingHorizontal: spacing.md,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingBottom: spacing.md,
+
           },
           buttonSecondary: {
             flex: 1,
@@ -150,11 +153,7 @@ export const createScanStyles = (theme: MD3Theme) =>
           },
 
           button: {
-            marginVertical: spacing.lg,
-            borderRadius: borderRadius.lg,
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingVertical: spacing.md,
+            width: '100%',
           },
           fullWidthButton: {
             width: '100%',
@@ -190,6 +189,7 @@ export const createScanStyles = (theme: MD3Theme) =>
             flex: 1,
             paddingHorizontal: spacing.md,
             gap: spacing.md,
+            backgroundColor: theme.colors.background,
           },
           loadingContainer: {
             flexDirection: 'row',

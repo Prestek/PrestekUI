@@ -1,4 +1,4 @@
-import CompleteProfile from "@/components/Client/scanner/profile/CompleteProfile";
+import { CompleteProfile } from "@/components/Client/scanner/profile/CompleteProfile";
 import { LoadingTransition } from "@/components/LoadingTransition";
 import { User } from "@/models/userModels";
 import { getItem } from "@/utils/secureStorage";
@@ -31,13 +31,13 @@ export default function EditProfileScreen() {
 
   return (
     <CompleteProfile
+      withScanner={false}
       data={
         user
           ? {
               name: user.firstName,
               lastName: user.lastName,
               document: user.documentNumber,
-              date: null,
             }
           : null
       }
