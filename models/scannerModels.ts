@@ -34,6 +34,7 @@ export interface CompleteProfileProps {
     employmentStatus: EmploymentStatus;
   };
   isEditing: boolean;
+  withScanner: boolean;
 }
 
 export type EmploymentStatus =

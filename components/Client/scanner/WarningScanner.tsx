@@ -1,7 +1,7 @@
 import { createScanStyles } from "@/assets/styles/scan.styles";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, TouchableOpacity } from "react-native";
-import { useTheme } from "react-native-paper";
+import { Button, useTheme } from "react-native-paper";
 import { useRouter } from "expo-router";
 import LottieView from "lottie-react-native";
 import { AppText } from "@/components/AppText";
@@ -15,8 +15,10 @@ export default function WarningScanner() {
     const handleContinue = () => {
         router.push('/(client)/(scan)/camera');
     };
+    const handleOmit = () => {
+        router.push('/(client)/(scan)/profile');
+    };
     return (
-        <View style={styles.container}>
             
             <View style={styles.warningContainer}>
                 <View style={styles.contentContainer}>
@@ -54,16 +56,22 @@ export default function WarningScanner() {
                         </View>
                     </View>
                 </View>
-                {/* Action Buttons */}
-                <TouchableOpacity
-                    onPress={handleContinue}
-                    style={[styles.buttonWarning, styles.button, styles.fullWidthButton]}
-                >
-                    <AppText style={[styles.buttonLabelStyle, { color: theme.colors.primary }]}>
+                <View style={styles.actionsSection}>
+                    <Button
+                        mode="contained"
+                        onPress={handleContinue}
+                        style={[styles.buttonWarning, { flex: 1 }]}
+                    >
                         Continuar
-                    </AppText>
-                </TouchableOpacity>
+                    </Button>
+                    <Button
+                        mode="outlined"
+                        onPress={handleOmit}
+                        style={{ flex: 1 }}
+                    >
+                        Omitir
+                    </Button>
+                </View>
             </View>
-        </View>
     );
 }
