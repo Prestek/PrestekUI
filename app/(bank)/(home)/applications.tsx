@@ -1,5 +1,4 @@
 import { History } from "@/components/History";
-import { initialRequests } from "@/hooks/const/data";
 import { useState } from "react";
 import { Applications } from "@/components/Applications";
 import { BankRequest } from "@/components/Bank/Request";
@@ -27,7 +26,7 @@ export default function BankApplicationsScreen() {
     return matchesSearch && matchesTab;
   });
 
-  const total = initialRequests.length;
+  const total = applications?.length ?? 0;
 
   return (
     <History
@@ -37,7 +36,7 @@ export default function BankApplicationsScreen() {
       selectedTab={selectedTab}
       setSelectedTab={setSelectedTab}
     >
-      <Applications total={filteredRequests.length}>
+      <Applications total={filteredRequests?.length ?? 0}>
         {filteredRequests.map((request: any) => (
           <BankRequest
             request={request}
